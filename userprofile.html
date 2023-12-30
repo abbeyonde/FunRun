@@ -94,59 +94,61 @@
         <section class="container py-5">
             <h1 class="col-12 col-xl-8 h2 text-center text-primary pt-3">User Profile</h1>
             <br>
-                <!-- Start User Profile Form -->
+                <!-- Start Profile Form -->
                 <div class="col-lg-12">
                     <form class="contact-form row" method="post" action="#" role="form">
     
                         <div class="col-lg-6 mb-4">
                             <div class="form-floating">
-                                <h6>Name</h6><input type="text" class="form-control form-control-lg light-300" id="floatingname" name="inputname" value="">
+                                <h6>Name</h6><input type="text" class="form-control form-control-lg light-300" id="floatingname" name="inputname" value="<?php echo $userDetail['name'];>" disabled>
                             </div>
                         </div><!-- End Name -->
     
                         <div class="col-lg-6 mb-4">
                             <div class="form-floating">
-                                <h6>IC Number</h6><input type="text" class="form-control form-control-lg light-300" id="floatingicnum" name="inputicnum" value="">
+                                <h6>IC Number</h6><input type="text" class="form-control form-control-lg light-300" id="floatingicnum" name="inputicnum" value="<?php echo $userDetail['icNum'];" disabled>
                             </div>
                         </div><!-- End IC Number -->
                         
                         <div class="col-lg-6 mb-4">
                             <div class="form-floating">
-                                <h6>Email</h6><input type="text" class="form-control form-control-lg light-300" id="floatingemail" name="inputemail" value="">
+                                <h6>Email</h6><input type="text" class="form-control form-control-lg light-300" id="floatingemail" name="inputemail" value="<?php echo $userDetail['email'];" disabled>
                             </div>
                         </div><!-- End Email -->
     
                         <div class="col-lg-6 mb-4">
                             <div class="form-floating">
-                                <h6>Phone Number</h6><input type="text" class="form-control form-control-lg light-300" id="floatingphone" name="inputphone" value="">
+                                <h6>Phone Number</h6><input type="text" class="form-control form-control-lg light-300" id="floatingphone" name="inputphone" value="<?php echo $userDetail['phoneNum'];" disabled>
                             </div>
                         </div><!-- End Phone -->
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-floating">
-                                <h6>Password</h6><input type="password" class="form-control form-control-lg light-300" id="floatingpw" name="inputpw" value="">
+                                <h6>Password</h6><input type="password" class="form-control form-control-lg light-300" id="floatingpw" name="inputpw" value="<?php echo $userDetail['pw'];" disabled>
                             </div>
                         </div><!-- End Password -->
 
                         <div class="col-lg-6 mb-4">
                             <div class="form-floating">
-                                <h6>Age</h6><input type="text" class="form-control form-control-lg light-300" id="floatingage" name="inputage" value="">
+                                <h6>Age</h6><input type="text" class="form-control form-control-lg light-300" id="floatingage" name="inputage" value="<?php echo $userDetail['age'];" disabled>
                             </div>
                         </div><!-- End Age -->
 
                         <div class="col-md-12 col-12 m-auto text-end">
-                            <button type="submit" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Submit</button>
+                            <a href="editprofile.html" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Edit Profile</a>
                         </div>
                     </form>
                 </div>
-                <!-- End Contact Form -->
+                <!-- End Profile Form -->
     
     
             </div>
         </section>
-        <!-- End Contact -->
-    <!-- stop editing section -->
-    <!-- Start Footer -->
+        <!-- End Profile Page -->
+    
+        <!-- stop editing section -->
+    
+        <!-- Start Footer -->
     <footer class="bg-secondary pt-4">
         <div class="container">
             <div class="row py-4 d-flex justify-content-lg-around">
