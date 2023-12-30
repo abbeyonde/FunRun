@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="assets/css/templatemo.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/custom.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style>
         .navbar .register {
@@ -44,6 +44,55 @@
             -ms-flex: 0 0 auto;
             flex: 0 0 auto;
             width: fit-content;
+        }
+
+        
+        .popup .overlay {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.7);
+            z-index: 1;
+            display: none;
+        }
+
+        .popup .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%)scale(0);
+            background: #fff;
+            width: 450px;
+            height: 220px;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .popup .btn-close{
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 30px;
+            height: 30px;
+            font-size: 25px;
+            font-weight: 600;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50% ;
+        }
+
+        .popup.active .overlay{
+            display: block;
+        }
+
+        .popup.active .content{
+            transition: all 300ms ease-in-out;
+            transform: translate(-50%,-50%)scale(1);
         }
     </style>
 
@@ -187,13 +236,27 @@
             <div class="pricing-horizontal-tag col-md-3 text-center pt-3 d-flex align-items-center">
                 <div class="w-100 light-300">
                     <p>RM60</p>
-                    <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3">Register</a>
+                    <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3" onclick="togglePopup1()">Register</a>
                 </div>
             </div>
         </div>
-        
-        
         <!-- End Pricing Horizontal -->
+
+        <!-- Popup Window -->
+        <div class="popup" id="popup-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <button type="button" class="btn-close" aria-label="Close" onclick="togglePopup1()"></button>
+                window 1
+            </div>
+        </div>
+
+        <script>
+            function togglePopup1(){
+                document.getElementById("popup-1").classList.toggle("active");
+            }
+        </script>
+        <!--End Popup Window-->
 
         <!-- Start Pricing Horizontal -->
         <div class="pricing-horizontal row col-10 m-auto mt-5 d-flex shadow-sm rounded overflow-hidden bg-white">
@@ -235,12 +298,28 @@
             <div class="pricing-horizontal-tag col-md-3 text-center pt-3 d-flex align-items-center">
                 <div class="w-100 light-300">
                     <p>RM60</p>
-                    <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3">Register</a>
+                    <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3" onclick="togglePopup2()">Register</a>
                 </div>
             </div>
         </div>
         <!-- End Pricing Horizontal -->
+        
+        <!-- Popup Window -->
+        <div class="popup" id="popup-2">
+            <div class="overlay"></div>
+            <div class="content">
+                <button type="button" class="btn-close" aria-label="Close" onclick="togglePopup2()"></button>
+                window 2
+            </div>
+        </div>
 
+        <script>
+            function togglePopup2(){
+                document.getElementById("popup-2").classList.toggle("active");
+            }
+        </script>
+        <!--End Popup Window-->
+        
         <!-- Start Pricing Horizontal -->
         <div class="pricing-horizontal row col-10 m-auto mt-5 d-flex shadow-sm rounded overflow-hidden bg-white">
             <div class="pricing-horizontal-icon col-md-3 text-center text-light py-4" style="background-color: rgb(226, 134, 59)">
@@ -281,12 +360,27 @@
             <div class="pricing-horizontal-tag col-md-3 text-center pt-3 d-flex align-items-center">
                 <div class="w-100 light-300">
                     <p>RM60</p>
-                    <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3">Register</a>
+                    <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3" onclick="togglePopup3()">Register</a>
                 </div>
             </div>
         </div>
         <!-- End Pricing Horizontal -->
+        
+        <!-- Popup Window -->
+        <div class="popup" id="popup-3">
+            <div class="overlay"></div>
+            <div class="content">
+                <button type="button" class="btn-close" aria-label="Close" onclick="togglePopup3()"></button>
+                window 3
+            </div>
+        </div>
 
+        <script>
+            function togglePopup3(){
+                document.getElementById("popup-3").classList.toggle("active");
+            }
+        </script>
+        <!--End Popup Window-->
 
         <!-- Start Pricing Horizontal -->
         <div class="pricing-horizontal row col-10 m-auto mt-5 d-flex shadow-sm rounded overflow-hidden bg-white">
@@ -329,12 +423,28 @@
             <div class="pricing-horizontal-tag col-md-3 text-center pt-3 d-flex align-items-center">
                 <div class="w-100 light-300">
                     <p>RM60</p>
-                    <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3">Register</a>
+                    <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3" onclick="togglePopup4()">Register</a>
                 </div>
             </div>
         </div>
         <!-- End Pricing Horizontal -->
+        
+        <!-- Popup Window -->
+        <div class="popup" id="popup-4">
+            <div class="overlay"></div>
+            <div class="content">
+                <button type="button" class="btn-close" aria-label="Close" onclick="togglePopup4()"></button>
+                window 4
+            </div>
+        </div>
 
+        <script>
+            function togglePopup4(){
+                document.getElementById("popup-4").classList.toggle("active");
+            }
+        </script>
+        <!--End Popup Window-->
+        
         <hr class="mt-5">
 
          <!-- Accordion for Rules and Regulations -->
@@ -582,7 +692,8 @@
 
 
     <!-- Bootstrap -->
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></>
     <!-- Load jQuery require for isotope -->
     <script src="assets/js/jquery.min.js"></script>
     <!-- Isotope -->
