@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="assets/css/templatemo.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/sign-in.css">
+
 
     <style>
         .navbar .register {
@@ -44,15 +46,31 @@
             flex: 0 0 auto;
             width: fit-content;
         }
+
+        .form-signin {
+            min-height: 90vh;
+        }
+
+        .form-placement {
+            margin-top: 30%;
+
+        }
     </style>
 
 </head>
 
 <body>
+    <?php
+    echo"
+    <script>
+        console.log('test123');
+    </script>
+    ";
+    ?>
     <!-- Header -->
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand h1" href="index.html">
+            <a class="navbar-brand h1" href="index.php">
                 <i class='bx bx-buildings bx-sm text-dark'></i>
                 <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
             </a>
@@ -67,7 +85,7 @@
                 <div class="flex-fill mx-xl-5 mb-2 ">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="">About Us</a>
@@ -91,7 +109,66 @@
     <!-- Close Header -->
 
     <!-- Edit here-->
+    <main class="form-signin w-100 m-auto">
+        <form action="#" method="post" class="form-placement">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
+            <div class="form-floating">
+                <input name="ic" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Identification Number</label>
+            </div>
+            <div class="form-floating">
+                <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+            <div>
+                <small id="error" value=""></small>
+            </div>
+
+            <div class="form-check text-start my-3">
+                <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Remember me
+                </label>
+            </div>
+            <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
+        </form>
+    </main>
+    <!-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script> -->
+    <?php
+    $con = mysqli_connect("localhost", "root", "", "uni10_maraton");
+
+    $ic = $_POST["ic"];
+    $password = $_POST["password"];
+
+
+
+    $sql = "SELECT * FROM participants WHERE ic='$ic' AND password='$password'";
+
+    $result = mysqli_query($con, $sql);
+
+    $user = mysqli_fetch_array($result);
+
+    
+    if($ic == isset($user["ic"])){
+        echo "
+        <script>
+        console.log(\"test\");
+        const user = \"$user[ic]\";
+        window.sessionStorage.setItem(\"user\", user)
+        </script>
+        ";
+        }
+        else{
+            echo "
+            <script>
+                console.log(\"error\");
+                document.getElementById(\"error\").value = \"wrong username\";
+            </script>";
+    
+        }
+    ?>
     <!-- stop editing section -->
 
     <!-- Start Footer -->
@@ -100,9 +177,10 @@
             <div class="row py-4 d-flex justify-content-lg-around">
 
                 <div class="col-lg-3 col-12 align-left">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="index.php">
                         <i class='bx bx-buildings bx-sm text-light'></i>
-                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600"> Marathon</span>
+                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600">
+                            Marathon</span>
                     </a>
                     <p class="text-light my-lg-4 my-2">
                         Get ready for a day of pure joy at our Fun Run! Picture smiling faces, vibrant costumes, and
