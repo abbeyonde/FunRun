@@ -1,17 +1,3 @@
-<?php
-session_start();
-  
-if (!isset($_SESSION['username'])) {
-    $_SESSION['msg'] = "You have to log in first";
-    header('location: login.html');
-}
-  
-if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['username']);
-    header("location: login.html");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,6 +46,26 @@ if (isset($_GET['logout'])) {
         }
     </style>
 
+    <script>
+        const user = window.sessionStorage.getItem('user');
+        if (user == null) {
+            window.location.href = "signin.php";
+        }
+        else {
+        }
+    </script>
+
+    <?php
+    $con = mysqli_connect("localhost", "root", "", "uni10_maraton") or die("fail connection");
+    if(!isset($_GET['ic'])){
+        die ("No ic specified");
+    }
+    $user = $_GET['ic'] or die("no id specified");
+    $sql = "SELECT * FROM participants WHERE ic='$user'";
+    $result = mysqli_query($con, $sql);
+    $user = mysqli_fetch_array($result);
+    ?>
+
 </head>
 
 <body>
@@ -104,64 +110,88 @@ if (isset($_GET['logout'])) {
     </nav>
     <!-- Close Header -->
     <!-- Edit here-->
-        <!-- Start Profile Page -->
-        <section class="container py-5">
-            <h1 class="col-12 col-xl-8 h2 text-center text-primary pt-3">User Profile</h1>
-            <br>
-                <!-- Start Profile Form -->
-                <div class="col-lg-12">
-                    <form class="contact-form row" method="post" action="#" role="form">
-    
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-floating">
-                                <h6>Name</h6><input type="text" class="form-control form-control-lg light-300" id="floatingname" name="inputname" value="<?php echo $_SESSION['name'];>" disabled>
-                            </div>
-                        </div><!-- End Name -->
-    
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-floating">
-                                <h6>IC Number</h6><input type="text" class="form-control form-control-lg light-300" id="floatingicnum" name="inputicnum" value="<?php echo $_SESSION['icNum'];" disabled>
-                            </div>
-                        </div><!-- End IC Number -->
-                        
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-floating">
-                                <h6>Email</h6><input type="text" class="form-control form-control-lg light-300" id="floatingemail" name="inputemail" value="<?php echo $_SESSION['email'];" disabled>
-                            </div>
-                        </div><!-- End Email -->
-    
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-floating">
-                                <h6>Phone Number</h6><input type="text" class="form-control form-control-lg light-300" id="floatingphone" name="inputphone" value="<?php echo $_SESSION['phoneNum'];" disabled>
-                            </div>
-                        </div><!-- End Phone -->
+    <!-- Start Profile Page -->
+    <section class="container py-5">
+        <h1 class="col-12 col-xl-8 h2 text-center text-primary pt-3">User Profile</h1>
+        <br>
+        <!-- Start Profile Form -->
+        <div class="col-lg-12">
+            <form class="contact-form d-flex flex-column align-items-center mx-auto" method="post" action="#" role="form">
 
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-floating">
-                                <h6>Password</h6><input type="password" class="form-control form-control-lg light-300" id="floatingpw" name="inputpw" value="<?php echo $_SESSION['pw'];" disabled>
-                            </div>
-                        </div><!-- End Password -->
+                <div class="col-lg-6 mb-4">
+                    <div class="form-floating">
+                        <h6>Name</h6><input type="text" class="form-control form-control-lg light-300" id="floatingname"
+                            name="inputname" value="<?php echo $user['full_name']; ?>" disabled>
+                    </div>
+                </div><!-- End Name -->
 
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-floating">
-                                <h6>Age</h6><input type="text" class="form-control form-control-lg light-300" id="floatingage" name="inputage" value="<?php echo $_SESSION['age'];" disabled>
-                            </div>
-                        </div><!-- End Age -->
+                <div class="col-lg-6 mb-4">
+                    <div class="form-floating">
+                        <h6>IC Number</h6><input type="text" class="form-control form-control-lg light-300"
+                            id="floatingicnum" name="inputicnum" value="<?php echo $user['ic']; ?>" disabled>
+                    </div>
+                </div><!-- End IC Number -->
 
-                        <div class="col-md-12 col-12 m-auto text-end">
-                            <a href="editprofile.html" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Edit Profile</a>
-                        </div>
-                    </form>
+                <div class="col-lg-6 mb-4">
+                    <div class="form-floating">
+                        <h6>Email</h6><input type="text" class="form-control form-control-lg light-300"
+                            id="floatingemail" name="inputemail" value="<?php echo $user['email']; ?>" disabled>
+                    </div>
+                </div><!-- End Email -->
+
+                <div class="col-lg-6 mb-4">
+                    <div class="form-floating">
+                        <h6>Phone Number</h6><input type="text" class="form-control form-control-lg light-300"
+                            id="floatingphone" name="inputphone" value="<?php echo $user['phone']; ?>" disabled>
+                    </div>
+                </div><!-- End Phone -->
+
+                <div class="col-lg-6 mb-4">
+                    <div class="form-floating">
+                        <h6>Address</h6><input type="text" class="form-control form-control-lg light-300"
+                            id="floatingaddress" name="inputaddress" value="<?php echo $user['address']; ?>" disabled>
+                    </div>
+                </div><!-- End Address -->
+
+                <div class="col-lg-6 mb-4">
+                    <div class="form-floating">
+                        <h6>Password</h6><input type="password" class="form-control form-control-lg light-300"
+                            id="floatingpw" name="inputpw" value="<?php echo $user['password']; ?>" disabled>
+                    </div>
+                </div><!-- End Password -->
+
+                <div class="col-lg-6 mb-4">
+                    <div class="form-floating">
+                        <h6>Age</h6><input type="text" class="form-control form-control-lg light-300" id="floatingage"
+                            name="inputage" value="<?php echo $user['age']; ?>" disabled>
+                    </div>
+                </div><!-- End Age -->
+
+                <div class="col-md-12 col-lg-6 m-auto text-start">
+            <button
+                class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Edit Profile</button>
+        </div>
+            </form>
+        </div>
+        <!-- End Profile Form -->
+        <div id="category" class="col-lg-6 mb-4">
+                <label for="category" class="light-300 mb-1">Category Registered</label>
+                <div class="category">
+                    <table id="category-table" class="col-12 light-300">
+                        <tr>
+                            <td class="col-10 p-2">Category</td>
+                            <td><a href="">Delete</a></td>
+                        </tr>
+                    </table>
                 </div>
-                <!-- End Profile Form -->
-    
-            </div>
-        </section>
-        <!-- End Profile Page -->
-    
-        <!-- stop editing section -->
-    
-        <!-- Start Footer -->
+        </div>
+        </div>
+    </section>
+    <!-- End Profile Page -->
+
+    <!-- stop editing section -->
+
+    <!-- Start Footer -->
     <footer class="bg-secondary pt-4">
         <div class="container">
             <div class="row py-4 d-flex justify-content-lg-around">
