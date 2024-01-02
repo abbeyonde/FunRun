@@ -44,7 +44,6 @@
             flex: 0 0 auto;
             width: fit-content;
         }
-        }
     </style>
 
     <script>
@@ -65,7 +64,7 @@
     include('participantsession.php');
     $sql = "SELECT * FROM participants WHERE ic='$user'";
     $result = mysqli_query($con, $sql);
-    $user = mysqli_fetch_array($result);
+    $profile = mysqli_fetch_array($result);
     ?>
 
     <!-- Header -->
@@ -131,7 +130,7 @@
     if (isset($user)) {
         ?>
         <section class="container py-5">
-            <h1 class="col-12 col-xl-8 h2 text-center text-primary pt-3">User Profile</h1>
+            <h1 class="col-12 col-xl-8 h2 text-center text-primary pt-3 mx-0">User Profile</h1>
             <br>
             <!-- Start Profile Form -->
             <div class="col-lg-12">
@@ -141,49 +140,50 @@
                     <div class="col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>Name</h6><input type="text" class="form-control form-control-lg light-300" id="floatingname"
-                                name="inputname" value="<?php echo $user['full_name']; ?>" disabled>
+                                name="inputname" value="<?php echo $profile['full_name']; ?>" disabled>
                         </div>
                     </div><!-- End Name -->
 
                     <div class="col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>IC Number</h6><input type="text" class="form-control form-control-lg light-300"
-                                id="floatingicnum" name="inputicnum" value="<?php echo $user['ic']; ?>" disabled>
+                                id="floatingicnum" name="inputicnum" value="<?php echo $profile['ic']; ?>" disabled>
                         </div>
                     </div><!-- End IC Number -->
 
                     <div class="col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>Email</h6><input type="text" class="form-control form-control-lg light-300"
-                                id="floatingemail" name="inputemail" value="<?php echo $user['email']; ?>" disabled>
+                                id="floatingemail" name="inputemail" value="<?php echo $profile['email']; ?>" disabled>
                         </div>
                     </div><!-- End Email -->
 
                     <div class="col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>Phone Number</h6><input type="text" class="form-control form-control-lg light-300"
-                                id="floatingphone" name="inputphone" value="<?php echo $user['phone']; ?>" disabled>
+                                id="floatingphone" name="inputphone" value="<?php echo $profile['phone']; ?>" disabled>
                         </div>
                     </div><!-- End Phone -->
 
                     <div class="col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>Address</h6><input type="text" class="form-control form-control-lg light-300"
-                                id="floatingaddress" name="inputaddress" value="<?php echo $user['address']; ?>" disabled>
+                                id="floatingaddress" name="inputaddress" value="<?php echo $profile['address']; ?>"
+                                disabled>
                         </div>
                     </div><!-- End Address -->
 
                     <div class="col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>Password</h6><input type="password" class="form-control form-control-lg light-300"
-                                id="floatingpw" name="inputpw" value="<?php echo $user['password']; ?>" disabled>
+                                id="floatingpw" name="inputpw" value="<?php echo $profile['password']; ?>" disabled>
                         </div>
                     </div><!-- End Password -->
 
                     <div class="col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>Age</h6><input type="text" class="form-control form-control-lg light-300" id="floatingage"
-                                name="inputage" value="<?php echo $user['age']; ?>" disabled>
+                                name="inputage" value="<?php echo $profile['age']; ?>" disabled>
                         </div>
                     </div><!-- End Age -->
 
@@ -194,24 +194,53 @@
                 </form>
             </div>
             <!-- End Profile Form -->
-            <div id="category" class="col-lg-6 mb-4">
-                <label for="category" class="light-300 mb-1">Category Registered</label>
-                <div class="category">
-                    <table id="category-table" class="col-12 light-300">
-                        <tr>
-                            <td class="col-10 p-2">Category</td>
-                            <td><a href="">Delete</a></td>
-                        </tr>
-                    </table>
+            <?php
+            $sql_category = "   SELECT registered_participants.paid,categories.category_name 
+                                FROM registered_participants 
+                                INNER JOIN categories 
+                                ON registered_participants.category_id=categories.id 
+                                WHERE participant_ic='$user'";
+            // $sql_category = "SELECT * FROM categories";
+            $result_category = mysqli_query($con, $sql_category);
+            $category = mysqli_fetch_array($result_category);
+            if (isset($category)) {
+                ?>
+                <div id="category" class="col-lg-6 my-5 mx-auto">
+                    <h4 class="light-300 mb-2"><strong>Registered Category</strong></h4>
+                    <div class="category">
+                        <table id="category-table" class="col-12 light-300">
+                            <tr>
+                                <td class="col-6 p-2 text-center">
+                                    <?php echo $category['category_name']; ?>
+                                </td>
+                                <td class="col-4 text-center">
+                                    <?php
+                                    echo " 
+                                    <script>
+                                        const paid = $category[paid];
+                                        if(paid == 0){
+                                            document.writeln(\"Unpaid: <a class='' href=''>Make Payment</a>\");
+                                        }
+                                        else{
+                                            document.writeln('Paid');
+                                        }
+                                    </script>";
+                                    ?>
+                                </td>
+                                <td class="col-2 text-center"><a href="">Delete</a></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
+            <?php } ?>
             </div>
-            </div>
+
         </section>
         <!-- End Profile Page -->
 
         <!-- stop editing section -->
 
-    <?php
+        <?php
     } else {
         ?>
         <section class="container py-5 ">
