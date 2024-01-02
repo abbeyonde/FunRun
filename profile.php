@@ -227,7 +227,7 @@
                                     </script>";
                                     ?>
                                 </td>
-                                <td class="col-2 text-center"><a href="">Delete</a></td>
+                                <td class="col-2 text-center"><a href="">Unregister</a></td>
                             </tr>
                         </table>
                     </div>
