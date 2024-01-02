@@ -84,7 +84,8 @@
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="#about">About Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html#about">About
+                                Us</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
@@ -122,11 +123,9 @@
     <!-- Close Header -->
 
     <!-- Edit here-->
-
     <main class="form-signin w-100 m-auto">
         <form action="#" method="post" class="form-placement needs-validation">
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-
             <div class="form-floating">
                 <input name="ic" type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
                     required>
@@ -160,22 +159,17 @@
     <?php
     include('connect.php');
 
-    $ic = $_POST["ic"];
-    $password = $_POST["password"];
+    if (isset($_POST['ic']) && isset($_POST['password'])) {
+        $ic = $_POST["ic"];
+        $password = $_POST["password"];
+        $sql = "SELECT * FROM participants WHERE ic='$ic'";
+        $result = mysqli_query($con, $sql);
+        $user = mysqli_fetch_array($result);
 
-
-
-    $sql = "SELECT * FROM participants WHERE ic='$ic'";
-
-    $result = mysqli_query($con, $sql);
-
-    $user = mysqli_fetch_array($result);
-
-
-    if (isset($ic)) {
-        if ($ic == $user["ic"]) {
-            if ($password == $user["password"]) {
-                echo "
+        if (isset($ic)) {
+            if ($ic == $user["ic"]) {
+                if ($password == $user["password"]) {
+                    echo "
                 <script>
                 test();
                 const user = \"$user[ic]\";
@@ -183,10 +177,10 @@
                 window.location.href = \"index.html\";
                 </script>
                 ";
-                // $_SESSION["ic"] = $user["ic"];
-                // header('location: index.html');
-            } else {
-                echo "
+                    // $_SESSION["ic"] = $user["ic"];
+                    // header('location: index.html');
+                } else {
+                    echo "
             <script>
                 console.log(\"error\");
                 document.getElementById(\"floatingInput\").value = \"$ic\";
@@ -195,24 +189,21 @@
                 document.getElementById(\"floatingPassword\").addEventListener(\"change\", (e)=>{
                     document.getElementById(\"error\").innerHTML = \"\";
                     document.getElementById(\"floatingPassword\").classList.remove(\"is-invalid\");
-                })
-
-                
-            </script>
-            
+                })               
+            </script>          
             ";
-            }
-        } else {
-            echo "
+                }
+            } else {
+                echo "
             <script>
                 console.log(\"error\");
                 document.getElementById(\"error\").innerHTML = \"You're not registered yet. Register here\";
             </script>
             ";
-
+            }
+        } else {
+            echo "";
         }
-    } else {
-        echo "";
     }
     ?>
     <!-- stop editing section -->
@@ -268,11 +259,11 @@
                         <ul class="list-unstyled text-light light-300">
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light" href="">Home</a>
+                                    class="text-decoration-none text-light" href="index.html">Home</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="landing.html">About Us</a>
+                                    class="text-decoration-none text-light py-1" href="index.html#about">About Us</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
@@ -284,10 +275,8 @@
                             </li>
                         </ul>
                 </div>
-
             </div>
         </div>
-
         <div class="w-100 bg-primary py-3">
             <div class="container">
                 <div class="row pt-2">
@@ -299,11 +288,8 @@
                 </div>
             </div>
         </div>
-
     </footer>
     <!-- End Footer -->
-
-
     <!-- Bootstrap -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <!-- Load jQuery require for isotope -->
@@ -335,7 +321,6 @@
     <script src="assets/js/templatemo.js"></script>
     <!-- Custom -->
     <script src="assets/js/custom.js"></script>
-
 </body>
 
 </html>

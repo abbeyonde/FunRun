@@ -105,8 +105,8 @@
     <script>
         const user = window.sessionStorage.getItem("user");
 
-        const addCategory = (category) => {  
-            document.writeln('<a href="/FunRun/addCategory.php?ic='+user+'&category='+category+'" class="btn rounded-pill px-4 btn-outline-primary mb-3">');
+        const addCategory = (category) => {
+            document.writeln('<a href="/FunRun/addCategory.php?ic=' + user + '&category=' + category + '" class="btn rounded-pill px-4 btn-outline-primary mb-3">');
 
         }
     </script>
@@ -134,7 +134,8 @@
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">About Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html#about">About
+                                Us</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
@@ -311,7 +312,7 @@
                     addCategory(1);
                 </script>
                 <!--<a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"> -->
-                    Register</a>
+                Register</a>
             </div>
         </div>
 
@@ -404,7 +405,7 @@
                     addCategory(2);
                 </script>
                 <!-- <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"> -->
-                    Register</a>
+                Register</a>
             </div>
         </div>
 
@@ -495,7 +496,7 @@
                     addCategory(3);
                 </script>
                 <!-- <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"> -->
-                    Register</a>
+                Register</a>
             </div>
         </div>
 
@@ -583,12 +584,12 @@
                 <strong>Location : </strong> Dataran Merdeka <br>
                 <strong>Flag Off Time : </strong> 0715am <br>
                 <strong>Distance : </strong> 3.0km <br> <br>
-                
+
                 <script>
                     addCategory(4);
                 </script>
                 <!-- <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"> -->
-                    Register</a>
+                Register</a>
             </div>
         </div>
 
@@ -814,7 +815,7 @@
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="index.html">About Us</a>
+                                    class="text-decoration-none text-light py-1" href="index.html#about">About Us</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
@@ -876,7 +877,6 @@
     <script src="assets/js/templatemo.js"></script>
     <!-- Custom -->
     <script src="assets/js/custom.js"></script>
-
 </body>
 
 </html>
