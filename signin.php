@@ -63,102 +63,119 @@
 </head>
 
 <body>
-        <!-- Header -->
-        <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
-            <div class="container d-flex justify-content-between align-items-center">
-                <a class="navbar-brand h1" href="index.html">
-                    <i class='bx bx-buildings bx-sm text-dark'></i>
-                    <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
-                </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <!-- Header -->
+    <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand h1" href="index.html">
+                <i class='bx bx-buildings bx-sm text-dark'></i>
+                <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
-                    id="navbar-toggler-success">
-                    <div class="flex-fill mx-xl-5 mb-2 ">
-                        <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
-                            <li class="nav-item">
-                                <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn-outline-primary rounded-pill px-3" href="">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="navbar align-self-center d-flex">
-                        <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
-                        <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 signin" href="">Sign In</a>
-                        <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 register " href="">Register</a>
-                    </div>
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+                id="navbar-toggler-success">
+                <div class="flex-fill mx-xl-5 mb-2 ">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="#about">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
+                    <script>
+                        if (user == null) {
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>")
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>")
+                        }
+                    </script>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <script>
+                        const onSignOut = () => {
+                            window.sessionStorage.removeItem("user");
+                            window.location.href = "index.html";
+                        }
+                        if (user) {
+                            document.writeln("<a class=\"nav-link\" href=\"profile.php?ic=" + user + "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>");
+                            document.writeln("<label class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" onclick=onSignOut()>Sign Out</label>")
+
+                        }
+                    </script>
                 </div>
             </div>
-        </nav>
-        <!-- Close Header -->
+        </div>
+    </nav>
+    <!-- Close Header -->
 
-        <!-- Edit here-->
+    <!-- Edit here-->
 
-        <main class="form-signin w-100 m-auto">
-            <form action="#" method="post" class="form-placement needs-validation">
-                <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <main class="form-signin w-100 m-auto">
+        <form action="#" method="post" class="form-placement needs-validation">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-                <div class="form-floating">
-                    <input name="ic" type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
-                        required>
-                    <label for="floatingInput">Identification Number</label>
-                </div>
-                <div class="form-floating">
-                    <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                        required>
-                    <label for="floatingPassword">Password</label>
-                </div>
-                <div id="error" class=""></div>
+            <div class="form-floating">
+                <input name="ic" type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+                    required>
+                <label for="floatingInput">Identification Number</label>
+            </div>
+            <div class="form-floating">
+                <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                    required>
+                <label for="floatingPassword">Password</label>
+            </div>
+            <div id="error" class=""></div>
 
-                <div class="form-check text-start my-3">
-                    <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Remember me
-                    </label>
-                </div>
-                <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-                <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
-            </form>
-        </main>
-        <!-- <script>
+            <div class="form-check text-start my-3">
+                <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Remember me
+                </label>
+            </div>
+            <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
+        </form>
+    </main>
+    <!-- <script>
         document.getElementById("floatingPassword").addEventListener("change", ()=>{
             document.getElementById("floatingPassword").classList.remove("is-invalid");
         })
     </script> -->
-        <!-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script> -->
-        <script src="assets/js/form-validation.js"></script>
-        <script src="assets/js/validate.js"></script>
-        <?php
-        $con = mysqli_connect("localhost", "root", "", "uni10_maraton");
+    <!-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="assets/js/form-validation.js"></script>
+    <script src="assets/js/validate.js"></script>
+    <?php
+    include('connect.php');
 
-        $ic = $_POST["ic"];
-        $password = $_POST["password"];
-
-
-
-        $sql = "SELECT * FROM participants WHERE ic='$ic'";
-
-        $result = mysqli_query($con, $sql);
-
-        $user = mysqli_fetch_array($result);
+    $ic = $_POST["ic"];
+    $password = $_POST["password"];
 
 
-        if (isset($ic)) {
-            if ($ic == $user["ic"]) {
-                if ($password == $user["password"]) {
-                    echo "
+
+    $sql = "SELECT * FROM participants WHERE ic='$ic'";
+
+    $result = mysqli_query($con, $sql);
+
+    $user = mysqli_fetch_array($result);
+
+
+    if (isset($ic)) {
+        if ($ic == $user["ic"]) {
+            if ($password == $user["password"]) {
+                echo "
                 <script>
                 test();
                 const user = \"$user[ic]\";
@@ -166,10 +183,10 @@
                 window.location.href = \"index.html\";
                 </script>
                 ";
-                    // $_SESSION["ic"] = $user["ic"];
-                    // header('location: index.html');
-                } else {
-                    echo "
+                // $_SESSION["ic"] = $user["ic"];
+                // header('location: index.html');
+            } else {
+                echo "
             <script>
                 console.log(\"error\");
                 document.getElementById(\"floatingInput\").value = \"$ic\";
@@ -184,19 +201,19 @@
             </script>
             
             ";
-                }
-            } else {
-                echo "
+            }
+        } else {
+            echo "
             <script>
                 console.log(\"error\");
                 document.getElementById(\"error\").innerHTML = \"You're not registered yet. Register here\";
             </script>
             ";
 
-            }
-        } else {
-            echo "";
         }
+    } else {
+        echo "";
+    }
     ?>
     <!-- stop editing section -->
 
