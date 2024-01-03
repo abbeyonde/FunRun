@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    <title>FunRun</title>
+    <title>UNI10Marathon</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
     <!-- Load Require CSS -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
     <!-- Font CSS -->
     <link href="assets/css/boxicon.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
@@ -46,15 +46,33 @@
         }
     </style>
 
+    <script>
+        const user = window.sessionStorage.getItem('user');
+        if (user == null) {
+            window.location.href = "signin.php";
+        }
+        else {
+        }
+    </script>
+
+
 </head>
 
 <body>
+    <?php
+    include('connect.php');
+    include('participantsession.php');
+    $sql = "SELECT * FROM participants WHERE ic='$user'";
+    $result = mysqli_query($con, $sql);
+    $profile = mysqli_fetch_array($result);
+    ?>
+
     <!-- Header -->
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container d-flex justify-content-between align-items-center">
             <a class="navbar-brand h1" href="index.html">
                 <i class='bx bx-buildings bx-sm text-dark'></i>
-                <span class="text-dark h4">Fun</span><span class="text-primary h4">Run</span>
+                <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -70,169 +88,169 @@
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="#about">About Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html#about">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">Category</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">Contact Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
                         </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
                     <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 signin" href="">Sign In</a>
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 register " href="">Register</a>
+                    <script>
+                        if (user == null) {
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>")
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>")
+                        }
+                    </script>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <script>
+                        const onSignOut = () => {
+                            window.sessionStorage.removeItem("user");
+                            window.location.href = "index.html";
+                        }
+                        if (user) {
+                            document.writeln("<a class=\"nav-link\" href=\"profile.php?ic=" + user + "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>");
+                            document.writeln("<label class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" onclick=onSignOut()>Sign Out</label>")
+
+                        }
+                    </script>
                 </div>
             </div>
         </div>
     </nav>
     <!-- Close Header -->
-
     <!-- Edit here-->
-    <!-- Start Banner Hero -->
-    <!-- Home section -->
-    <div class="banner-wrapper bg-light">
-        <div id="index_banner" class="banner-vertical-center-index container-fluid pt-5">
+    <!-- Start Profile Page -->
+    <?php
+    if (isset($user)) {
+        ?>
+        <section class="container py-5">
+            <h1 class="col-12 col-xl-8 h2 text-center text-primary pt-3 mx-0">User Profile</h1>
+            <br>
+            <!-- Start Profile Form -->
+            <div class="col-lg-12">
+                <form class="contact-form d-flex flex-column align-items-center mx-auto" method="post" action="#"
+                    role="form">
 
-            <!-- Start slider -->
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-
-                        <div class="py-5 row d-flex align-items-center">
-                            <div class="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
-                                <h1
-                                    class="banner-heading h1 text-secondary display-3 mb-0 pb-5 mx-0 px-0 light-300 typo-space-line">
-                                    <strong>Run for the finish:</strong>
-                                    <br>UNI10 Marathon 2023
-                                </h1>
-                                <p class="banner-body text-muted py-3 mx-0 px-0 color-white">
-                                    Embark on an epic running adventure at the [Event Name] Marathon 2023! Join fellow enthusiasts for a day of triumph and camaraderie. 
-                                    Register now for an unforgettable experience, complete with scenic routes, cheering crowds, and personal victories. Secure your spot—let the countdown begin!
-                                </p>
-                                <a class="banner-button btn rounded-pill btn-outline-primary btn-lg px-4" href="#"
-                                    role="button">Register Now</a>
-                            </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>Name</h6><input type="text" class="form-control form-control-lg light-300" id="floatingname"
+                                name="inputname" value="<?php echo $profile['full_name']; ?>" disabled>
                         </div>
+                    </div><!-- End Name -->
 
-                    </div>
-                    <div class="carousel-item">
-
-                        <div class="py-5 row d-flex align-items-center">
-                            <div class="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
-                                <h1 class="banner-heading h1 text-secondary display-3 mb-0 pb-3 mx-0 px-0 light-300">
-                                    HTML CSS Template with Bootstrap 5 Beta 1
-                                </h1>
-                                <p class="banner-body text-muted py-3">
-                                    You are not allowed to re-distribute this Purple Buzz HTML template as a
-                                    downloadable ZIP file on any kind of Free CSS collection websites. This is strongly
-                                    prohibited. Please contact TemplateMo for more information.
-                                </p>
-                                <a class="banner-button btn rounded-pill btn-outline-primary btn-lg px-4" href="#"
-                                    role="button">Get Started</a>
-                            </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>IC Number</h6><input type="text" class="form-control form-control-lg light-300"
+                                id="floatingicnum" name="inputicnum" value="<?php echo $profile['ic']; ?>" disabled>
                         </div>
+                    </div><!-- End IC Number -->
 
-                    </div>
-                    <div class="carousel-item">
-
-                        <div class="py-5 row d-flex align-items-center">
-                            <div class="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
-                                <h1 class="banner-heading h1 text-secondary display-3 mb-0 pb-3 mx-0 px-0 light-300">
-                                    Cupidatat non proident, sunt in culpa qui officia
-                                </h1>
-                                <p class="banner-body text-muted py-3">
-                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                    irure dolor in reprehenderit in voluptate velit esse cillum
-                                    dolore eu fugiat nulla pariatur. Excepteur sint occaecat.
-                                </p>
-                                <a class="banner-button btn rounded-pill btn-outline-primary btn-lg px-4" href="#"
-                                    role="button">Get Started</a>
-                            </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>Email</h6><input type="text" class="form-control form-control-lg light-300"
+                                id="floatingemail" name="inputemail" value="<?php echo $profile['email']; ?>" disabled>
                         </div>
+                    </div><!-- End Email -->
 
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>Phone Number</h6><input type="text" class="form-control form-control-lg light-300"
+                                id="floatingphone" name="inputphone" value="<?php echo $profile['phone']; ?>" disabled>
+                        </div>
+                    </div><!-- End Phone -->
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>Address</h6><input type="text" class="form-control form-control-lg light-300"
+                                id="floatingaddress" name="inputaddress" value="<?php echo $profile['address']; ?>"
+                                disabled>
+                        </div>
+                    </div><!-- End Address -->
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>Password</h6><input type="password" class="form-control form-control-lg light-300"
+                                id="floatingpw" name="inputpw" value="<?php echo $profile['password']; ?>" disabled>
+                        </div>
+                    </div><!-- End Password -->
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>Age</h6><input type="text" class="form-control form-control-lg light-300" id="floatingage"
+                                name="inputage" value="<?php echo $profile['age']; ?>" disabled>
+                        </div>
+                    </div><!-- End Age -->
+
+                    <div class="col-md-12 col-lg-6 m-auto text-start">
+                        <button class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Edit
+                            Profile</button>
                     </div>
-                </div>
-                <a class="carousel-control-prev text-decoration-none" href="#carouselExampleIndicators" role="button"
-                    data-bs-slide="prev">
-                    <i class='bx bx-chevron-left'></i>
-                    <span class="visually-hidden">Previous</span>
-                </a>
-                <a class="carousel-control-next text-decoration-none" href="#carouselExampleIndicators" role="button"
-                    data-bs-slide="next">
-                    <i class='bx bx-chevron-right'></i>
-                    <span class="visually-hidden">Next</span>
-                </a>
+                </form>
             </div>
-            <!-- End slider -->
-
-        </div>
-    </div>
-    <!-- End Banner Hero -->
-
-    <!-- countdown -->
-    <section class="service-wrapper py-3">
-        <div class="container-fluid pb-3">
-            <div class="row">
-                <h2 class="h2 text-center col-12 py-5 semi-bold-600">Countdown</h2>
-                countdown goes here
-        </div>
-    </section>
-
-    <!-- About Us -->
-    <section id="about" class="bg-light w-100">
-        <div class="container">
-            <div class="row d-flex align-items-center py-5">
-                <div class="col-lg-6 text-start">
-                    <h1 class="h2 py-5 text-primary typo-space-line">About Us</h1>
-                    <p class="light-300">
-                        Vector illustration credit goes to <a rel="nofollow" href="http://freepik.com/" target="_blank">FreePik</a> website. Purple Buzz is provided by TemplateMo. Lorem ipsum dolor sit amet, consectetur.
-                    </p>
+            <!-- End Profile Form -->
+            <?php
+            $sql_category = "   SELECT registered_participants.paid,categories.category_name 
+                                FROM registered_participants 
+                                INNER JOIN categories 
+                                ON registered_participants.category_id=categories.id 
+                                WHERE participant_ic='$user'";
+            // $sql_category = "SELECT * FROM categories";
+            $result_category = mysqli_query($con, $sql_category);
+            $category = mysqli_fetch_array($result_category);
+            if (isset($category)) {
+                ?>
+                <div id="category" class="col-lg-6 my-5 mx-auto">
+                    <h4 class="light-300 mb-2"><strong>Registered Category</strong></h4>
+                    <div class="category">
+                        <table id="category-table" class="col-12 light-300">
+                            <tr>
+                                <td class="col-6 p-2 text-center">
+                                    <?php echo $category['category_name']; ?>
+                                </td>
+                                <td class="col-4 text-center">
+                                    <?php
+                                    echo " 
+                                    <script>
+                                        const paid = $category[paid];
+                                        if(paid == 0){
+                                            document.writeln(\"Unpaid: <a class='' href=''>Make Payment</a>\");
+                                        }
+                                        else{
+                                            document.writeln('Paid');
+                                        }
+                                    </script>";
+                                    ?>
+                                </td>
+                                <td class="col-2 text-center"><a href="">Unregister</a></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-                <div class="col-lg-6">
-                    <img src="./assets/img/banner-img-02.svg">
-                </div>
+            <?php } ?>
             </div>
-        </div>
-    </section>
-    <section class="bg-secondary py-3">
-        <div class="container py-5">
-            <h2 class="h2 text-white text-center py-5">Our Partner</h2>
-            <div class="row text-center">
-                <div class="col-md-3 mb-3">
-                    <div class="card partner-wap py-5">
-                        <a href="#"><i class='display-1 text-white bx bxs-buildings'></i></a>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <div class="card partner-wap py-5">
-                        <a href="#"><i class='display-1 bx text-white bxs-check-shield bx-lg'></i></a>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <div class="card partner-wap py-5">
-                        <a href="#"><i class='display-1 text-white bx bxs-bolt-circle'></i></a>
-                    </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <div class="card partner-wap py-5">
-                        <a href="#"><i class='display-1 text-white bx bxs-spa'></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- contact us -->
-    <!-- stop editing section -->
+        </section>
+        <!-- End Profile Page -->
+
+        <!-- stop editing section -->
+
+        <?php
+    } else {
+        ?>
+        <section class="container py-5 ">
+            <h1>Fail to retrieve participant profile</h1>
+            <p>Please contact system admin to solve this issue.</p>
+        </section>
+
+        <?php
+    }
+    ?>
 
     <!-- Start Footer -->
     <footer class="bg-secondary pt-4">
@@ -279,20 +297,20 @@
                     </ul>
                 </div>
 
-                <div class="col-lg-3 col-md-4 my-sm-0 mt-4">
+                <div class="col-lg-3 col-md-4 my-sm-0 mt-4 col-fit">
                     <h3 class="h4 pb-lg-3 text-light light-300">Our Website</h2>
                         <ul class="list-unstyled text-light light-300">
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light" href="#">Home</a>
+                                    class="text-decoration-none text-light" href="">Home</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="#about">About Us</a>
+                                    class="text-decoration-none text-light py-1" href="index.html#about">About Us</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="">Category</a>
+                                    class="text-decoration-none text-light py-1" href="category.html">Category</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
