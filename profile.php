@@ -136,42 +136,41 @@
     if (isset($user)) {
         ?>
         <section class="container py-5">
-            <h1 class="col-12 col-xl-8 h2 text-center text-primary pt-3 mx-0">User Profile</h1>
-            <br>
+            <h1 class="col-12 col-xl-6 h2 text-primary pt-3 mx-auto">User Profile</h1>
             <!-- Start Profile Form -->
-            <div class="col-lg-12">
+            <div class="col-12">
                 <form class="contact-form d-flex flex-column align-items-center mx-auto" method="post" action="#"
                     role="form">
 
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-11 col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>Name</h6><input type="text" class="profile form-control form-control-lg light-300"
                                 id="floatingname" name="inputname" value="<?php echo $profile['full_name']; ?>" disabled>
                         </div>
                     </div><!-- End Name -->
 
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-11 col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>IC Number</h6><input type="text" class="profile form-control form-control-lg light-300"
                                 id="floatingicnum" name="inputicnum" value="<?php echo $profile['ic']; ?>" disabled>
                         </div>
                     </div><!-- End IC Number -->
 
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-11 col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>Email</h6><input type="text" class="profile form-control form-control-lg light-300"
                                 id="floatingemail" name="inputemail" value="<?php echo $profile['email']; ?>" disabled>
                         </div>
                     </div><!-- End Email -->
 
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-11 col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>Phone Number</h6><input type="text" class="profile form-control form-control-lg light-300"
                                 id="floatingphone" name="inputphone" value="<?php echo $profile['phone']; ?>" disabled>
                         </div>
                     </div><!-- End Phone -->
 
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-11 col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>Address</h6><input type="text" class="profile form-control form-control-lg light-300"
                                 id="floatingaddress" name="inputaddress" value="<?php echo $profile['address']; ?>"
@@ -179,26 +178,26 @@
                         </div>
                     </div><!-- End Address -->
 
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-11 col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>Password</h6><input type="password" class="profile form-control form-control-lg light-300"
                                 id="floatingpw" name="inputpw" value="<?php echo $profile['password']; ?>" disabled>
                         </div>
                     </div><!-- End Password -->
 
-                    <div class="col-lg-6 mb-4">
+                    <div class="col-11 col-lg-6 mb-4">
                         <div class="form-floating">
                             <h6>Age</h6><input type="text" class="profile form-control form-control-lg light-300"
                                 id="floatingage" name="inputage" value="<?php echo $profile['age']; ?>" disabled>
                         </div>
                     </div><!-- End Age -->
-                    <div class="col-md-12 col-lg-6 m-auto text-start">
-                        <input id="update" class="invisible btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300"
+                    <div class="col-12 col-md-12 col-lg-6 m-auto text-start">
+                        <input id="update" class="invisible col-12 btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300"
                             type="submit" value="Update">
                     </div>
 
                 </form>
-                <div class="col-md-12 col-lg-6 m-auto text-start">
+                <div class="col-12 col-md-12 col-lg-6 m-auto text-start">
                     <button id="edit" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300"
                         onclick=onClickEdit()>Edit Profile</button>
                 </div>
