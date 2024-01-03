@@ -1,22 +1,8 @@
-<?php
-session_start();
-  
-if (!isset($_SESSION['username'])) {
-    $_SESSION['msg'] = "You have to log in first";
-    header('location: login.html');
-}
-  
-if (isset($_GET['logout'])) {
-    session_destroy();
-    unset($_SESSION['username']);
-    header("location: login.html");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>FunRun</title>
+    <title>UNI10Marathon</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
@@ -33,17 +19,17 @@ if (isset($_GET['logout'])) {
 
     <style>
         .navbar .register {
-            background-color: #6266ea;
+            background-color: #db3a34;
             color: white;
         }
 
         .navbar .register:hover {
-            background-color: #40439e;
+            background-color: #992825;
         }
 
         .navbar .signin:hover {
             text-decoration: underline;
-            color: #6266ea;
+            color: #db3a34;
             background-color: transparent;
         }
 
@@ -60,15 +46,33 @@ if (isset($_GET['logout'])) {
         }
     </style>
 
+    <script>
+        const user = window.sessionStorage.getItem('user');
+        if (user == null) {
+            window.location.href = "signin.php";
+        }
+        else {
+        }
+    </script>
+
+
 </head>
 
 <body>
+    <?php
+    include('connect.php');
+    include('participantsession.php');
+    $sql = "SELECT * FROM participants WHERE ic='$user'";
+    $result = mysqli_query($con, $sql);
+    $profile = mysqli_fetch_array($result);
+    ?>
+
     <!-- Header -->
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container d-flex justify-content-between align-items-center">
             <a class="navbar-brand h1" href="index.html">
                 <i class='bx bx-buildings bx-sm text-dark'></i>
-                <span class="text-dark h4">Fun</span><span class="text-primary h4">Run</span>
+                <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -84,84 +88,171 @@ if (isset($_GET['logout'])) {
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">About Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html#about">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">Category</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">Contact Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
                         </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
                     <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 signin" href="">Sign In</a>
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 register " href="">Register</a>
+                    <script>
+                        if (user == null) {
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>")
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>")
+                        }
+                    </script>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <script>
+                        const onSignOut = () => {
+                            window.sessionStorage.removeItem("user");
+                            window.location.href = "index.html";
+                        }
+                        if (user) {
+                            document.writeln("<a class=\"nav-link\" href=\"profile.php?ic=" + user + "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>");
+                            document.writeln("<label class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" onclick=onSignOut()>Sign Out</label>")
+
+                        }
+                    </script>
                 </div>
             </div>
         </div>
     </nav>
     <!-- Close Header -->
     <!-- Edit here-->
-        <!-- Start Profile Page -->
+    <!-- Start Profile Page -->
+    <?php
+    if (isset($user)) {
+        ?>
         <section class="container py-5">
-            <h1 class="col-12 col-xl-8 h2 text-center text-primary pt-3">User Profile</h1>
+            <h1 class="col-12 col-xl-8 h2 text-center text-primary pt-3 mx-0">User Profile</h1>
             <br>
-                <!-- Start Profile Form -->
-                <div class="col-lg-12">
-                    <form class="contact-form row" method="post" action="#" role="form">
-    
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-floating">
-                                <h6>Name</h6><input type="text" class="form-control form-control-lg light-300" id="floatingname" name="inputname" value="<?php echo $_SESSION['name'];>" disabled>
-                            </div>
-                        </div><!-- End Name -->
-    
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-floating">
-                                <h6>IC Number</h6><input type="text" class="form-control form-control-lg light-300" id="floatingicnum" name="inputicnum" value="<?php echo $_SESSION['icNum'];" disabled>
-                            </div>
-                        </div><!-- End IC Number -->
-                        
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-floating">
-                                <h6>Email</h6><input type="text" class="form-control form-control-lg light-300" id="floatingemail" name="inputemail" value="<?php echo $_SESSION['email'];" disabled>
-                            </div>
-                        </div><!-- End Email -->
-    
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-floating">
-                                <h6>Phone Number</h6><input type="text" class="form-control form-control-lg light-300" id="floatingphone" name="inputphone" value="<?php echo $_SESSION['phoneNum'];" disabled>
-                            </div>
-                        </div><!-- End Phone -->
+            <!-- Start Profile Form -->
+            <div class="col-lg-12">
+                <form class="contact-form d-flex flex-column align-items-center mx-auto" method="post" action="#"
+                    role="form">
 
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-floating">
-                                <h6>Password</h6><input type="password" class="form-control form-control-lg light-300" id="floatingpw" name="inputpw" value="<?php echo $_SESSION['pw'];" disabled>
-                            </div>
-                        </div><!-- End Password -->
-
-                        <div class="col-lg-6 mb-4">
-                            <div class="form-floating">
-                                <h6>Age</h6><input type="text" class="form-control form-control-lg light-300" id="floatingage" name="inputage" value="<?php echo $_SESSION['age'];" disabled>
-                            </div>
-                        </div><!-- End Age -->
-
-                        <div class="col-md-12 col-12 m-auto text-end">
-                            <a href="editprofile.html" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Edit Profile</a>
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>Name</h6><input type="text" class="form-control form-control-lg light-300" id="floatingname"
+                                name="inputname" value="<?php echo $profile['full_name']; ?>" disabled>
                         </div>
-                    </form>
-                </div>
-                <!-- End Profile Form -->
-    
+                    </div><!-- End Name -->
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>IC Number</h6><input type="text" class="form-control form-control-lg light-300"
+                                id="floatingicnum" name="inputicnum" value="<?php echo $profile['ic']; ?>" disabled>
+                        </div>
+                    </div><!-- End IC Number -->
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>Email</h6><input type="text" class="form-control form-control-lg light-300"
+                                id="floatingemail" name="inputemail" value="<?php echo $profile['email']; ?>" disabled>
+                        </div>
+                    </div><!-- End Email -->
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>Phone Number</h6><input type="text" class="form-control form-control-lg light-300"
+                                id="floatingphone" name="inputphone" value="<?php echo $profile['phone']; ?>" disabled>
+                        </div>
+                    </div><!-- End Phone -->
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>Address</h6><input type="text" class="form-control form-control-lg light-300"
+                                id="floatingaddress" name="inputaddress" value="<?php echo $profile['address']; ?>"
+                                disabled>
+                        </div>
+                    </div><!-- End Address -->
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>Password</h6><input type="password" class="form-control form-control-lg light-300"
+                                id="floatingpw" name="inputpw" value="<?php echo $profile['password']; ?>" disabled>
+                        </div>
+                    </div><!-- End Password -->
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="form-floating">
+                            <h6>Age</h6><input type="text" class="form-control form-control-lg light-300" id="floatingage"
+                                name="inputage" value="<?php echo $profile['age']; ?>" disabled>
+                        </div>
+                    </div><!-- End Age -->
+
+                    <div class="col-md-12 col-lg-6 m-auto text-start">
+                        <button class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Edit
+                            Profile</button>
+                    </div>
+                </form>
             </div>
+            <!-- End Profile Form -->
+            <?php
+            $sql_category = "   SELECT registered_participants.paid,categories.category_name 
+                                FROM registered_participants 
+                                INNER JOIN categories 
+                                ON registered_participants.category_id=categories.id 
+                                WHERE participant_ic='$user'";
+            // $sql_category = "SELECT * FROM categories";
+            $result_category = mysqli_query($con, $sql_category);
+            $category = mysqli_fetch_array($result_category);
+            if (isset($category)) {
+                ?>
+                <div id="category" class="col-lg-6 my-5 mx-auto">
+                    <h4 class="light-300 mb-2"><strong>Registered Category</strong></h4>
+                    <div class="category">
+                        <table id="category-table" class="col-12 light-300">
+                            <tr>
+                                <td class="col-6 p-2 text-center">
+                                    <?php echo $category['category_name']; ?>
+                                </td>
+                                <td class="col-4 text-center">
+                                    <?php
+                                    echo " 
+                                    <script>
+                                        const paid = $category[paid];
+                                        if(paid == 0){
+                                            document.writeln(\"Unpaid: <a class='' href=''>Make Payment</a>\");
+                                        }
+                                        else{
+                                            document.writeln('Paid');
+                                        }
+                                    </script>";
+                                    ?>
+                                </td>
+                                <td class="col-2 text-center"><a href="">Unregister</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            <?php } ?>
+            </div>
+
         </section>
         <!-- End Profile Page -->
-    
+
         <!-- stop editing section -->
-    
-        <!-- Start Footer -->
+
+        <?php
+    } else {
+        ?>
+        <section class="container py-5 ">
+            <h1>Fail to retrieve participant profile</h1>
+            <p>Please contact system admin to solve this issue.</p>
+        </section>
+
+        <?php
+    }
+    ?>
+
+    <!-- Start Footer -->
     <footer class="bg-secondary pt-4">
         <div class="container">
             <div class="row py-4 d-flex justify-content-lg-around">
@@ -215,11 +306,11 @@ if (isset($_GET['logout'])) {
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="landing.html/#about">About Us</a>
+                                    class="text-decoration-none text-light py-1" href="index.html#about">About Us</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="">Category</a>
+                                    class="text-decoration-none text-light py-1" href="category.html">Category</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a

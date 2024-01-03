@@ -8,9 +8,9 @@
         dd = String(today.getDate()).padStart(2, "0"),
         mm = String(today.getMonth() + 1).padStart(2, "0"),
         yyyy = today.getFullYear(),
-        dayMonth = "1/24/",
-        event_date = dayMonth + yyyy;
-    event_year = 2024;
+        dayMonth = "2/14/",
+        event_year = 2024;
+        event_date = dayMonth + event_year;
 
     today = mm + "/" + dd + "/" + yyyy;
     if (today > event_date) {

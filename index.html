@@ -53,7 +53,9 @@
             text-align: justify;
         }
     </style>
-
+    <script>
+        const user = window.sessionStorage.getItem("user");
+    </script>
 </head>
 
 <body>
@@ -81,17 +83,34 @@
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="#about">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">Category</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">Contact Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
                         </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
                     <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 signin" href="">Sign In</a>
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 register " href="">Register</a>
+                    <script>
+                        if (user == null) {
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>")
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>")
+                        }
+                    </script>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <script>
+                        const onSignOut = () => {
+                            window.sessionStorage.removeItem("user");
+                            window.location.href = "index.html";
+                        }
+                        if (user) {
+                            document.writeln("<a class=\"nav-link\" href=\"profile.php?ic=" + user + "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>");
+                            document.writeln("<label class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" onclick=onSignOut()>Sign Out</label>")
+
+                        }
+                    </script>
                 </div>
             </div>
         </div>
@@ -230,7 +249,7 @@
         <div class="container-fluid pb-3">
             <div class="row event-date">
                 <h2 id="cd-headline" class="h2 text-center col-12 pt-5 semi-bold-600">Countdown</h2>
-                <h1 id="event-date" class="text-center">24 / 1 / 2024</h1>
+                <h1 id="event-date" class="text-center">14 / 2 / 2024</h1>
                 <div id="countdown" class="d-flex justify-content-lg-around text-center col-12">
                     <ul class="mx-0 col-12 px-0">
                         <li><span id="days"></span>days</li>
@@ -353,11 +372,11 @@
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="">Category</a>
+                                    class="text-decoration-none text-light py-1" href="category.html">Category</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="">Contact Us</a>
+                                    class="text-decoration-none text-light py-1" href="contact.html">Contact Us</a>
                             </li>
                         </ul>
                 </div>
