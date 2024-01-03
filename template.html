@@ -44,8 +44,18 @@
             flex: 0 0 auto;
             width: fit-content;
         }
-    </style>
 
+        .color-white {
+            color: whitesmoke;
+        }
+
+        .text-lg-justify {
+            text-align: justify;
+        }
+    </style>
+    <script>
+        const user = window.sessionStorage.getItem("user");
+    </script>
 </head>
 
 <body>
@@ -70,7 +80,7 @@
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">About Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="#about">About Us</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
@@ -82,8 +92,25 @@
                 </div>
                 <div class="navbar align-self-center d-flex">
                     <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 signin" href="">Sign In</a>
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 register " href="">Register</a>
+                    <script>
+                        if (user == null) {
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>")
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>")
+                        }
+                    </script>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <script>
+                        const onSignOut = () => {
+                            window.sessionStorage.removeItem("user");
+                            window.location.href = "index.html";
+                        }
+                        if (user) {
+                            document.writeln("<a class=\"nav-link\" href=\"profile.php?ic=" + user + "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>");
+                            document.writeln("<label class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" onclick=onSignOut()>Sign Out</label>")
+
+                        }
+                    </script>
                 </div>
             </div>
         </div>
@@ -91,7 +118,7 @@
     <!-- Close Header -->
 
     <!-- Edit here-->
-
+        
     <!-- stop editing section -->
 
     <!-- Start Footer -->
@@ -102,7 +129,8 @@
                 <div class="col-lg-3 col-12 align-left">
                     <a class="navbar-brand" href="index.html">
                         <i class='bx bx-buildings bx-sm text-light'></i>
-                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600"> Marathon</span>
+                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600">
+                            Marathon</span>
                     </a>
                     <p class="text-light my-lg-4 my-2">
                         Get ready for a day of pure joy at our Fun Run! Picture smiling faces, vibrant costumes, and
@@ -139,16 +167,16 @@
                     </ul>
                 </div>
 
-                <div class="col-lg-3 col-md-4 my-sm-0 mt-4 col-fit">
+                <div class="col-lg-3 col-md-4 my-sm-0 mt-4">
                     <h3 class="h4 pb-lg-3 text-light light-300">Our Website</h2>
                         <ul class="list-unstyled text-light light-300">
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light" href="">Home</a>
+                                    class="text-decoration-none text-light" href="#">Home</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="landing.html">About Us</a>
+                                    class="text-decoration-none text-light py-1" href="#about">About Us</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
@@ -206,11 +234,14 @@
                 return false;
             });
         });
+
+
     </script>
     <!-- Templatemo -->
     <script src="assets/js/templatemo.js"></script>
     <!-- Custom -->
     <script src="assets/js/custom.js"></script>
+    <script src="assets/js/timer.js"></script>
 
 </body>
 

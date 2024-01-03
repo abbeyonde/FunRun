@@ -44,6 +44,11 @@
             flex: 0 0 auto;
             width: fit-content;
         }
+
+        .btn-gray {
+            background-color: gray;
+            border-color: gray;
+        }
     </style>
 
     <script>
@@ -62,7 +67,7 @@
     <?php
     include('connect.php');
     include('participantsession.php');
-    $sql = "SELECT * FROM participants WHERE ic='$user'";
+    $sql = "SELECT * FROM participants WHERE ic=$user";
     $result = mysqli_query($con, $sql);
     $profile = mysqli_fetch_array($result);
     ?>
@@ -88,7 +93,8 @@
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html#about">About Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html#about">About
+                                Us</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
@@ -188,14 +194,13 @@
                     </div><!-- End Age -->
 
                     <div class="col-md-12 col-lg-6 m-auto text-start">
-                        <button class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Edit
-                            Profile</button>
+                        <button class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Edit Profile</button>
                     </div>
                 </form>
             </div>
             <!-- End Profile Form -->
             <?php
-            $sql_category = "   SELECT registered_participants.paid,categories.category_name 
+            $sql_category = "   SELECT registered_participants.category_id,registered_participants.id,registered_participants.paid,categories.category_name 
                                 FROM registered_participants 
                                 INNER JOIN categories 
                                 ON registered_participants.category_id=categories.id 
@@ -210,24 +215,27 @@
                     <div class="category">
                         <table id="category-table" class="col-12 light-300">
                             <tr>
-                                <td class="col-6 p-2 text-center">
+                                <td class="col-6 p-2">
                                     <?php echo $category['category_name']; ?>
                                 </td>
-                                <td class="col-4 text-center">
+                                <td class="col-4 text-center p-2">
                                     <?php
                                     echo " 
                                     <script>
                                         const paid = $category[paid];
                                         if(paid == 0){
-                                            document.writeln(\"Unpaid: <a class='' href=''>Make Payment</a>\");
+                                            document.writeln('<a href=\"/FunRun/payment.php?ic='+'$user' + '&category=' + '$category[category_id]' + '\" class=\"btn rounded-pill px-4 btn-outline-primary\">Make Payment</a>');
+    
                                         }
                                         else{
-                                            document.writeln('Paid');
+                                            document.writeln(\"<span class='col-8 btn btn-success rounded-pill text-light'>Paid</span>\");
                                         }
                                     </script>";
                                     ?>
                                 </td>
-                                <td class="col-2 text-center"><a href="">Unregister</a></td>
+                                <td class="col-2 text-center p-2"><a class="btn btn-primary rounded-pill"
+                                        href="<?php echo '/FunRun/delete-category.php?ic=' . $user . '&id=' . $category['id']; ?>">Unregister</a>
+                                </td>
                             </tr>
                         </table>
                     </div>
