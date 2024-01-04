@@ -1,8 +1,49 @@
-/*
-Custom CSS for TemplateMo 561 Purple Buzz
+#countdown li {
+    display: inline-block;
+    font-size: 1.5em;
+    list-style-type: none;
+    padding: 1em;
+    text-transform: uppercase;
+}
 
-https://templatemo.com/tm-561-purple-buzz
+#countdown li span {
+    display: block;
+    font-size: 4.5rem;
+}
 
-*/
+#event-date {
+    font-size: 80px;
+    font-weight: normal;
+    color: #db3a34;
+}
+
+.profile textarea{
+    resize: none;
+}
+
+#category{
+    min-width: 244px;
+}
+
+.category{
+    border: solid 1px rgba(0, 0, 0, 0.25);
+    border-radius: 0.5em;
+}
 
 
+
+@media all and (max-width: 768px) {
+    h1 {
+        font-size: calc(1.5rem * var(--smaller));
+    }
+
+    li {
+        font-size: calc(1.125rem * var(--smaller));
+    }
+
+    li span {
+        font-size: calc(3.375rem * var(--smaller));
+    }
+
+
+}

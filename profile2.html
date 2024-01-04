@@ -70,7 +70,7 @@
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">About Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">About Us</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
@@ -81,7 +81,7 @@
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
+                    <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a>
                     <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 signin" href="">Sign In</a>
                     <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 register " href="">Register</a>
                 </div>
@@ -90,19 +90,79 @@
     </nav>
     <!-- Close Header -->
 
-    <!-- Edit here-->
 
+    <!-- Edit here-->
+    <div class="profile col-lg-8 py-5 d-flex flex-column align-items-center mx-auto">
+        <div class="col-lg-6 mb-4">
+            <div class="form-floating">
+                <input type="text" class="form-control form-control-lg light-300" id="floatingname" name="inputname"
+                    placeholder="Name" readonly value="test">
+                <label for="floatingname light-300">Name</label>
+            </div>
+        </div><!-- End Input Name -->
+
+        <div class="col-lg-6 mb-4">
+            <div class="form-floating">
+                <input type="text" class="form-control form-control-lg light-300" id="floatingemail" name="inputemail"
+                    placeholder="Email" readonly value="test">
+                <label for="floatingemail light-300">Email</label>
+            </div>
+        </div><!-- End Input Email -->
+
+        <div class="col-lg-6 mb-4">
+            <div class="form-floating">
+                <input type="text" class="form-control form-control-lg light-300" id="floatingphone" name="inputphone"
+                    placeholder="Phone" readonly value="test">
+                <label for="floatingphone light-300">Phone</label>
+            </div>
+        </div><!-- End Input Phone -->
+
+        <div class="col-lg-6 mb-4">
+            <div class="form-floating">
+                <input type="password" class="form-control form-control-lg light-300" id="floatingpassword"
+                    name="inputpassword" placeholder="Password" readonly value="test">
+                <label for="floatingpassword light-300">Password</label>
+            </div>
+        </div><!-- End Input Password -->
+
+        <div class="col-lg-6">
+            <div class="form-floating mb-4">
+                <input type="text" class="form-control form-control-lg light-300" id="floatingaddress"
+                    name="inputaddress" placeholder="Address" readonly value="test">
+                <label for="floatingaddress light-300">Address</label>
+            </div>
+        </div><!-- End Input Address -->
+
+        <div id="category" class="col-lg-6 mb-4">
+                <label for="category" class="light-300 mb-1">Category Registered</label>
+                <div class="category">
+                    <table id="category-table" class="col-12 light-300">
+                        <tr>
+                            <td class="col-10 p-2">Category</td>
+                            <td><a href="">Delete</a></td>
+                        </tr>
+                    </table>
+                </div>
+        </div>
+
+
+        <div class="col-md-12 col-lg-6 m-auto text-start">
+            <button
+                class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Edit</button>
+        </div>
+    </div>
     <!-- stop editing section -->
 
     <!-- Start Footer -->
-    <footer class="bg-secondary pt-4">
+    <!-- <footer class="bg-secondary pt-4">
         <div class="container">
             <div class="row py-4 d-flex justify-content-lg-around">
 
                 <div class="col-lg-3 col-12 align-left">
                     <a class="navbar-brand" href="index.html">
                         <i class='bx bx-buildings bx-sm text-light'></i>
-                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600"> Marathon</span>
+                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600">
+                            Marathon</span>
                     </a>
                     <p class="text-light my-lg-4 my-2">
                         Get ready for a day of pure joy at our Fun Run! Picture smiling faces, vibrant costumes, and
@@ -148,15 +208,15 @@
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="landing.html">About Us</a>
+                                    class="text-decoration-none text-light py-1" href="landing.html/#about">About Us</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="category.html">Category</a>
+                                    class="text-decoration-none text-light py-1" href="">Category</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="contact.html">Contact Us</a>
+                                    class="text-decoration-none text-light py-1" href="">Contact Us</a>
                             </li>
                         </ul>
                 </div>
@@ -176,7 +236,7 @@
             </div>
         </div>
 
-    </footer>
+    </footer> -->
     <!-- End Footer -->
 
 

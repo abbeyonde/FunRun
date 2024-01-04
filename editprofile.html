@@ -1,3 +1,18 @@
+<?php
+session_start();
+  
+if (!isset($_SESSION['userid'])) {
+    $_SESSION['msg'] = "You have to log in first";
+    header('location: login.html');
+}
+  
+if (isset($_GET['logout'])) {
+    session_destroy();
+    unset($_SESSION['userid']);
+    header("location: login.html");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,7 +85,7 @@
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">About Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="#about">About Us</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
@@ -82,18 +97,114 @@
                 </div>
                 <div class="navbar align-self-center d-flex">
                     <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 signin" href="">Sign In</a>
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 register " href="">Register</a>
+                    <script>
+                        if (user == null) {
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>")
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>")
+                        }
+                    </script>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <script>
+                        const onSignOut = () =>{
+                            window.sessionStorage.removeItem("user");
+                            window.location.href = "index.html";
+                        }
+                        if (user) {
+                            document.writeln("<a class=\"nav-link\" href=\"profile.php?ic="+user+"\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>");
+                            document.writeln("<label class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" onclick=onSignOut()>Sign Out</label>")
+
+                        }
+                    </script>
                 </div>
             </div>
         </div>
     </nav>
     <!-- Close Header -->
-
     <!-- Edit here-->
+        
+    <!-- Start Profile Page -->
+        <section class="container py-5">
+            <h1 class="col-12 col-xl-8 h2 text-center text-primary pt-3">User Profile</h1>
+            <br>
+                <!-- Start Edit Profile Form -->
+                <div class="col-lg-12">
+                    <form id="editprofile" class="contact-form row" method="post" action="#" role="form">
+    
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-floating">
+                                <h6>Name</h6><input type="text" class="form-control form-control-lg light-300" id="floatingname" name="inputname" value="<?php echo $_SESSION['name'];>"required>
+                            </div>
+                        </div><!-- End Name -->
+    
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-floating">
+                                <h6>IC Number</h6><input type="text" class="form-control form-control-lg light-300" id="floatingicnum" name="inputicnum" value="<?php echo $_SESSION['icNum'];>" required>
+                            </div>
+                        </div><!-- End IC Number -->
+                        
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-floating">
+                                <h6>Email</h6><input type="text" class="form-control form-control-lg light-300" id="floatingemail" name="inputemail" value="<?php echo $_SESSION['email'];>" required>
+                            </div>
+                        </div><!-- End Email -->
+    
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-floating">
+                                <h6>Phone Number</h6><input type="text" class="form-control form-control-lg light-300" id="floatingphone" name="inputphone" value="<?php echo $_SESSION['phoneNum'];>" required>
+                            </div>
+                        </div><!-- End Phone -->
 
-    <!-- stop editing section -->
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-floating">
+                                <h6>Password</h6><input type="password" class="form-control form-control-lg light-300" id="floatingpw" name="inputpw" value="<?php echo $_SESSION['pw'];>" required>
+                            </div>
+                        </div><!-- End Password -->
 
+                        <div class="col-lg-6 mb-4">
+                            <div class="form-floating">
+                                <h6>Age</h6><input type="text" class="form-control form-control-lg light-300" id="floatingage" name="inputage" value="<?php echo $_SESSION['age'];>" required>
+                            </div>
+                        </div><!-- End Age -->
+
+                        <div class="col-md-12 col-12 m-auto text-end">
+                            <button type="submit" class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Save Changes</button>
+                        </div>
+                    </form>
+
+                    <script>
+                        $(document).ready(function() {
+                          $("#editprofile").submit(function(event) {
+                            event.preventDefault(); 
+
+                            $.ajax({
+                              type: "POST",
+                              url: "editprofile.php", 
+                              data: $(this).serialize(), 
+                              success: function(response) {
+                                // Handle server response,
+                                console.log(response);
+                    
+                                // Redirect to webpage 
+                                window.location.href = "userprofile.html";
+                              },
+                              error: function(error) {
+                                // Handle error
+                                console.error(error);
+                              }
+                            });
+                          });
+                        });
+                      </script>
+                </div>
+                
+                <!-- End Edit Profile Form -->
+
+            </div>
+        </section>
+        <!-- End Profile Page -->
+    
+        <!-- stop editing section -->
     <!-- Start Footer -->
     <footer class="bg-secondary pt-4">
         <div class="container">
@@ -102,7 +213,7 @@
                 <div class="col-lg-3 col-12 align-left">
                     <a class="navbar-brand" href="index.html">
                         <i class='bx bx-buildings bx-sm text-light'></i>
-                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600"> Marathon</span>
+                        <span class="text-light h5">Fun</span><span class="text-light h5 semi-bold-600">Run</span>
                     </a>
                     <p class="text-light my-lg-4 my-2">
                         Get ready for a day of pure joy at our Fun Run! Picture smiling faces, vibrant costumes, and
@@ -148,18 +259,48 @@
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="landing.html">About Us</a>
+                                    class="text-decoration-none text-light py-1" href="landing.html/#about">About Us</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="category.html">Category</a>
+                                    class="text-decoration-none text-light py-1" href="">Category</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="contact.html">Contact Us</a>
+                                    class="text-decoration-none text-light py-1" href="">Contact Us</a>
                             </li>
                         </ul>
                 </div>
+
+                <!-- <div class="col-lg-3 col-md-4 my-sm-0 mt-4">
+                    <h2 class="h4 pb-lg-3 text-light light-300">Our Works</h2>
+                    <ul class="list-unstyled text-light light-300">
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Branding</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Business</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Marketing</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Social Media</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Digital Solution</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Graphic</a>
+                        </li>
+                    </ul>
+                </div> -->
 
             </div>
         </div>

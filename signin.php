@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="assets/css/templatemo.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/sign-in.css">
+
 
     <style>
         .navbar .register {
@@ -44,6 +46,18 @@
             flex: 0 0 auto;
             width: fit-content;
         }
+
+        .form-signin {
+            min-height: 90vh;
+        }
+
+        .form-placement {
+            margin-top: 30%;
+        }
+
+        #error {
+            color: tomato;
+        }
     </style>
 
 </head>
@@ -70,7 +84,8 @@
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">About Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html#about">About
+                                Us</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
@@ -82,8 +97,25 @@
                 </div>
                 <div class="navbar align-self-center d-flex">
                     <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 signin" href="">Sign In</a>
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 register " href="">Register</a>
+                    <script>
+                        if (user == null) {
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>")
+                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>")
+                        }
+                    </script>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <script>
+                        const onSignOut = () => {
+                            window.sessionStorage.removeItem("user");
+                            window.location.href = "index.html";
+                        }
+                        if (user) {
+                            document.writeln("<a class=\"nav-link\" href=\"profile.php?ic=" + user + "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>");
+                            document.writeln("<label class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" onclick=onSignOut()>Sign Out</label>")
+
+                        }
+                    </script>
                 </div>
             </div>
         </div>
@@ -91,7 +123,89 @@
     <!-- Close Header -->
 
     <!-- Edit here-->
+    <main class="form-signin w-100 m-auto">
+        <form action="#" method="post" class="form-placement needs-validation">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <div class="form-floating">
+                <input name="ic" type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+                    required>
+                <label for="floatingInput">Identification Number</label>
+            </div>
+            <div class="form-floating">
+                <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                    required>
+                <label for="floatingPassword">Password</label>
+            </div>
+            <div id="error" class=""></div>
 
+            <div class="form-check text-start my-3">
+                <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Remember me
+                </label>
+            </div>
+            <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
+        </form>
+    </main>
+    <!-- <script>
+        document.getElementById("floatingPassword").addEventListener("change", ()=>{
+            document.getElementById("floatingPassword").classList.remove("is-invalid");
+        })
+    </script> -->
+    <!-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="assets/js/form-validation.js"></script>
+    <script src="assets/js/validate.js"></script>
+    <?php
+    include('connect.php');
+
+    if (isset($_POST['ic']) && isset($_POST['password'])) {
+        $ic = $_POST["ic"];
+        $password = $_POST["password"];
+        $sql = "SELECT * FROM participants WHERE ic='$ic'";
+        $result = mysqli_query($con, $sql);
+        $user = mysqli_fetch_array($result);
+
+        if (isset($ic)) {
+            if ($ic == $user["ic"]) {
+                if ($password == $user["password"]) {
+                    echo "
+                <script>
+                test();
+                const user = \"$user[ic]\";
+                window.sessionStorage.setItem(\"user\", user)
+                window.location.href = \"index.html\";
+                </script>
+                ";
+                    // $_SESSION["ic"] = $user["ic"];
+                    // header('location: index.html');
+                } else {
+                    echo "
+            <script>
+                console.log(\"error\");
+                document.getElementById(\"floatingInput\").value = \"$ic\";
+                document.getElementById(\"error\").innerHTML = \"You have entered the wrong password.\";
+                document.getElementById(\"floatingPassword\").classList.add(\"is-invalid\");
+                document.getElementById(\"floatingPassword\").addEventListener(\"change\", (e)=>{
+                    document.getElementById(\"error\").innerHTML = \"\";
+                    document.getElementById(\"floatingPassword\").classList.remove(\"is-invalid\");
+                })               
+            </script>          
+            ";
+                }
+            } else {
+                echo "
+            <script>
+                console.log(\"error\");
+                document.getElementById(\"error\").innerHTML = \"You're not registered yet. Register here\";
+            </script>
+            ";
+            }
+        } else {
+            echo "";
+        }
+    }
+    ?>
     <!-- stop editing section -->
 
     <!-- Start Footer -->
@@ -102,7 +216,8 @@
                 <div class="col-lg-3 col-12 align-left">
                     <a class="navbar-brand" href="index.html">
                         <i class='bx bx-buildings bx-sm text-light'></i>
-                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600"> Marathon</span>
+                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600">
+                            Marathon</span>
                     </a>
                     <p class="text-light my-lg-4 my-2">
                         Get ready for a day of pure joy at our Fun Run! Picture smiling faces, vibrant costumes, and
@@ -144,11 +259,11 @@
                         <ul class="list-unstyled text-light light-300">
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light" href="">Home</a>
+                                    class="text-decoration-none text-light" href="index.html">Home</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="landing.html">About Us</a>
+                                    class="text-decoration-none text-light py-1" href="index.html#about">About Us</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
@@ -160,10 +275,8 @@
                             </li>
                         </ul>
                 </div>
-
             </div>
         </div>
-
         <div class="w-100 bg-primary py-3">
             <div class="container">
                 <div class="row pt-2">
@@ -175,11 +288,8 @@
                 </div>
             </div>
         </div>
-
     </footer>
     <!-- End Footer -->
-
-
     <!-- Bootstrap -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <!-- Load jQuery require for isotope -->
@@ -211,7 +321,6 @@
     <script src="assets/js/templatemo.js"></script>
     <!-- Custom -->
     <script src="assets/js/custom.js"></script>
-
 </body>
 
 </html>
