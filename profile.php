@@ -104,7 +104,7 @@
                     if (!isset($_SESSION['id'])) {
 
                         echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>";
-                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>";
+                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"register.php\">Register</a>";
                     }
                     ?>
                 </div>
@@ -243,7 +243,7 @@
                                         ?>
                                     </td>
                                     <td class="col-2 text-center p-2"><a class="btn btn-primary rounded-pill"
-                                            href="<?php echo '/FunRun/delete-category.php?ic=' . $participant . '&id=' . $category['id']; ?>">Unregister</a>
+                                            href="<?php echo '/FunRun/delete-category.php?ic=' . $participant . '&id=' . $category['id'].'&category='.$category['category_id']; ?>">Unregister</a>
                                     </td>
                                 </tr>
                             </table>

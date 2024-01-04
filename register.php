@@ -50,10 +50,16 @@
 
 <body>
     <!-- Header -->
-    
+    <?php
+    include('connect.php');
+
+    session_start();
+
+    ?>
+    <!-- Header -->
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand h1" href="index.html">
+            <a class="navbar-brand h1" href="index.php">
                 <i class='bx bx-buildings bx-sm text-dark'></i>
                 <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
             </a>
@@ -68,13 +74,14 @@
                 <div class="flex-fill mx-xl-5 mb-2 ">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">About Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php#about">About
+                                Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.php">Category</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
@@ -82,9 +89,23 @@
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a>
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 signin" href="">Sign In</a>
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 register " href="">Register</a>
+                    <?php
+
+                    if (!isset($_SESSION['id'])) {
+
+                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>";
+                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"register.php\">Register</a>";
+                    }
+                    ?>
+                </div>
+                <div class="navbar align-self-center d-flex">
+                    <?php
+                    if (isset($_SESSION['id'])) {
+                        $user = $_SESSION['id'];
+                        echo "<a class=\"nav-link\" href=\"profile.php?ic=" . $user . "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>";
+                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" href='signout.php'>Sign Out</a>";
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -94,7 +115,7 @@
 
     <!-- Edit here-->
     <!--<div class="bg-danger p-2 text-dark bg-opacity-25">-->
-    
+
     <form novalidate class="needs-validation" method="POST" action="#">
         <div class="profile col-lg-8 py-5 d-flex flex-column align-items-center mx-auto">
             <h1 class="h3 mb-3 fw-normal text-xl-center">Register Here</h1>
@@ -111,8 +132,8 @@
 
             <div class="col-lg-6 mb-4">
                 <div class="form-floating">
-                    <input type="text" class="form-control form-control-lg light-300" id="floatingic"
-                        name="inputic" placeholder="Identification Number" required>
+                    <input type="text" class="form-control form-control-lg light-300" id="floatingic" name="inputic"
+                        placeholder="Identification Number" required>
                     <label for="floatingic light-300">Identification Number</label>
                     <div class="invalid-feedback">
                         Please enter valid identification number.
@@ -155,10 +176,10 @@
             </div><!-- End Retype Password -->
 
             <div class="col-lg-6 mb-4">
-            <div class="form-floating">
-                <input type="number" id="typeNumber" class="form-control" placeholder="Age" required>
-                <label for="typeNumber">Age</label>
-            </div>
+                <div class="form-floating">
+                    <input type="number" id="typeNumber" class="form-control" placeholder="Age" required>
+                    <label for="typeNumber">Age</label>
+                </div>
             </div><!-- End Select Age -->
 
             <div class="col-lg-6 mb-4">
@@ -179,7 +200,7 @@
                     <label for="floatingaddress light-300">Address</label>
                 </div>
             </div><!-- End Input Address -->
-        
+
             <div class="col-md-12 col-lg-6 m-auto text-start">
                 <button type="submit"
                     class="btn btn-secondary rounded-pill px-md-5 px-4 py-2 radius-0 text-light light-300">Register
@@ -187,7 +208,7 @@
             </div>
         </div>
     </form>
-    
+
     <!-- stop editing section -->
 
     <!-- Start Footer -->
@@ -309,14 +330,14 @@
         const confirmPassword = document.getElementById("confirmPassword");
 
         const validatePassword = () => {
-            if(
-                newPassword.value ==! "" &&
-                confirmPassword.value ==! "" &&
-                newPassword.value ==! confirmPassword.value
-            ){
+            if (
+                newPassword.value == ! "" &&
+                confirmPassword.value == ! "" &&
+                newPassword.value == !confirmPassword.value
+            ) {
                 confirmPassword.setCustomValidity("Passwords do not match.");
-                
-            }else{
+
+            } else {
                 confirmPassword.setCustomValidity("");
             }
         };

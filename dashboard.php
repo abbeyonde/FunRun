@@ -126,7 +126,7 @@
                                 <th scope="col">Email</th>
                                 <th scope="col">Registered Event</th>
                                 <th scope="col">Paid</th>
-                                <th scope="col">Edit</th>
+                                <th scope="col">View</th>
                                 <th scope="col">Delete</th>
                             </tr>
                         </thead>
@@ -141,7 +141,7 @@
                                 <td>'.$row['email'].'</td>
                                 <td>'.$row['category_name'].'</td>
                                 <td>'.$row['paid'].'</td>
-                                <td><button class="btn btn-primary" data-toggle="modal" data-target="#editModal1">Edit</button></td>
+                                <td><a href="view-participant.php?id='.$row['id'].'" class="btn btn-primary" data-toggle="modal" data-target="#editModal1">View</a></td>
                                 <td><a href="delete-participant.php?id='.$row['id'].'" class="btn btn-danger" style="color: white" >Delete</a></td>
                             </tr>
                             ';

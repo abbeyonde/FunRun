@@ -3,12 +3,25 @@ include("connect.php");
 include("participantsession.php");
 
 $id = $_GET['id'];
+$category_id = $_GET['category'];
 
 $sql = "DELETE FROM registered_participants WHERE id=$id";
 $result = mysqli_query($con, $sql);
 // $row = mysqli_fetch_array($result);
 if ($result) {
-    header("location: profile.php?ic='$user'");
+    $sql_check = "SELECT current_participants FROM categories WHERE id=$category_id";
+    $result_check = mysqli_query($con, $sql_check);
+    $total_p = mysqli_fetch_array($result_check);
+    // echo "$total_p[current_participants]";
+    $new_p = $total_p["current_participants"] - 1;
+    // echo "$new_p";
+    $sql_update = "UPDATE categories SET current_participants=$new_p WHERE id=$category_id";
+    $result_update = mysqli_query($con, $sql_update);
+    if ($result_update) {
+        header("location: profile.php?ic='$user'");
+    } else {
+        echo "ERROR: Fail to update database";
+    }
 } else {
     ?>
     <!DOCTYPE html>
@@ -66,16 +79,17 @@ if ($result) {
                 text-align: justify;
             }
         </style>
-        <script>
-            const user = window.sessionStorage.getItem("user");
-        </script>
     </head>
 
     <body>
         <!-- Header -->
+        <?php
+        session_start();
+        ?>
+        <!-- Header -->
         <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
             <div class="container d-flex justify-content-between align-items-center">
-                <a class="navbar-brand h1" href="index.html">
+                <a class="navbar-brand h1" href="index.php">
                     <i class='bx bx-buildings bx-sm text-dark'></i>
                     <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
                 </a>
@@ -90,13 +104,14 @@ if ($result) {
                     <div class="flex-fill mx-xl-5 mb-2 ">
                         <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
                             <li class="nav-item">
-                                <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
+                                <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn-outline-primary rounded-pill px-3" href="#about">About Us</a>
+                                <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php#about">About
+                                    Us</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
+                                <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.php">Category</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
@@ -104,26 +119,23 @@ if ($result) {
                         </ul>
                     </div>
                     <div class="navbar align-self-center d-flex">
-                        <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
-                        <script>
-                            if (user == null) {
-                                document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>")
-                                document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>")
-                            }
-                        </script>
+                        <?php
+
+                        if (!isset($_SESSION['id'])) {
+
+                            echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>";
+                            echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"register.php\">Register</a>";
+                        }
+                        ?>
                     </div>
                     <div class="navbar align-self-center d-flex">
-                        <script>
-                            const onSignOut = () => {
-                                window.sessionStorage.removeItem("user");
-                                window.location.href = "index.html";
-                            }
-                            if (user) {
-                                document.writeln("<a class=\"nav-link\" href=\"profile.php?ic=" + user + "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>");
-                                document.writeln("<label class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" onclick=onSignOut()>Sign Out</label>")
-
-                            }
-                        </script>
+                        <?php
+                        if (isset($_SESSION['id'])) {
+                            $user = $_SESSION['id'];
+                            echo "<a class=\"nav-link\" href=\"profile.php?ic=" . $user . "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>";
+                            echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" href='signout.php'>Sign Out</a>";
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
