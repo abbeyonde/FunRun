@@ -107,21 +107,27 @@
             }
         }
     </style>
+</head>
+
+<body>
+    <?php
+    include('connect.php');
+
+    session_start();
+
+    ?>
     <script>
-        const user = window.sessionStorage.getItem("user");
+        const user = '<?php echo $_SESSION['id']; ?>';
 
         const addCategory = (category) => {
             document.writeln('<a href="/FunRun/payment.php?ic=' + user + '&category=' + category + '" class="btn rounded-pill px-4 btn-outline-primary mb-3">');
 
         }
     </script>
-</head>
-
-<body>
     <!-- Header -->
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand h1" href="index.html">
+            <a class="navbar-brand h1" href="index.php">
                 <i class='bx bx-buildings bx-sm text-dark'></i>
                 <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
             </a>
@@ -136,14 +142,14 @@
                 <div class="flex-fill mx-xl-5 mb-2 ">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html#about">About
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php#about">About
                                 Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.php">Category</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
@@ -151,26 +157,23 @@
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
-                    <script>
-                        if (user == null) {
-                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>")
-                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>")
-                        }
-                    </script>
+                    <?php
+
+                    if (!isset($_SESSION['id'])) {
+
+                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>";
+                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>";
+                    }
+                    ?>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <script>
-                        const onSignOut = () => {
-                            window.sessionStorage.removeItem("user");
-                            window.location.href = "index.html";
-                        }
-                        if (user) {
-                            document.writeln("<a class=\"nav-link\" href=\"profile.php?ic=" + user + "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>");
-                            document.writeln("<label class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" onclick=onSignOut()>Sign Out</label>")
-
-                        }
-                    </script>
+                    <?php
+                    if (isset($_SESSION['id'])) {
+                        $user = $_SESSION['id'];
+                        echo "<a class=\"nav-link\" href=\"profile.php?ic=" . $user . "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>";
+                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" href='signout.php'>Sign Out</a>";
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -318,18 +321,42 @@
                 Register</a>
             </div>
         </div>
+        <?php
+        // echo '
+        // <script>
+        // function togglePopup1() {
+        //     if (' . $_SESSION['id'] . ') {
+        //         document.getElementById("popup-1").classList.toggle("active");
+        //     }
+        //     else {
+        //         window.location.href = "signin.php";
+        //     }
 
-        <script>
+        // }
+        // </script>
+        // ';
+        if (isset($_SESSION['id'])) {
+            echo '
+            <script>
             function togglePopup1() {
-                if (user) {
-                    document.getElementById("popup-1").classList.toggle("active");
-                }
-                else {
-                    window.location.href = 'signin.php';
-                }
-
+                document.getElementById("popup-1").classList.toggle("active");
             }
-        </script>
+            </script>
+            ';
+        }
+        else{
+            echo '
+            <script>
+            function togglePopup1() {
+                    window.location.href = "signin.php";
+            }
+            </script>
+            ';
+
+        }
+        ?>
+
+
         <!--End Popup Window-->
 
         <!-- Start Pricing Horizontal -->
@@ -412,16 +439,27 @@
             </div>
         </div>
 
-        <script>
+        <?php
+        if (isset($_SESSION['id'])) {
+            echo '
+            <script>
             function togglePopup2() {
-                if (user) {
-                    document.getElementById("popup-2").classList.toggle("active");
-                }
-                else {
-                    window.location.href = 'signin.php';
-                }
+                document.getElementById("popup-2").classList.toggle("active");
             }
-        </script>
+            </script>
+            ';
+        }
+        else{
+            echo '
+            <script>
+            function togglePopup2() {
+                    window.location.href = "signin.php";
+            }
+            </script>
+            ';
+
+        }
+        ?>
         <!--End Popup Window-->
 
         <!-- Start Pricing Horizontal -->
@@ -503,17 +541,27 @@
             </div>
         </div>
 
-        <script>
+        <?php
+        if (isset($_SESSION['id'])) {
+            echo '
+            <script>
             function togglePopup3() {
-                if (user) {
-                    document.getElementById("popup-3").classList.toggle("active");
-                }
-                else {
-                    window.location.href = 'signin.php';
-                }
+                document.getElementById("popup-3").classList.toggle("active");
             }
+            </script>
+            ';
+        }
+        else{
+            echo '
+            <script>
+            function togglePopup3() {
+                    window.location.href = "signin.php";
+            }
+            </script>
+            ';
 
-        </script>
+        }
+        ?>
         <!--End Popup Window-->
 
 
@@ -596,16 +644,27 @@
             </div>
         </div>
 
-        <script>
+        <?php
+        if (isset($_SESSION['id'])) {
+            echo '
+            <script>
             function togglePopup4() {
-                if (user) {
-                    document.getElementById("popup-4").classList.toggle("active");
-                }
-                else {
-                    window.location.href = 'signin.php';
-                }
+                document.getElementById("popup-4").classList.toggle("active");
             }
-        </script>
+            </script>
+            ';
+        }
+        else{
+            echo '
+            <script>
+            function togglePopup4() {
+                    window.location.href = "signin.php";
+            }
+            </script>
+            ';
+
+        }
+        ?>
         <!--End Popup Window-->
         <hr class="mt-5">
 
@@ -770,7 +829,7 @@
             <div class="row py-4 d-flex justify-content-lg-around">
 
                 <div class="col-lg-3 col-12 align-left">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="index.php">
                         <i class='bx bx-buildings bx-sm text-light'></i>
                         <span class="text-light h5">Fun</span><span class="text-light h5 semi-bold-600">Run</span>
                     </a>
@@ -814,15 +873,15 @@
                         <ul class="list-unstyled text-light light-300">
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light" href="index.html">Home</a>
+                                    class="text-decoration-none text-light" href="index.php">Home</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="index.html#about">About Us</a>
+                                    class="text-decoration-none text-light py-1" href="index.php#about">About Us</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="category.html">Category</a>
+                                    class="text-decoration-none text-light py-1" href="category.php">Category</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a

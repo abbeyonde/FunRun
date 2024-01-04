@@ -87,16 +87,16 @@
   include('participantsession.php');
   $category = $_GET['category'];
 
-  $sql = "SELECT * FROM registered_participants WHERE participant_ic=$user AND paid=1";
+  $sql = "SELECT * FROM registered_participants WHERE participant_ic=$participant AND paid=1";
   $result = mysqli_query($con, $sql);
   $row = mysqli_fetch_array($result);
 
   ?>
 
-  <!-- Header -->
+  <!-- Header
   <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
     <div class="container d-flex justify-content-between align-items-center">
-      <a class="navbar-brand h1" href="index.html">
+      <a class="navbar-brand h1" href="index.php">
         <i class='bx bx-buildings bx-sm text-dark'></i>
         <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
       </a>
@@ -111,10 +111,10 @@
         <div class="flex-fill mx-xl-5 mb-2 ">
           <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
             <li class="nav-item">
-              <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
+              <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html#about">About
+              <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php#about">About
                 Us</a>
             </li>
             <li class="nav-item">
@@ -126,7 +126,7 @@
           </ul>
         </div>
         <div class="navbar align-self-center d-flex">
-          <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
+           <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> ->
           <script>
             if (user == null) {
               document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>")
@@ -138,7 +138,7 @@
           <script>
             const onSignOut = () => {
               window.sessionStorage.removeItem("user");
-              window.location.href = "index.html";
+              window.location.href = "index.php";
             }
             if (user) {
               document.writeln("<a class=\"nav-link\" href=\"profile.php?ic=" + user + "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>");
@@ -150,7 +150,7 @@
       </div>
     </div>
   </nav>
-  <!-- Close Header -->
+  Close Header -->
   <?php
   if (!isset($row)) {
     ?>
@@ -279,7 +279,7 @@
               <div class="p-3 text-center">
                 <!--Add function to the button pls-->
                 <!-- <button class="btn btn-primary mx-auto my-2"> -->
-                <a class="btn btn-primary mx-auto my-2" href=<?php echo '"addCategory.php?ic=' . $user . '&category=' . $category . '&paid=1" class="btn rounded-pill px-4 btn-outline-primary mb-3"'; ?>>
+                <a class="btn btn-primary mx-auto my-2" href=<?php echo '"addCategory.php?ic=' . $participant . '&category=' . $category . '&paid=1" class="btn rounded-pill px-4 btn-outline-primary mb-3"'; ?>>
                   Create Payment
                 </a>
                 <!-- </button> -->
@@ -287,7 +287,7 @@
                   <!--Add link if u want-->
                   <a href="#">Have a promo code?</a>
                 </div>
-                <a class="btn btn-primary mx-auto my-2 rounded-pill pay-later" href=<?php echo '"addCategory.php?ic=' . $user . '&category=' . $category .'&paid=0" class="btn rounded-pill px-4 btn-outline-primary mb-3"'; ?>>
+                <a class="btn btn-primary mx-auto my-2 rounded-pill pay-later" href=<?php echo '"addCategory.php?ic=' . $participant . '&category=' . $category .'&paid=0" class="btn rounded-pill px-4 btn-outline-primary mb-3"'; ?>>
                 Pay Later
                 </a>
               </div>
@@ -312,7 +312,7 @@
       <div class="container">
         <div class="row py-4 d-flex justify-content-lg-around">
           <div class="col-lg-3 col-12 align-left">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.php">
               <i class="bx bx-buildings bx-sm text-light"></i>
               <span class="text-light h5">Fun</span
               ><span class="text-light h5 semi-bold-600">Run</span>

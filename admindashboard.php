@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    <title>FunRun</title>
+    <title>UNI10Marathon</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
     <!-- Load Require CSS -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
     <!-- Font CSS -->
     <link href="assets/css/boxicon.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
@@ -49,13 +49,25 @@
         bg-red{
             background-color: red;
         }
-
-
     </style>
 
 </head>
 
 <body>
+<?php
+    include("connect.php");
+
+    
+    // if(isset($_POST['id']) && isset($_POST['role'])){
+    $sql = "SELECT participants.*, categories.category_name, rp.paid 
+    FROM participants 
+    LEFT JOIN registered_participants rp 
+    ON participants.ic=rp.participant_ic 
+    LEFT JOIN categories 
+    ON rp.category_id=categories.id;";
+    $result = mysqli_query($con,$sql);
+
+?>
     <!-- Header -->
     <!-- <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container d-flex justify-content-between align-items-center">
@@ -92,11 +104,11 @@
     <!-- Close Header -->
 
     <!-- Edit here-->
-    <div class="container py-5">
+    <div class="container py-5 min-vh-100">
 
     <h3 class="h3 semi-bold-600 text-left mt-2 mx-0">Admin Dashboard</h3>
 
-    <div class="container-fluid">
+    <div class="container-fluid mx-auto">
         <div class="row justify-content-center">
             <main class="col-md-9 col-lg-10 px-md-4">
                 <h2 class="my-3">Participants</h2>
@@ -104,55 +116,38 @@
                     <input class="form-control me-2" type="search" placeholder="Search ID" />
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <div class="table-responsive">
-                    <table class="table table-striped">
+                <div class="col-12">
+                    <table class="table table-responsive table-striped ">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
+                                <th scope="col">Full Name</th>
+                                <th scope="col">IC Number</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Registered Event</th>
+                                <th scope="col">Paid</th>
                                 <th scope="col">Edit</th>
                                 <th scope="col">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                            while( $row = mysqli_fetch_array($result) ){
+                                echo '
                             <tr>
-                                <td>1</td>
-                                <td>Haziq</td>
-                                <td>Iskander</td>
-                                <td>wanturtle@gmail.com</td>
-                                <td>Full Marathon</td>
+                                <td>'.$row['id'].'</td>
+                                <td>'.$row['full_name'].'</td>
+                                <td>'.$row['ic'].'</td>
+                                <td>'.$row['email'].'</td>
+                                <td>'.$row['category_name'].'</td>
+                                <td>'.$row['paid'].'</td>
                                 <td><button class="btn btn-primary" data-toggle="modal" data-target="#editModal1">Edit</button></td>
-                                <td><button class="btn btn-danger" style="color: white" >Delete</button></td>
+                                <td><a href="delete-participant.php?id='.$row['id'].'" class="btn btn-danger" style="color: white" >Delete</a></td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Diya</td>
-                                <td>Opie</td>
-                                <td>namadiadiya@gmail.com</td>
-                                <td>Half Marathon</td>
-                                <td><button class="btn btn-primary" data-toggle="modal" data-target="#editModal2">Edit</button></td>
-                                <td><button class="btn btn-danger" style="color: white;">Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Amak</td>
-                                <td>Nabil</td>
-                                <td>amaknabil@gmail.com</td>
-                                <td>5km Fun Run</td>
-                                <td><button class="btn btn-primary" data-toggle="modal" data-target="#editModal3">Edit</button></td>
-                                <td><button class="btn btn-danger" style="color: white">Delete</button></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Raja</td>
-                                <td>Mutusamy</td>
-                                <td>mutusingh@gmail.com</td>
-                                <td>3km Charity Run</td>
-                                <td><button class="btn btn-primary" data-toggle="modal" data-target="#editModal4">Edit</button></td>
-                                <td><button class="btn btn-danger" style="color: white">Delete</button></td>
+                            ';
+
+                            }
+                            ?>
                             </tr>
                         </tbody>
                     </table>
@@ -183,13 +178,13 @@
 
     <!-- Start Footer -->
     <footer class="bg-secondary pt-4">
-        <div class="container">
+        <div class="container w-100">
             <div class="row py-4 d-flex justify-content-lg-around">
 
                 <div class="col-lg-3 col-12 align-left">
                     <a class="navbar-brand" href="index.html">
                         <i class='bx bx-buildings bx-sm text-light'></i>
-                        <span class="text-light h5">Fun</span><span class="text-light h5 semi-bold-600">Run</span>
+                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600">Marathon</span>
                     </a>
                     <p class="text-light my-lg-4 my-2">
                         Get ready for a day of pure joy at our Fun Run! Picture smiling faces, vibrant costumes, and
@@ -328,6 +323,17 @@
     <script src="assets/js/templatemo.js"></script>
     <!-- Custom -->
     <script src="assets/js/custom.js"></script>
+    <?php 
+    // } 
+    // else{
+    //     echo '<div class="container">';
+    //     echo '<h1 class="mx-auto mt-5 mb-2 text-center">Authorization Fail</h1>';
+    //     echo '<p class="mx-auto text-center">You are not allowed to access this page.</p>';
+    //     echo '<p class="col-12 mx-auto text-center"><a href="index.php">Home</a></p>';
+    //     echo '</div>';
+
+    // }
+    ?>
 
 </body>
 

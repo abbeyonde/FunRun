@@ -63,10 +63,16 @@
 </head>
 
 <body>
+    <?php
+    include('connect.php');
+
+    session_start();
+
+    ?>
     <!-- Header -->
     <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand h1" href="index.html">
+            <a class="navbar-brand h1" href="index.php">
                 <i class='bx bx-buildings bx-sm text-dark'></i>
                 <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
             </a>
@@ -81,14 +87,14 @@
                 <div class="flex-fill mx-xl-5 mb-2 ">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html#about">About
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php#about">About
                                 Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.php">Category</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
@@ -96,26 +102,23 @@
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
-                    <script>
-                        if (user == null) {
-                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>")
-                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>")
-                        }
-                    </script>
+                    <?php
+
+                    if (!isset($_SESSION['id'])) {
+                        
+                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>";
+                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>";
+                    }
+                    ?>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <script>
-                        const onSignOut = () => {
-                            window.sessionStorage.removeItem("user");
-                            window.location.href = "index.html";
-                        }
-                        if (user) {
-                            document.writeln("<a class=\"nav-link\" href=\"profile.php?ic=" + user + "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>");
-                            document.writeln("<label class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" onclick=onSignOut()>Sign Out</label>")
-
-                        }
-                    </script>
+                    <?php
+                    if (isset($_SESSION['id'])) {
+                        $user = $_SESSION['id'];
+                        echo "<a class=\"nav-link\" href=\"profile.php?ic=". $user."\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>";
+                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" href='signout.php'>Sign Out</a>";
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -124,7 +127,7 @@
 
     <!-- Edit here-->
     <main class="form-signin w-100 m-auto">
-        <form action="#" method="post" class="form-placement needs-validation">
+        <form action="signin.php" method="post" class="form-placement needs-validation">
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
             <div class="form-floating">
                 <input name="ic" type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
@@ -157,7 +160,6 @@
     <script src="assets/js/form-validation.js"></script>
     <script src="assets/js/validate.js"></script>
     <?php
-    include('connect.php');
 
     if (isset($_POST['ic']) && isset($_POST['password'])) {
         $ic = $_POST["ic"];
@@ -169,16 +171,20 @@
         if (isset($ic)) {
             if ($ic == $user["ic"]) {
                 if ($password == $user["password"]) {
-                    echo "
-                <script>
-                test();
-                const user = \"$user[ic]\";
-                window.sessionStorage.setItem(\"user\", user)
-                window.location.href = \"index.html\";
-                </script>
-                ";
-                    // $_SESSION["ic"] = $user["ic"];
-                    // header('location: index.html');
+                //     echo "
+                // <script>
+                // test();
+                // const user = \"$user[ic]\";
+                // window.sessionStorage.setItem(\"user\", user)
+                // window.location.href = \"index.php\";
+                // </script>
+                // ";
+
+                $_SESSION["id"] = $user["ic"];
+                echo '<script>
+                window.location.href ="index.php";
+                </script>';
+
                 } else {
                     echo "
             <script>
@@ -214,7 +220,7 @@
             <div class="row py-4 d-flex justify-content-lg-around">
 
                 <div class="col-lg-3 col-12 align-left">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="index.php">
                         <i class='bx bx-buildings bx-sm text-light'></i>
                         <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600">
                             Marathon</span>
@@ -259,15 +265,15 @@
                         <ul class="list-unstyled text-light light-300">
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light" href="index.html">Home</a>
+                                    class="text-decoration-none text-light" href="index.php">Home</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="index.html#about">About Us</a>
+                                    class="text-decoration-none text-light py-1" href="index.php#about">About Us</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="category.html">Category</a>
+                                    class="text-decoration-none text-light py-1" href="category.php">Category</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
