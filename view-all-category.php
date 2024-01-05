@@ -16,22 +16,21 @@
     <link rel="stylesheet" href="assets/css/templatemo.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/custom.css">
-    <link rel="stylesheet" href="assets/css/sign-in.css">
 
 
     <style>
         .navbar .register {
-            background-color: #db3a34;
+            background-color: #6266ea;
             color: white;
         }
 
         .navbar .register:hover {
-            background-color: #992825;
+            background-color: #40439e;
         }
 
         .navbar .signin:hover {
             text-decoration: underline;
-            color: #db3a34;
+            color: #6266ea;
             background-color: transparent;
         }
 
@@ -47,34 +46,29 @@
             width: fit-content;
         }
 
-        .form-signin {
-            min-height: 90vh;
-        }
-
-        .form-placement {
-            margin-top: 30%;
-        }
-
-        #error {
-            color: tomato;
+        bg-red{
+            background-color: red;
         }
     </style>
 
 </head>
 
 <body>
-    <?php
-    include('connect.php');
+<?php
+    include("connect.php");
 
-    session_start();
+    
+    // if(isset($_POST['id']) && isset($_POST['role'])){
+    $sql = "SELECT * FROM categories";
+    $result = mysqli_query($con,$sql);
 
-    ?>
+?>
     <!-- Header -->
-    <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
+    <!-- <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
         <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand h1" href="index.php">
+            <a class="navbar-brand h1" href="index.html">
                 <i class='bx bx-buildings bx-sm text-dark'></i>
-                <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
+                <span class="text-dark h4">Fun</span><span class="text-primary h4">Run</span>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -87,144 +81,100 @@
                 <div class="flex-fill mx-xl-5 mb-2 ">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php">Home</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php#about">About
-                                Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.php">Category</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">Category</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
+                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">Contact Us</a>
                         </li>
                     </ul>
-                </div>
-                <div class="navbar align-self-center d-flex">
-                    <?php
-
-                    if (!isset($_SESSION['id'])) {
-                        
-                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>";
-                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"register.php\">Register</a>";
-                    }
-                    ?>
-                </div>
-                <div class="navbar align-self-center d-flex">
-                    <?php
-                    if (isset($_SESSION['id'])) {
-                        $user = $_SESSION['id'];
-                        echo "<a class=\"nav-link\" href=\"profile.php?ic=". $user."\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>";
-                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" href='signout.php'>Sign Out</a>";
-                    }
-                    ?>
-                </div>
-            </div>
-        </div>
-    </nav>
+                </div> -->
+                
+                
     <!-- Close Header -->
 
     <!-- Edit here-->
-    <main class="form-signin w-100 m-auto">
-        <form action="signin.php" method="post" class="form-placement needs-validation">
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-            <div class="form-floating">
-                <input name="ic" type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
-                    required>
-                <label for="floatingInput">Identification Number</label>
-            </div>
-            <div class="form-floating">
-                <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                    required>
-                <label for="floatingPassword">Password</label>
-            </div>
-            <div id="error" class=""></div>
+    <div class="container py-5 min-vh-100">
 
-            <div class="form-check text-start my-3">
-                <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                    Remember me
-                </label>
-            </div>
-            <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-            <p class="mt-5 mb-3 text-body-secondary">&copy; 2024</p>
-        </form>
-    </main>
-    <!-- <script>
-        document.getElementById("floatingPassword").addEventListener("change", ()=>{
-            document.getElementById("floatingPassword").classList.remove("is-invalid");
-        })
-    </script> -->
-    <!-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script> -->
-    <script src="assets/js/form-validation.js"></script>
-    <script src="assets/js/validate.js"></script>
-    <?php
+    <h3 class="h3 semi-bold-600 text-left mt-2 mx-0">Admin Dashboard</h3>
 
-    if (isset($_POST['ic']) && isset($_POST['password'])) {
-        $ic = $_POST["ic"];
-        $password = $_POST["password"];
-        $sql = "SELECT * FROM participants WHERE ic='$ic'";
-        $result = mysqli_query($con, $sql);
-        $user = mysqli_fetch_array($result);
+    <div class="container-fluid mx-auto">
+        <div class="row justify-content-center">
+            <main class="col-md-9 col-lg-10 px-md-4">
+                <h2 class="my-3">Categories</h2>
+                <form class="d-flex col-3" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search ID" />
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                <div class="col-12">
+                    <table class="table table-responsive table-striped ">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Category Name</th>
+                                <th class="text-center" scope="col">Maximum Quota</th>
+                                <th class="text-center" scope="col">Current Participants</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            while( $row = mysqli_fetch_array($result) ){
+                                echo '
+                            <tr>
+                                <td>'.$row['id'].'</td>
+                                <td>'.$row['category_name'].'</td>
+                                <td class="text-center">'.$row['quota'].'</td>
+                                <td class="text-center">'.$row['current_participants'].'</td>
+                                <td><a href="view-cat-participant.php?id='.$row['id'].'" class="btn btn-primary" data-toggle="modal" data-target="#editModal1">View Participants</a></td>
+                                <td><a href="del-cat.php?id='.$row['id'].'" class="btn btn-danger" style="color: white" >Delete</a></td>
+                            </tr>
+                            ';
 
-        if (isset($ic)) {
-            if ($ic == $user["ic"]) {
-                if ($password == $user["password"]) {
-                //     echo "
-                // <script>
-                // test();
-                // const user = \"$user[ic]\";
-                // window.sessionStorage.setItem(\"user\", user)
-                // window.location.href = \"index.php\";
-                // </script>
-                // ";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
 
-                $_SESSION["id"] = $user["ic"];
-                $_SESSION["index"] = $user["id"];
-                echo '<script>
-                window.location.href ="index.php";
-                </script>';
+    <!-- Edit Participant Modals -->
+    <div class="modal fade" id="editModal1" tabindex="-1" role="dialog" aria-labelledby="editModalLabel1" aria-hidden="true">
+        <!-- Edit participant form goes here -->
+    </div>
 
-                } else {
-                    echo "
-            <script>
-                console.log(\"error\");
-                document.getElementById(\"floatingInput\").value = \"$ic\";
-                document.getElementById(\"error\").innerHTML = \"You have entered the wrong password.\";
-                document.getElementById(\"floatingPassword\").classList.add(\"is-invalid\");
-                document.getElementById(\"floatingPassword\").addEventListener(\"change\", (e)=>{
-                    document.getElementById(\"error\").innerHTML = \"\";
-                    document.getElementById(\"floatingPassword\").classList.remove(\"is-invalid\");
-                })               
-            </script>          
-            ";
-                }
-            } else {
-                echo "
-            <script>
-                console.log(\"error\");
-                document.getElementById(\"error\").innerHTML = \"You're not registered yet. Register here\";
-            </script>
-            ";
-            }
-        } else {
-            echo "";
-        }
-    }
-    ?>
+    <div class="modal fade" id="editModal2" tabindex="-1" role="dialog" aria-labelledby="editModalLabel2" aria-hidden="true">
+        <!-- Edit participant form goes here -->
+    </div>
+
+    <div class="modal fade" id="editModal3" tabindex="-1" role="dialog" aria-labelledby="editModalLabel3" aria-hidden="true">
+        <!-- Edit participant form goes here -->
+    </div>
+
+    <div class="modal fade" id="editModal4" tabindex="-1" role="dialog" aria-labelledby="editModalLabel4" aria-hidden="true">
+        <!-- Edit participant form goes here -->
+    </div>
+
+</div>
     <!-- stop editing section -->
 
     <!-- Start Footer -->
     <footer class="bg-secondary pt-4">
-        <div class="container">
+        <div class="container w-100">
             <div class="row py-4 d-flex justify-content-lg-around">
 
                 <div class="col-lg-3 col-12 align-left">
-                    <a class="navbar-brand" href="index.php">
+                    <a class="navbar-brand" href="index.html">
                         <i class='bx bx-buildings bx-sm text-light'></i>
-                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600">
-                            Marathon</span>
+                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600">Marathon</span>
                     </a>
                     <p class="text-light my-lg-4 my-2">
                         Get ready for a day of pure joy at our Fun Run! Picture smiling faces, vibrant costumes, and
@@ -266,24 +216,56 @@
                         <ul class="list-unstyled text-light light-300">
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light" href="index.php">Home</a>
+                                    class="text-decoration-none text-light" href="">Home</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="index.php#about">About Us</a>
+                                    class="text-decoration-none text-light py-1" href="landing.html/#about">About Us</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="category.php">Category</a>
+                                    class="text-decoration-none text-light py-1" href="">Category</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="contact.html">Contact Us</a>
+                                    class="text-decoration-none text-light py-1" href="">Contact Us</a>
                             </li>
                         </ul>
                 </div>
+
+                <!-- <div class="col-lg-3 col-md-4 my-sm-0 mt-4">
+                    <h2 class="h4 pb-lg-3 text-light light-300">Our Works</h2>
+                    <ul class="list-unstyled text-light light-300">
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Branding</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Business</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Marketing</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Social Media</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Digital Solution</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Graphic</a>
+                        </li>
+                    </ul>
+                </div> -->
+
             </div>
         </div>
+
         <div class="w-100 bg-primary py-3">
             <div class="container">
                 <div class="row pt-2">
@@ -295,8 +277,11 @@
                 </div>
             </div>
         </div>
+
     </footer>
     <!-- End Footer -->
+
+
     <!-- Bootstrap -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <!-- Load jQuery require for isotope -->
@@ -328,6 +313,18 @@
     <script src="assets/js/templatemo.js"></script>
     <!-- Custom -->
     <script src="assets/js/custom.js"></script>
+    <?php 
+    // } 
+    // else{
+    //     echo '<div class="container">';
+    //     echo '<h1 class="mx-auto mt-5 mb-2 text-center">Authorization Fail</h1>';
+    //     echo '<p class="mx-auto text-center">You are not allowed to access this page.</p>';
+    //     echo '<p class="col-12 mx-auto text-center"><a href="index.php">Home</a></p>';
+    //     echo '</div>';
+
+    // }
+    ?>
+
 </body>
 
 </html>

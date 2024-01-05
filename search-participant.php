@@ -56,7 +56,8 @@
 <body>
     <?php
     include("connect.php");
-
+    
+    $filter = $_POST['filter'];
 
     // if(isset($_POST['id']) && isset($_POST['role'])){
     $sql = "SELECT participants.*, categories.category_name, rp.paid 
@@ -64,7 +65,9 @@
     LEFT JOIN registered_participants rp 
     ON participants.ic=rp.participant_ic 
     LEFT JOIN categories 
-    ON rp.category_id=categories.id;";
+    ON rp.category_id=categories.id
+    WHERE participants.full_name LIKE '%$filter%'"; 
+    // -- OR participants.full_name LIKE '%$filter%'";
     $result = mysqli_query($con, $sql);
 
     ?>
@@ -113,7 +116,7 @@
                 <main class="col-md-9 col-lg-10 px-md-4">
                     <h2 class="my-3">Participants</h2>
                     <form action="search-participant.php" method="post" class="d-flex col-3" role="search">
-                        <input name="filter" class="form-control me-2" type="search" placeholder="Search Name" required/>
+                        <input required name="filter" class="form-control me-2" type="search" placeholder="Search Name" value=<?php echo $filter ?> />
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                     <div class="col-12">

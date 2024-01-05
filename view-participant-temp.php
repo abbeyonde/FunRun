@@ -131,49 +131,39 @@
                 <h1 class="col-12 col-xl-6 h2 text-primary pt-3 mx-auto">User Profile</h1>
                 <!-- Start Profile Form -->
                 <div class="col-12">
-                    <form novalidate class="contact-form d-flex flex-column align-items-center mx-auto needs-validation"
-                        method="post" action="update-profile.php?id=<?php echo $_SESSION['index']; ?>" role="form">
+                    <form class="contact-form d-flex flex-column align-items-center mx-auto" method="post" action="#"
+                        role="form">
 
                         <div class="col-11 col-lg-6 mb-4">
-                            <div class=" form-floating">
+                            <div class="form-floating">
                                 <h6>Name</h6><input type="text" class="profile form-control form-control-lg light-300"
                                     id="floatingname" name="inputname" value="<?php echo $profile['full_name']; ?>" disabled>
-                                <div class="invalid-feedback">
-                                    Please enter full name.
-                                </div>
                             </div>
                         </div><!-- End Name -->
 
                         <div class="col-11 col-lg-6 mb-4">
-                            <div class=" form-floating">
+                            <div class="form-floating">
                                 <h6>IC Number</h6><input type="text" class="profile form-control form-control-lg light-300"
-                                    id="floatingicnum" name="inputic" value="<?php echo $profile['ic']; ?>" disabled>
-                                <div class="invalid-feedback">
-                                    Please enter valid identification number.
-                                </div>
+                                    id="floatingicnum" name="inputicnum" value="<?php echo $profile['ic']; ?>" disabled>
                             </div>
                         </div><!-- End IC Number -->
 
                         <div class="col-11 col-lg-6 mb-4">
-                            <div class=" form-floating">
+                            <div class="form-floating">
                                 <h6>Email</h6><input type="text" class="profile form-control form-control-lg light-300"
                                     id="floatingemail" name="inputemail" value="<?php echo $profile['email']; ?>" disabled>
-                                <div class="invalid-feedback">
-                                    Please enter valid email address.
-                                </div>
                             </div>
                         </div><!-- End Email -->
 
                         <div class="col-11 col-lg-6 mb-4">
-                            <div class=" form-floating">
+                            <div class="form-floating">
                                 <h6>Phone Number</h6><input type="text" class="profile form-control form-control-lg light-300"
                                     id="floatingphone" name="inputphone" value="<?php echo $profile['phone']; ?>" disabled>
-
                             </div>
                         </div><!-- End Phone -->
 
                         <div class="col-11 col-lg-6 mb-4">
-                            <div class=" form-floating">
+                            <div class="form-floating">
                                 <h6>Address</h6><input type="text" class="profile form-control form-control-lg light-300"
                                     id="floatingaddress" name="inputaddress" value="<?php echo $profile['address']; ?>"
                                     disabled>
@@ -181,17 +171,14 @@
                         </div><!-- End Address -->
 
                         <div class="col-11 col-lg-6 mb-4">
-                            <div class=" form-floating">
+                            <div class="form-floating">
                                 <h6>Password</h6><input type="password" class="profile form-control form-control-lg light-300"
                                     id="floatingpw" name="inputpw" value="<?php echo $profile['password']; ?>" disabled>
-                                <div class="invalid-feedback">
-                                    Please enter new password.
-                                </div>
                             </div>
                         </div><!-- End Password -->
 
                         <div class="col-11 col-lg-6 mb-4">
-                            <div class=" form-floating">
+                            <div class="form-floating">
                                 <h6>Age</h6><input type="text" class="profile form-control form-control-lg light-300"
                                     id="floatingage" name="inputage" value="<?php echo $profile['age']; ?>" disabled>
                             </div>
@@ -212,7 +199,6 @@
                             inputs = document.getElementsByClassName('profile');
                             for (var i = 0; i < inputs.length; i++) {
                                 inputs[i].disabled = false;
-                                inputs[i].required = true;
                             }
                             document.getElementById('edit').classList.add('invisible');
                             document.getElementById('update').classList.remove('invisible');
@@ -257,7 +243,7 @@
                                         ?>
                                     </td>
                                     <td class="col-2 text-center p-2"><a class="btn btn-primary rounded-pill"
-                                            href="<?php echo '/FunRun/delete-category.php?ic=' . $participant . '&id=' . $category['id'] . '&category=' . $category['category_id']; ?>">Unregister</a>
+                                            href="<?php echo '/FunRun/delete-category.php?ic=' . $participant . '&id=' . $category['id'].'&category='.$category['category_id']; ?>">Unregister</a>
                                     </td>
                                 </tr>
                             </table>
@@ -357,6 +343,37 @@
                             </li>
                         </ul>
                 </div>
+
+                <!-- <div class="col-lg-3 col-md-4 my-sm-0 mt-4">
+                    <h2 class="h4 pb-lg-3 text-light light-300">Our Works</h2>
+                    <ul class="list-unstyled text-light light-300">
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Branding</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Business</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Marketing</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Social Media</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Digital Solution</a>
+                        </li>
+                        <li class="pb-2">
+                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
+                                class="text-decoration-none text-light py-1" href="#">Graphic</a>
+                        </li>
+                    </ul>
+                </div> -->
+
             </div>
         </div>
 
@@ -402,33 +419,6 @@
                 return false;
             });
         });
-
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function () {
-            "use strict";
-            window.addEventListener(
-                "load",
-                function () {
-                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                    var forms = document.getElementsByClassName("needs-validation");
-                    // Loop over them and prevent submission
-                    var validation = Array.prototype.filter.call(forms, function (form) {
-                        form.addEventListener(
-                            "submit",
-                            function (event) {
-                                if (form.checkValidity() === false) {
-                                    event.preventDefault();
-                                    event.stopPropagation();
-                                }
-                                form.classList.add("was-validated");
-                            },
-                            false
-                        );
-                    });
-                },
-                false
-            );
-        })();
     </script>
     <!-- Templatemo -->
     <script src="assets/js/templatemo.js"></script>

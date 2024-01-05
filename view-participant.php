@@ -56,16 +56,18 @@
 <body>
     <?php
     include("connect.php");
-
-
+    $id = $_GET['id'];
     // if(isset($_POST['id']) && isset($_POST['role'])){
     $sql = "SELECT participants.*, categories.category_name, rp.paid 
     FROM participants 
     LEFT JOIN registered_participants rp 
     ON participants.ic=rp.participant_ic 
     LEFT JOIN categories 
-    ON rp.category_id=categories.id;";
+    ON rp.category_id=categories.id
+    WHERE participants.id = $id";
     $result = mysqli_query($con, $sql);
+    $row = mysqli_fetch_array($result);
+
 
     ?>
     <!-- Header -->
@@ -111,53 +113,85 @@
         <div class="container-fluid mx-auto">
             <div class="row justify-content-center">
                 <main class="col-md-9 col-lg-10 px-md-4">
-                    <h2 class="my-3">Participants</h2>
-                    <form action="search-participant.php" method="post" class="d-flex col-3" role="search">
-                        <input name="filter" class="form-control me-2" type="search" placeholder="Search Name" required/>
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                    <div class="col-12">
+                    <h2 class="my-3">Participant ID: #
+                        <?php echo $row['id']; ?>
+                    </h2>
+                    <!-- <form class="d-flex col-3" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search ID" />
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+                    <div class="col-12 col-lg-9">
                         <table class="table table-responsive table-striped ">
-                            <thead>
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Full Name</th>
-                                    <th scope="col">IC Number</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Registered Event</th>
-                                    <th scope="col">Paid</th>
-                                    <th scope="col">View</th>
-                                    <th scope="col">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                while ($row = mysqli_fetch_array($result)) {
-                                    if ($row["category_name"] != null) {
-                                        if ($row['paid'] == 1) {
-                                            $status = "Paid";
-                                        } else {
-                                            $status = "Unpaid";
-                                        }
-                                    } else {
-                                        $status = "";
-                                    }
-                                    echo '
                             <tr>
-                                <td>' . $row['id'] . '</td>
-                                <td>' . $row['full_name'] . '</td>
-                                <td>' . $row['ic'] . '</td>
-                                <td>' . $row['email'] . '</td>
-                                <td>' . $row['category_name'] . '</td>
-                                <td>' . $status . '</td>
-                                <td><a href="view-participant.php?id=' . $row['id'] . '" class="btn btn-primary" data-toggle="modal" data-target="#editModal1">View</a></td>
-                                <td><a href="delete-participant.php?id=' . $row['id'] . '" class="btn btn-danger" style="color: white" >Delete</a></td>
+                                <th class="col-4">Full Name</th>
+                                <td class="col-8">
+                                    <?php echo $row['full_name']; ?>
+                                </td>
                             </tr>
-                            ';
+                            <tr>
+                                <th>Identity Number</th>
+                                <td>
+                                    <?php echo $row['ic']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Age</th>
+                                <td>
+                                    <?php echo $row['age']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>
+                                    <?php echo $row['email']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Address</th>
+                                <td>
+                                    <?php echo $row['address']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Phone Number</th>
+                                <td>
+                                    <?php echo $row['phone']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Registered Category</th>
+                                <td>
+                                    <table class="col-12">
+                                        <tr>
+                                            <td class="col-6">
+                                                <?php echo $row['category_name']; ?>
+                                            </td>
+                                            <td class="col-2 text-center text-muted">
+                                                <?php
+                                                if ($row['category_name'] != null) {
+                                                    if ($row['paid'] == 1) {
+                                                        echo "Paid";
+                                                    } else {
+                                                        echo "Unpaid";
+                                                    }
+                                                } else {
+                                                    echo "";
+                                                }
+                                                ?>
+                                            </td>
+                                            <?php
+                                            if ($row['category_name'] != null) {
+                                                echo '<td class="col-4 text-center">
+                                                <a href="" class="btn btn-outline-primary rounded-pill text-red">Delete
+                                                    Entry</a>
+                                            </td>';
+                                            }
+                                            ?>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
 
-                                }
-                                ?>
-                            </tbody>
                         </table>
                     </div>
                 </main>
@@ -255,37 +289,6 @@
                             </li>
                         </ul>
                 </div>
-
-                <!-- <div class="col-lg-3 col-md-4 my-sm-0 mt-4">
-                    <h2 class="h4 pb-lg-3 text-light light-300">Our Works</h2>
-                    <ul class="list-unstyled text-light light-300">
-                        <li class="pb-2">
-                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                class="text-decoration-none text-light py-1" href="#">Branding</a>
-                        </li>
-                        <li class="pb-2">
-                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                class="text-decoration-none text-light py-1" href="#">Business</a>
-                        </li>
-                        <li class="pb-2">
-                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                class="text-decoration-none text-light py-1" href="#">Marketing</a>
-                        </li>
-                        <li class="pb-2">
-                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                class="text-decoration-none text-light py-1" href="#">Social Media</a>
-                        </li>
-                        <li class="pb-2">
-                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                class="text-decoration-none text-light py-1" href="#">Digital Solution</a>
-                        </li>
-                        <li class="pb-2">
-                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                class="text-decoration-none text-light py-1" href="#">Graphic</a>
-                        </li>
-                    </ul>
-                </div> -->
-
             </div>
         </div>
 

@@ -18,7 +18,7 @@ $sql = "DELETE FROM participants WHERE id=$id";
 $result = mysqli_query($con, $sql);
 // $row = mysqli_fetch_array($result);
 if(isset($result)){
-    header("location: admindashboard.php");
+    header("location: dashboard.php");
 }
 else{
     echo "ERROR: Fail to perform operation";
