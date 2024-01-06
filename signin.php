@@ -105,7 +105,7 @@
                     <?php
 
                     if (!isset($_SESSION['id'])) {
-                        
+
                         echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>";
                         echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"register.php\">Register</a>";
                     }
@@ -115,7 +115,7 @@
                     <?php
                     if (isset($_SESSION['id'])) {
                         $user = $_SESSION['id'];
-                        echo "<a class=\"nav-link\" href=\"profile.php?ic=". $user."\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>";
+                        echo "<a class=\"nav-link\" href=\"profile.php?ic=" . $user . "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>";
                         echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" href='signout.php'>Sign Out</a>";
                     }
                     ?>
@@ -171,20 +171,11 @@
         if (isset($ic)) {
             if ($ic == $user["ic"]) {
                 if ($password == $user["password"]) {
-                //     echo "
-                // <script>
-                // test();
-                // const user = \"$user[ic]\";
-                // window.sessionStorage.setItem(\"user\", user)
-                // window.location.href = \"index.php\";
-                // </script>
-                // ";
-
-                $_SESSION["id"] = $user["ic"];
-                $_SESSION["index"] = $user["id"];
-                echo '<script>
-                window.location.href ="index.php";
-                </script>';
+                    $_SESSION["id"] = $user["ic"];
+                    $_SESSION["index"] = $user["id"];
+                    echo '<script>
+                        window.location.href ="index.php";
+                        </script>';
 
                 } else {
                     echo "
@@ -201,12 +192,40 @@
             ";
                 }
             } else {
-                echo "
-            <script>
-                console.log(\"error\");
-                document.getElementById(\"error\").innerHTML = \"You're not registered yet. Register here\";
-            </script>
-            ";
+                $sql_admin = "SELECT * FROM administrators WHERE username='$ic'";
+                $result_admin = mysqli_query($con, $sql_admin);
+                $admin = mysqli_fetch_array($result_admin);
+                if(isset($admin)){
+                    if($password == $admin['password']){
+                        $_SESSION['id'] = $admin['id'];
+                        $_SESSION['role'] = "ADMIN";
+                        echo '<script>
+                        window.location.href ="dashboard.php";
+                        </script>';
+                    }
+                    else{
+                        echo "
+                        <script>
+                            console.log(\"error\");
+                            document.getElementById(\"floatingInput\").value = \"$ic\";
+                            document.getElementById(\"error\").innerHTML = \"You have entered the wrong password.\";
+                            document.getElementById(\"floatingPassword\").classList.add(\"is-invalid\");
+                            document.getElementById(\"floatingPassword\").addEventListener(\"change\", (e)=>{
+                                document.getElementById(\"error\").innerHTML = \"\";
+                                document.getElementById(\"floatingPassword\").classList.remove(\"is-invalid\");
+                            })               
+                        </script>          
+                        ";
+
+                    }
+                } else{
+                    echo "
+                    <script>
+                    console.log(\"error\");
+                    document.getElementById(\"error\").innerHTML = \"You're not registered yet. Register here\";
+                    </script>
+                    ";
+                }
             }
         } else {
             echo "";
