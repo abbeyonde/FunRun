@@ -59,7 +59,7 @@
     session_start();
     $id = $_GET['id'];
     if(isset($_SESSION['id']) && isset($_SESSION['role']) && $_SESSION['role'] == 'ADMIN'){
-    $sql = "SELECT participants.*, categories.category_name, rp.paid 
+    $sql = "SELECT participants.*, categories.id category_id,categories.category_name, rp.id rp_id,rp.paid 
     FROM participants 
     LEFT JOIN registered_participants rp 
     ON participants.ic=rp.participant_ic 
@@ -124,9 +124,6 @@
 
     <!-- Edit here-->
     <div class="container py-5 min-vh-100">
-
-        <h3 class="h3 semi-bold-600 text-left mt-2 mx-0">Admin Dashboard</h3>
-
         <div class="container-fluid mx-auto">
             <div class="row justify-content-center">
                 <main class="col-md-9 col-lg-10 px-md-4">
@@ -199,7 +196,7 @@
                                             <?php
                                             if ($row['category_name'] != null) {
                                                 echo '<td class="col-4 text-center">
-                                                <a href="" class="btn btn-outline-primary rounded-pill text-red">Delete
+                                                <a href="delete-entry.php?participant='.$row['id'].'&category='.$row['category_id'].'&record='.$row['rp_id'].'" class="btn btn-outline-primary rounded-pill text-red">Delete
                                                     Entry</a>
                                             </td>';
                                             }
