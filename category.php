@@ -125,59 +125,7 @@
         }
     </script>
     <!-- Header -->
-    <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
-        <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand h1" href="index.php">
-                <i class='bx bx-buildings bx-sm text-dark'></i>
-                <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
-            </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
-                id="navbar-toggler-success">
-                <div class="flex-fill mx-xl-5 mb-2 ">
-                    <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.php#about">About
-                                Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.php">Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="navbar align-self-center d-flex">
-                    <?php
-
-                    if (!isset($_SESSION['id'])) {
-
-                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>";
-                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"register.php\">Register</a>";
-                    }
-                    ?>
-                </div>
-                <div class="navbar align-self-center d-flex">
-                    <?php
-                    if (isset($_SESSION['id'])) {
-                        $user = $_SESSION['id'];
-                        echo "<a class=\"nav-link\" href=\"profile.php?ic=" . $user . "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>";
-                        echo "<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" href='signout.php'>Sign Out</a>";
-                    }
-                    ?>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php include("component/navbarParticipant.php"); ?>
     <!-- Close Header -->
 
     <!-- Edit here-->
@@ -824,88 +772,7 @@
     <!-- stop editing section -->
 
     <!-- Start Footer -->
-    <footer class="bg-secondary pt-4">
-        <div class="container">
-            <div class="row py-4 d-flex justify-content-lg-around">
-
-                <div class="col-lg-3 col-12 align-left">
-                    <a class="navbar-brand" href="index.php">
-                        <i class='bx bx-buildings bx-sm text-light'></i>
-                        <span class="text-light h5">Fun</span><span class="text-light h5 semi-bold-600">Run</span>
-                    </a>
-                    <p class="text-light my-lg-4 my-2">
-                        Get ready for a day of pure joy at our Fun Run! Picture smiling faces, vibrant costumes, and
-                        positive vibes.
-                        Bring your A-game, lace up, and join us for a day of laughter and unforgettable memories. See
-                        you there!
-                    </p>
-                    <ul class="list-inline footer-icons light-300">
-                        <li class="list-inline-item m-0">
-                            <a class="text-light" target="_blank" href="http://facebook.com/">
-                                <i class='bx bxl-facebook-square bx-md'></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item m-0">
-                            <a class="text-light" target="_blank" href="https://www.linkedin.com/">
-                                <i class='bx bxl-linkedin-square bx-md'></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item m-0">
-                            <a class="text-light" target="_blank" href="https://www.whatsapp.com/">
-                                <i class='bx bxl-whatsapp-square bx-md'></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item m-0">
-                            <a class="text-light" target="_blank" href="https://www.flickr.com/">
-                                <i class='bx bxl-flickr-square bx-md'></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item m-0">
-                            <a class="text-light" target="_blank" href="https://www.medium.com/">
-                                <i class='bx bxl-medium-square bx-md'></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-3 col-md-4 my-sm-0 mt-4 col-fit">
-                    <h3 class="h4 pb-lg-3 text-light light-300">Our Website</h2>
-                        <ul class="list-unstyled text-light light-300">
-                            <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light" href="index.php">Home</a>
-                            </li>
-                            <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="index.php#about">About Us</a>
-                            </li>
-                            <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="category.php">Category</a>
-                            </li>
-                            <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="contact.html">Contact Us</a>
-                            </li>
-                        </ul>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="w-100 bg-primary py-3">
-            <div class="container">
-                <div class="row pt-2">
-                    <div class="col-lg-6 col-sm-12">
-                        <p class="text-lg-start text-center text-light light-300">
-                            © Copyright 2024 Web Programming 02A. Group 2.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </footer>
+    <?php include("component/footer.php"); ?>
     <!-- End Footer -->
 
     <!-- Bootstrap -->

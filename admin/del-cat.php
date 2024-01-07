@@ -13,7 +13,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['role']) && $_SESSION['role'] == '
     }
 
 } else {
-    include("SessionTerminate.php");
+    include("../component/Authorizations.php");
 }
 
 ?>
