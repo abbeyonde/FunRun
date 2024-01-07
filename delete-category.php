@@ -1,97 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include("connect.php");
+include("participantsession.php");
+session_start();
 
-<head>
-    <title>UNI10Marathon</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-    <!-- Load Require CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <!-- Font CSS -->
-    <link href="assets/css/boxicon.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Load Tempalte CSS -->
-    <link rel="stylesheet" href="assets/css/templatemo.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/custom.css">
+$id = $_GET['id'];
+$category_id = $_GET['category'];
 
-    <style>
-        .navbar .register {
-            background-color: #db3a34;
-            color: white;
+$sql = "DELETE FROM registered_participants WHERE id=$id";
+$result = mysqli_query($con, $sql);
+// $row = mysqli_fetch_array($result);
+if (isset($_SESSION['id'])) {
+    if ($result) {
+        $sql_check = "SELECT current_participants FROM categories WHERE id=$category_id";
+        $result_check = mysqli_query($con, $sql_check);
+        $total_p = mysqli_fetch_array($result_check);
+        // echo "$total_p[current_participants]";
+        $new_p = $total_p["current_participants"] - 1;
+        // echo "$new_p";
+        $sql_update = "UPDATE categories SET current_participants=$new_p WHERE id=$category_id";
+        $result_update = mysqli_query($con, $sql_update);
+        if ($result_update) {
+            header("location: profile.php?ic='$user'");
+        } else {
+            echo "ERROR: Fail to update database";
         }
+    } else {
+        ?>
+        <!DOCTYPE html>
+        <html lang="en">
 
-        .navbar .register:hover {
-            background-color: #992825;
-        }
+        <head>
+            <title>UNI10Marathon</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+            <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+            <!-- Load Require CSS -->
+            <link href="assets/css/bootstrap.css" rel="stylesheet">
+            <!-- Font CSS -->
+            <link href="assets/css/boxicon.min.css" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+            <!-- Load Tempalte CSS -->
+            <link rel="stylesheet" href="assets/css/templatemo.css">
+            <!-- Custom CSS -->
+            <link rel="stylesheet" href="assets/css/custom.css">
 
-        .navbar .signin:hover {
-            text-decoration: underline;
-            color: #db3a34;
-            background-color: transparent;
-        }
+            <style>
+                .navbar .register {
+                    background-color: #db3a34;
+                    color: white;
+                }
 
-        .navbar .signin:focus {
-            -webkit-box-shadow: 0 0 0 0.25rem rgba(67, 50, 194, 0);
-            box-shadow: 0 0 0 0.25rem rgba(67, 50, 194, 0);
-        }
+                .navbar .register:hover {
+                    background-color: #992825;
+                }
 
-        .col-fit {
-            -webkit-box-flex: 0;
-            -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
-            width: fit-content;
-        }
-    </style>
+                .navbar .signin:hover {
+                    text-decoration: underline;
+                    color: #db3a34;
+                    background-color: transparent;
+                }
 
-</head>
+                .navbar .signin:focus {
+                    -webkit-box-shadow: 0 0 0 0.25rem rgba(67, 50, 194, 0);
+                    box-shadow: 0 0 0 0.25rem rgba(67, 50, 194, 0);
+                }
 
-<body>
-    <!-- Header -->
-    <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
-        <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand h1" href="index.html">
-                <i class='bx bx-buildings bx-sm text-dark'></i>
-                <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
-            </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                .col-fit {
+                    -webkit-box-flex: 0;
+                    -ms-flex: 0 0 auto;
+                    flex: 0 0 auto;
+                    width: fit-content;
+                }
 
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
-                id="navbar-toggler-success">
-                <div class="flex-fill mx-xl-5 mb-2 ">
-                    <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="navbar align-self-center d-flex">
-                    <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 signin" href="">Sign In</a>
-                    <a class="nav-link btn-outline-primary rounded-pill px-3 mx-3 register " href="">Register</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <!-- Close Header -->
+                .color-white {
+                    color: whitesmoke;
+                }
 
-    <!-- Edit here-->
+                .text-lg-justify {
+                    text-align: justify;
+                }
+            </style>
+        </head>
 
+        <body>
+            <!-- Header -->
+            <?php
+            session_start();
+
+            include("component/navbarParticipant.php")
+            ?>
+            <!-- Header -->
+            <!-- Close Header -->
+
+            <!-- Edit here-->
+            <section class="container py-5 ">
+                <h1>Fail to complete request</h1>
+                <p>Please try it another time or contact system admin to solve this issue.</p>
+            </section>
+
+        <?php
+    }
+} else {
+    include("component/sessionTerminate.php");
+}
+?>
     <!-- stop editing section -->
 
     <!-- Start Footer -->
@@ -102,7 +115,8 @@
                 <div class="col-lg-3 col-12 align-left">
                     <a class="navbar-brand" href="index.html">
                         <i class='bx bx-buildings bx-sm text-light'></i>
-                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600"> Marathon</span>
+                        <span class="text-light h5">UNI10</span><span class="text-light h5 semi-bold-600">
+                            Marathon</span>
                     </a>
                     <p class="text-light my-lg-4 my-2">
                         Get ready for a day of pure joy at our Fun Run! Picture smiling faces, vibrant costumes, and
@@ -139,16 +153,16 @@
                     </ul>
                 </div>
 
-                <div class="col-lg-3 col-md-4 my-sm-0 mt-4 col-fit">
+                <div class="col-lg-3 col-md-4 my-sm-0 mt-4">
                     <h3 class="h4 pb-lg-3 text-light light-300">Our Website</h2>
                         <ul class="list-unstyled text-light light-300">
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light" href="">Home</a>
+                                    class="text-decoration-none text-light" href="#">Home</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="landing.html">About Us</a>
+                                    class="text-decoration-none text-light py-1" href="#about">About Us</a>
                             </li>
                             <li class="pb-2">
                                 <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
@@ -206,11 +220,14 @@
                 return false;
             });
         });
+
+
     </script>
     <!-- Templatemo -->
     <script src="assets/js/templatemo.js"></script>
     <!-- Custom -->
     <script src="assets/js/custom.js"></script>
+    <script src="assets/js/timer.js"></script>
 
 </body>
 

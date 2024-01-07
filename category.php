@@ -95,6 +95,11 @@
             transform: translate(-50%, -50%)scale(1);
         }
 
+        .btn-gray {
+            background-color: gray;
+            border-color: gray;
+        }
+
 
         @media (max-width: 700px) {
             .popup .content {
@@ -102,74 +107,25 @@
             }
         }
     </style>
-    <script>
-        const user = window.sessionStorage.getItem("user");
-
-        const addCategory = (category) => {
-            document.writeln('<a href="/FunRun/addCategory.php?ic=' + user + '&category=' + category + '" class="btn rounded-pill px-4 btn-outline-primary mb-3">');
-
-        }
-    </script>
 </head>
 
 <body>
+    <?php
+    include('connect.php');
+
+    session_start();
+
+    ?>
+    <script>
+        const user = '<?php echo $_SESSION['id']; ?>';
+
+        const addCategory = (category) => {
+            document.writeln('<a href="/FunRun/payment.php?ic=' + user + '&category=' + category + '" class="btn rounded-pill px-4 btn-outline-primary mb-3">');
+
+        }
+    </script>
     <!-- Header -->
-    <nav id="main_nav" class="navbar navbar-expand-lg navbar-light bg-white shadow">
-        <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand h1" href="index.html">
-                <i class='bx bx-buildings bx-sm text-dark'></i>
-                <span class="text-dark h4">UNI10</span><span class="text-primary h4">Marathon</span>
-            </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbar-toggler-success" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
-                id="navbar-toggler-success">
-                <div class="flex-fill mx-xl-5 mb-2 ">
-                    <ul class="nav navbar-nav d-flex justify-content-between mx-xl-5 text-center text-dark">
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="index.html#about">About
-                                Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.html">Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="navbar align-self-center d-flex">
-                    <!-- <a class="nav-link" href="#"><i class='bx bx-user-circle bx-sm text-primary'></i></a> -->
-                    <script>
-                        if (user == null) {
-                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 signin\" href=\"signin.php\">Sign In</a>")
-                            document.writeln("<a class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register \" href=\"\">Register</a>")
-                        }
-                    </script>
-                </div>
-                <div class="navbar align-self-center d-flex">
-                    <script>
-                        const onSignOut = () => {
-                            window.sessionStorage.removeItem("user");
-                            window.location.href = "index.html";
-                        }
-                        if (user) {
-                            document.writeln("<a class=\"nav-link\" href=\"profile.php?ic=" + user + "\"><i class='bx bx-user-circle bx-sm text-primary'></i></a>");
-                            document.writeln("<label class=\"nav-link btn-outline-primary rounded-pill px-3 mx-3 register\" onclick=onSignOut()>Sign Out</label>")
-
-                        }
-                    </script>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php include("component/navbarParticipant.php"); ?>
     <!-- Close Header -->
 
     <!-- Edit here-->
@@ -188,7 +144,7 @@
                 <div class="col-5 ">
                     <div>
                         <p class="col-10 d-flex me-4 my-2" style="float:left; width: 10px; height: 32px;">
-                            <img src="/assets/img/calendar-day-solid.svg">
+                            <img src="assets/img/calendar-day-solid.svg">
                         </p>
                         <p class="col-10 d-flex semi-bold-600 mb-0"> Name:</p>
                         <p class="col-10 d-flex mb-4"> UNI10 Marathon 2024</p>
@@ -197,14 +153,14 @@
                     <div>
 
                         <p class="col-10 d-flex me-4 my-2" style="float:left; ; width: 10px; height: 32px;"> <img
-                                src="/assets/img/a-location-dot-solid.svg" alt=""></p>
+                                src="assets/img/a-location-dot-solid.svg" alt=""></p>
                         <p class="col-10 d-flex semi-bold-600 mb-0"> Location:</p>
                         <p class="col-10 d-flex mb-4"> Dataran Merdeka, Kuala Lumpur</p>
                     </div>
 
                     <div>
                         <p class="col-10 d-flex me-4 my-2" style="float:left; ; width: 10px; height: 32px;"> <img
-                                src="/assets/img/user.svg" alt=""></p>
+                                src="assets/img/user.svg" alt=""></p>
                         <p class="col-10 d-flex semi-bold-600 mb-0"> Event Organiser:</p>
                         <p class="col-10 d-flex mb-4"> Musab Salihin Sdn Bhd</p>
                     </div>
@@ -215,14 +171,14 @@
                 <div class="col-5">
                     <div>
                         <p class="col-10 d-flex me-4 my-2" style="float:left; ; width: 10px; height: 32px;"> <img
-                                src="/assets/img/date.svg" alt=""></p>
+                                src="assets/img/date.svg" alt=""></p>
                         <p class="col-10 d-flex semi-bold-600 mb-0"> Date:</p>
                         <p class="col-10 d-flex mb-4"> 12 February 2024</p>
                     </div>
 
                     <div>
                         <p class="col-10 d-flex me-4 my-2" style="float:left; ; width: 10px; height: 30px;"> <img
-                                src="/assets/img/start.svg" alt=""></p>
+                                src="assets/img/start.svg" alt=""></p>
                         <p class="col-10 d-flex semi-bold-600 mb-0"> Flag Off Time:</p>
                         <p class="col-10 d-flex mb-4"> 42.2km: 0400am <br>
                             21.1km: 0430am <br>
@@ -241,7 +197,7 @@
                 style="background-color: rgba(163, 5, 5, 0.678);">
                 <!--style="background-image: url('/assets/img/finish.png'); background-size:60%; background-position: center;"-->
                 <!--image in menu-->
-                <img src="/assets/img/finish.png" alt="Marathon Image" width="60%" class="mt-3">
+                <img src="assets/img/finish.png" alt="Marathon Image" width="60%" class="mt-3">
                 <h5 class="h5 semi-bold-600 pb-4 light-300">Full Marathon</h5>
             </div>
             <div
@@ -255,7 +211,7 @@
 
                     <!-- Accordion for Details -->
                     <div class="accordion w-100 bg-white" id="accordionFullMarathon">
-                        <div class="accordion-item " >
+                        <div class="accordion-item ">
                             <h2 class="accordion-header" id="headingFullMarathon">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseFullMarathon" aria-expanded="true"
@@ -293,8 +249,6 @@
                 </div>
             </div>
         </div>
-
-
         <!-- End Pricing Horizontal -->
         <!-- Popup Window -->
         <div class="popup" id="popup-1">
@@ -315,18 +269,42 @@
                 Register</a>
             </div>
         </div>
+        <?php
+        // echo '
+        // <script>
+        // function togglePopup1() {
+        //     if (' . $_SESSION['id'] . ') {
+        //         document.getElementById("popup-1").classList.toggle("active");
+        //     }
+        //     else {
+        //         window.location.href = "signin.php";
+        //     }
 
-        <script>
+        // }
+        // </script>
+        // ';
+        if (isset($_SESSION['id'])) {
+            echo '
+            <script>
             function togglePopup1() {
-                if (user) {
-                    document.getElementById("popup-1").classList.toggle("active");
-                }
-                else {
-                    window.location.href = 'signin.php';
-                }
-
+                document.getElementById("popup-1").classList.toggle("active");
             }
-        </script>
+            </script>
+            ';
+        }
+        else{
+            echo '
+            <script>
+            function togglePopup1() {
+                    window.location.href = "signin.php";
+            }
+            </script>
+            ';
+
+        }
+        ?>
+
+
         <!--End Popup Window-->
 
         <!-- Start Pricing Horizontal -->
@@ -335,7 +313,7 @@
             <div class="pricing-horizontal-icon col-md-3 text-center text-light py-4"
                 style="background-color: rgb(55, 55, 117)">
                 <!--image in menu-->
-                <img src="/assets/img/half-marathon.png" alt="Marathon Image" width="50%" class="mt-3">
+                <img src="assets/img/half-marathon.png" alt="Marathon Image" width="50%" class="mt-3">
                 <h5 class="h5 semi-bold-600 pb-4 light-300">Half Marathon</h5>
             </div>
             <div
@@ -409,16 +387,27 @@
             </div>
         </div>
 
-        <script>
+        <?php
+        if (isset($_SESSION['id'])) {
+            echo '
+            <script>
             function togglePopup2() {
-                if (user) {
-                    document.getElementById("popup-2").classList.toggle("active");
-                }
-                else {
-                    window.location.href = 'signin.php';
-                }
+                document.getElementById("popup-2").classList.toggle("active");
             }
-        </script>
+            </script>
+            ';
+        }
+        else{
+            echo '
+            <script>
+            function togglePopup2() {
+                    window.location.href = "signin.php";
+            }
+            </script>
+            ';
+
+        }
+        ?>
         <!--End Popup Window-->
 
         <!-- Start Pricing Horizontal -->
@@ -427,7 +416,7 @@
             <div class="pricing-horizontal-icon col-md-3 text-center text-light py-4"
                 style="background-color: rgb(226, 134, 59)">
                 <!--image in menu-->
-                <img src="/assets/img/5kfunrun2.png " alt="Marathon Image" width="50%" class="mt-3 mb-1">
+                <img src="assets/img/5kfunrun2.png " alt="Marathon Image" width="50%" class="mt-3 mb-1">
                 <h5 class="h5 semi-bold-600 pb-4 light-300">5km Fun Run</h5>
             </div>
             <div
@@ -500,17 +489,27 @@
             </div>
         </div>
 
-        <script>
+        <?php
+        if (isset($_SESSION['id'])) {
+            echo '
+            <script>
             function togglePopup3() {
-                if (user) {
-                    document.getElementById("popup-3").classList.toggle("active");
-                }
-                else {
-                    window.location.href = 'signin.php';
-                }
+                document.getElementById("popup-3").classList.toggle("active");
             }
+            </script>
+            ';
+        }
+        else{
+            echo '
+            <script>
+            function togglePopup3() {
+                    window.location.href = "signin.php";
+            }
+            </script>
+            ';
 
-        </script>
+        }
+        ?>
         <!--End Popup Window-->
 
 
@@ -520,7 +519,7 @@
             <div class="pricing-horizontal-icon col-md-3 text-center text-light py-4"
                 style="background-color: rgba(209, 206, 46, 0.87)">
                 <!--image in menu-->
-                <img src="/assets/img/familywalk.png" alt="Marathon Image" width="50%" class="mt-3">
+                <img src="assets/img/familywalk.png" alt="Marathon Image" width="50%" class="mt-3">
                 <h5 class="h5 semi-bold-600 pb-4 light-300">Family Charity Run</h5>
             </div>
             <div
@@ -593,16 +592,27 @@
             </div>
         </div>
 
-        <script>
+        <?php
+        if (isset($_SESSION['id'])) {
+            echo '
+            <script>
             function togglePopup4() {
-                if (user) {
-                    document.getElementById("popup-4").classList.toggle("active");
-                }
-                else {
-                    window.location.href = 'signin.php';
-                }
+                document.getElementById("popup-4").classList.toggle("active");
             }
-        </script>
+            </script>
+            ';
+        }
+        else{
+            echo '
+            <script>
+            function togglePopup4() {
+                    window.location.href = "signin.php";
+            }
+            </script>
+            ';
+
+        }
+        ?>
         <!--End Popup Window-->
         <hr class="mt-5">
 
@@ -762,88 +772,7 @@
     <!-- stop editing section -->
 
     <!-- Start Footer -->
-    <footer class="bg-secondary pt-4">
-        <div class="container">
-            <div class="row py-4 d-flex justify-content-lg-around">
-
-                <div class="col-lg-3 col-12 align-left">
-                    <a class="navbar-brand" href="index.html">
-                        <i class='bx bx-buildings bx-sm text-light'></i>
-                        <span class="text-light h5">Fun</span><span class="text-light h5 semi-bold-600">Run</span>
-                    </a>
-                    <p class="text-light my-lg-4 my-2">
-                        Get ready for a day of pure joy at our Fun Run! Picture smiling faces, vibrant costumes, and
-                        positive vibes.
-                        Bring your A-game, lace up, and join us for a day of laughter and unforgettable memories. See
-                        you there!
-                    </p>
-                    <ul class="list-inline footer-icons light-300">
-                        <li class="list-inline-item m-0">
-                            <a class="text-light" target="_blank" href="http://facebook.com/">
-                                <i class='bx bxl-facebook-square bx-md'></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item m-0">
-                            <a class="text-light" target="_blank" href="https://www.linkedin.com/">
-                                <i class='bx bxl-linkedin-square bx-md'></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item m-0">
-                            <a class="text-light" target="_blank" href="https://www.whatsapp.com/">
-                                <i class='bx bxl-whatsapp-square bx-md'></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item m-0">
-                            <a class="text-light" target="_blank" href="https://www.flickr.com/">
-                                <i class='bx bxl-flickr-square bx-md'></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item m-0">
-                            <a class="text-light" target="_blank" href="https://www.medium.com/">
-                                <i class='bx bxl-medium-square bx-md'></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-3 col-md-4 my-sm-0 mt-4 col-fit">
-                    <h3 class="h4 pb-lg-3 text-light light-300">Our Website</h2>
-                        <ul class="list-unstyled text-light light-300">
-                            <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light" href="index.html">Home</a>
-                            </li>
-                            <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="index.html#about">About Us</a>
-                            </li>
-                            <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="category.html">Category</a>
-                            </li>
-                            <li class="pb-2">
-                                <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                    class="text-decoration-none text-light py-1" href="contact.html">Contact Us</a>
-                            </li>
-                        </ul>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="w-100 bg-primary py-3">
-            <div class="container">
-                <div class="row pt-2">
-                    <div class="col-lg-6 col-sm-12">
-                        <p class="text-lg-start text-center text-light light-300">
-                            © Copyright 2024 Web Programming 02A. Group 2.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </footer>
+    <?php include("component/footer.php"); ?>
     <!-- End Footer -->
 
     <!-- Bootstrap -->
