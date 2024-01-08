@@ -1,5 +1,6 @@
 <?php
 include("connect.php");
+session_start();
 if (isset($_SESSION['id']) && isset($_SESSION['role']) && $_SESSION['role'] == 'ADMIN') {
     $id = $_GET['id'];
     $ic = $_GET['ic'];
@@ -18,7 +19,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['role']) && $_SESSION['role'] == '
         $sql_update = "UPDATE categories SET current_participants=$new_p WHERE id=$category_id";
         $result_update = mysqli_query($con, $sql_update);
         if ($result_update != null) {
-            $sql = "DELETE FROM participants WHERE id=$id";
+            $sql = "DELETE FROM participants WHERE participant_ic=$ic";
             $result = mysqli_query($con, $sql);
             // $row = mysqli_fetch_array($result);
             if (isset($result)) {
@@ -30,7 +31,14 @@ if (isset($_SESSION['id']) && isset($_SESSION['role']) && $_SESSION['role'] == '
             echo "ERROR: Fail to update database";
         }
     } else {
-        echo "ERROR: Fail to perform operation";
+        $sql = "DELETE FROM participants WHERE ic=$ic";
+        $result = mysqli_query($con, $sql);
+        // $row = mysqli_fetch_array($result);
+        if (isset($result)) {
+            header("location: dashboard.php");
+        } else {
+            echo "ERROR: Fail to perform operation";
+        }
     
     }
 } else {

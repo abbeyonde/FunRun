@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 07, 2024 at 01:24 PM
+-- Generation Time: Jan 08, 2024 at 04:58 PM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -56,25 +56,26 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `category_name` varchar(50) NOT NULL,
   `distance` float NOT NULL,
   `type` varchar(50) NOT NULL,
-  `fo_time` varchar(10) NOT NULL,
-  `co_time` varchar(10) NOT NULL,
+  `fo_time` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `co_time` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `description` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `min_age` int DEFAULT NULL,
   `price` int NOT NULL,
   `quota` int DEFAULT NULL,
   `current_participants` int NOT NULL DEFAULT '0',
+  `tag` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `category_name`, `distance`, `type`, `fo_time`, `co_time`, `description`, `min_age`, `price`, `quota`, `current_participants`) VALUES
-(1, 'Full Marathon', 42.2, 'Competitive', '04:30am', '7 hours 15', '', 18, 220, 150, 0),
-(2, 'Half Marathon', 21.1, 'Competitive', '04.30am', '4 hours', 'Experience the pulse of Kuala Lumpur in our Half Marathon. Navigate 21.1 kilometers of the city\'s dynamic terrain, offering a mix of urban challenges and scenic delights. Your journey unfolds amidst the vibrant energy of Kuala Lumpur\'s heart.', 18, 150, 150, 0),
-(3, '5KM Fun Run', 5, 'Fun Run', '07:00am', '1 hour 30 ', '', 16, 50, 200, 0),
-(4, 'Family Charity Run', 3, 'Fun Run', '07:30am', 'None', 'Share the joy of movement in our Family Charity Run, tailor-made for families and elderlies alike. A shorter course filled with laughter and camaraderie, it\'s a family-friendly experience weaving through the heartwarming tapestry of Kuala Lumpur\'s diverse streets.', 1, 10, 1000, 0);
+INSERT INTO `categories` (`id`, `category_name`, `distance`, `type`, `fo_time`, `co_time`, `description`, `min_age`, `price`, `quota`, `current_participants`, `tag`) VALUES
+(1, 'Full Marathon', 42.2, 'Competitive', '04:30am', '7 hours 15 minutes', 'Embark on a full-scale urban adventure with our Full Marathon. Cover 42.2 kilometers of diverse cityscapes, from iconic landmarks to charming streets, as you push your limits and savor the triumph at the heart of Kuala Lumpur.', 18, 220, 150, 150, 'fullMarathon'),
+(2, 'Half Marathon', 21.1, 'Competitive', '04.30am', '4 hours', 'Experience the pulse of Kuala Lumpur in our Half Marathon. Navigate 21.1 kilometers of the city\'s dynamic terrain, offering a mix of urban challenges and scenic delights. Your journey unfolds amidst the vibrant energy of Kuala Lumpur\'s heart.', 18, 150, 150, 0, 'halfMarathon'),
+(3, '5KM Fun Run', 5, 'Fun Run', '07:00am', '1 hour 30 minutes', 'Join the rhythm of the city in our 5km Fun Run. Whether you\'re a seasoned runner or new to the scene, enjoy a spirited 5-kilometer journey through the heart of Kuala Lumpur, where each step echoes the diverse beats of the city.', 16, 50, 200, 0, 'funRun'),
+(4, 'Family Charity Run', 3, 'Fun Run', '07:30am', 'None', 'Share the joy of movement in our Family Charity Run, tailor-made for families and elderlies alike. A shorter course filled with laughter and camaraderie, it\'s a family-friendly experience weaving through the heartwarming tapestry of Kuala Lumpur\'s diverse streets.', 1, 10, 1000, 0, 'charityRun');
 
 -- --------------------------------------------------------
 
@@ -118,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `registered_participants` (
   PRIMARY KEY (`id`),
   KEY `rp_FK_1` (`category_id`),
   KEY `rp_FK_2` (`participant_ic`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Constraints for dumped tables

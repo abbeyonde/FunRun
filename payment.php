@@ -70,11 +70,10 @@
       padding: 24px 1rem !important;
     }
 
-    .pay-later{
+    .pay-later {
       background-color: gray;
       border-color: gray;
     }
-
   </style>
   <script>
     const user = window.sessionStorage.getItem("user");
@@ -95,170 +94,193 @@
   $sql_category = "SELECT * FROM categories WHERE id=$category";
   $result_category = mysqli_query($con, $sql_category);
   $row_category = mysqli_fetch_array($result_category);
-  
+
   // echo $row['paid'];
   ?>
   <?php
   if ($row == null || ($_GET['from'] == 'profile' && $row['paid'] == 0)) {
-    if($row != null && $row['current_participants'] < $row['quota']){
-    ?>
-    <!-- Edit here-->
-    <div class="container py-5">
-      <div class="container mt-5 mb-5">
-        <div class="row justify-content-center g-3">
-          <div class="col-md-4">
-            <span>Payment Method</span>
-            <div class="card">
-              <div class="accordion" id="accordionExample">
+    if ($row_category != null) {
+      if ($row_category['current_participants'] < $row_category['quota']) {
+        ?>
+        <!-- Edit here-->
+        <div class="container py-5">
+          <div class="container mt-5 mb-5">
+            <div class="row justify-content-center g-3">
+              <div class="col-md-4">
+                <span>Payment Method</span>
                 <div class="card">
-                  <div class="card-header p-0" id="headingTwo">
-                    <h2 class="mb-0">
-                      <button style="width: 100%"
-                        class="btn btn-light btn-block text-left collapsed p-3 rounded-0 border-bottom-custom"
-                        type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
-                        aria-controls="collapseTwo">
-                        <div class="d-flex align-items-center justify-content-between">
-                          <span>Touch`n Go eWallet</span>
-                          <img src="assets/img/TouchnGo-eWallet.svg" width="30" alt="tng ewallet logo" />
+                  <div class="accordion" id="accordionExample">
+                    <div class="card">
+                      <div class="card-header p-0" id="headingTwo">
+                        <h2 class="mb-0">
+                          <button style="width: 100%"
+                            class="btn btn-light btn-block text-left collapsed p-3 rounded-0 border-bottom-custom"
+                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                            aria-controls="collapseTwo">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <span>Touch`n Go eWallet</span>
+                              <img src="assets/img/TouchnGo-eWallet.svg" width="30" alt="tng ewallet logo" />
+                            </div>
+                          </button>
+                        </h2>
+                      </div>
+                      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-toggle="collapse"
+                        data-target="#collapseTwo">
+                        <div class="card-body">
+                          <input type="text" class="form-control" placeholder="Touch'n Go email" />
                         </div>
-                      </button>
-                    </h2>
-                  </div>
-                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-toggle="collapse"
-                    data-target="#collapseTwo">
-                    <div class="card-body">
-                      <input type="text" class="form-control" placeholder="Touch'n Go email" />
+                      </div>
+                    </div>
+
+                    <div class="card">
+                      <div class="card-header p-0">
+                        <h2 class="mb-0">
+                          <button style="width: 100%" class="btn btn-light btn-block text-left p-3 rounded-0"
+                            data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                            aria-controls="collapseOne">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <span class="">Debit Card/Credit Card</span>
+                              <div class="icons">
+                                <img src="assets/img/mastercard.png" width="30" alt="mastercard logo" />
+                                <img src="assets/img/visa.png" width="30" alt="visa logo" />
+                                <img src="assets/img/MyDebit.png" width="30" alt="mydebit logo" />
+                              </div>
+                            </div>
+                          </button>
+                        </h2>
+                      </div>
+
+                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-toggle="collapse"
+                        data-target="#collapseOne">
+                        <div class="card-body payment-card-body">
+                          <span class="font-weight-normal card-text">Card Number</span>
+                          <div class="input">
+                            <i class="fa fa-credit-card"></i>
+                            <input type="text" class="form-control" placeholder="0000 0000 0000 0000" />
+                          </div>
+
+                          <div class="row mt-3 mb-3">
+                            <div class="col-md-6">
+                              <span class="font-weight-normal card-text">Expiry Date</span>
+                              <div class="input">
+                                <i class="fa fa-calendar"></i>
+                                <input type="text" class="form-control" placeholder="MM/YY" />
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <span class="font-weight-normal card-text">CVC/CVV</span>
+                              <div class="input">
+                                <i class="fa fa-lock"></i>
+                                <input type="text" class="form-control" placeholder="000" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <span class="text-muted certificate-text"><i class="fa fa-lock"></i> Your transaction is secured
+                            with ssl certificate</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
+
+              <div class="col-md-4">
+                <span>Summary</span>
 
                 <div class="card">
-                  <div class="card-header p-0">
-                    <h2 class="mb-0">
-                      <button style="width: 100%" class="btn btn-light btn-block text-left p-3 rounded-0"
-                        data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                        aria-controls="collapseOne">
-                        <div class="d-flex align-items-center justify-content-between">
-                          <span class="">Debit Card/Credit Card</span>
-                          <div class="icons">
-                            <img src="assets/img/mastercard.png" width="30" alt="mastercard logo" />
-                            <img src="assets/img/visa.png" width="30" alt="visa logo" />
-                            <img src="assets/img/MyDebit.png" width="30" alt="mydebit logo" />
-                          </div>
-                        </div>
-                      </button>
-                    </h2>
-                  </div>
+                  <div class="d-flex justify-content-between p-3">
+                    <div class="d-flex flex-column">
+                      <span>
+                        <?php echo $row_category['category_name']; ?><i class="fa fa-caret-down"></i>
+                      </span>
+                    </div>
 
-                  <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-toggle="collapse"
-                    data-target="#collapseOne">
-                    <div class="card-body payment-card-body">
-                      <span class="font-weight-normal card-text">Card Number</span>
-                      <div class="input">
-                        <i class="fa fa-credit-card"></i>
-                        <input type="text" class="form-control" placeholder="0000 0000 0000 0000" />
-                      </div>
-
-                      <div class="row mt-3 mb-3">
-                        <div class="col-md-6">
-                          <span class="font-weight-normal card-text">Expiry Date</span>
-                          <div class="input">
-                            <i class="fa fa-calendar"></i>
-                            <input type="text" class="form-control" placeholder="MM/YY" />
-                          </div>
-                        </div>
-
-                        <div class="col-md-6">
-                          <span class="font-weight-normal card-text">CVC/CVV</span>
-                          <div class="input">
-                            <i class="fa fa-lock"></i>
-                            <input type="text" class="form-control" placeholder="000" />
-                          </div>
-                        </div>
-                      </div>
-
-                      <span class="text-muted certificate-text"><i class="fa fa-lock"></i> Your transaction is secured
-                        with ssl certificate</span>
+                    <div class="mt-1">
+                      <span>RM</span>
+                      <span>
+                        <?php echo $row_category['price']; ?>.00
+                      </span>
                     </div>
                   </div>
+
+                  <hr class="mt-0 line" />
+
+                  <div class="p-3">
+                    <div class="d-flex justify-content-between mb-2">
+                      <span>New User Discount</span>
+                      <span>-RM5.00</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                      <span>Processing Fee <i class="fa fa-clock-o"></i></span>
+                      <span>RM3.00</span>
+                    </div>
+                  </div>
+
+                  <hr class="mt-0 line" />
+
+                  <div class="p-3 d-flex justify-content-between">
+                    <div class="d-flex flex-column">
+                      <span>Total:</span>
+                    </div>
+                    <span>RM
+                      <?php $row_category['price'] -= 2;
+                      echo $row_category['price']; ?>.00
+                    </span>
+                  </div>
+
+                  <div class="p-3 text-center">
+                    <!--Add function to the button pls-->
+                    <!-- <button class="btn btn-primary mx-auto my-2"> -->
+                    <a class="btn btn-primary mx-auto my-2" href=<?php echo '"addCategory.php?ic=' . $participant . '&category=' . $category . '&paid=1" class="btn rounded-pill px-4 btn-outline-primary mb-3"'; ?>>
+                      Create Payment
+                    </a>
+                    <!-- </button> -->
+                    <div class="text-center">
+                      <!--Add link if u want-->
+                      <a href="#">Have a promo code?</a>
+                    </div>
+                    <a class="btn btn-primary mx-auto my-2 rounded-pill pay-later" href=<?php echo '"addCategory.php?ic=' . $participant . '&category=' . $category . '&paid=0" class="btn rounded-pill px-4 btn-outline-primary mb-3"'; ?>>
+                      Pay Later
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <span>Summary</span>
-
-            <div class="card">
-              <div class="d-flex justify-content-between p-3">
-                <div class="d-flex flex-column">
-                  <span><?php echo $row_category['category_name']; ?><i class="fa fa-caret-down"></i></span>
-                </div>
-
-                <div class="mt-1">
-                  <span>RM</span>
-                  <span><?php echo $row_category['price']; ?>.00</span>
-                </div>
-              </div>
-
-              <hr class="mt-0 line" />
-
-              <div class="p-3">
-                <div class="d-flex justify-content-between mb-2">
-                  <span>New User Discount</span>
-                  <span>-RM5.00</span>
-                </div>
-
-                <div class="d-flex justify-content-between">
-                  <span>Processing Fee <i class="fa fa-clock-o"></i></span>
-                  <span>RM3.00</span>
-                </div>
-              </div>
-
-              <hr class="mt-0 line" />
-
-              <div class="p-3 d-flex justify-content-between">
-                <div class="d-flex flex-column">
-                  <span>Total:</span>
-                </div>
-                <span>RM<?php $row_category['price']-=2; echo $row_category['price']; ?>.00</span>
-              </div>
-
-              <div class="p-3 text-center">
-                <!--Add function to the button pls-->
-                <!-- <button class="btn btn-primary mx-auto my-2"> -->
-                <a class="btn btn-primary mx-auto my-2" href=<?php echo '"addCategory.php?ic=' . $participant . '&category=' . $category . '&paid=1" class="btn rounded-pill px-4 btn-outline-primary mb-3"'; ?>>
-                  Create Payment
-                </a>
-                <!-- </button> -->
-                <div class="text-center">
-                  <!--Add link if u want-->
-                  <a href="#">Have a promo code?</a>
-                </div>
-                <a class="btn btn-primary mx-auto my-2 rounded-pill pay-later" href=<?php echo '"addCategory.php?ic=' . $participant . '&category=' . $category .'&paid=0" class="btn rounded-pill px-4 btn-outline-primary mb-3"'; ?>>
-                Pay Later
-                </a>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <?php
-    } else{
-      include("component/navbarParticipant.php");
-      ?>
-        <div class="col-12 mx-auto mt-5 text-center" >
+        <?php
+      } else {
+        include("component/navbarParticipant.php");
+        ?>
+        <div class="col-12 mx-auto mt-5 text-center">
           <h1>Quota limit reached</h1>
           <p>You can not register for this category because it has reached maximum quota.</p>
         </div>
+        <?php
+      }
+    } else {
+      include("component/navbarParticipant.php");
+      if(isset($row) && ($row['current_participants'] == $row['quota'])){ ?>
+        <div class="col-12 mx-auto mt-5 text-center">
+        <h1>Quota limit reached</h1>
+        <p>You can not register for this category because it has reached maximum quota.</p>
+      </div>
+      <?php
+      }
+      ?>
+      <div class="col-fit mx-auto mt-5">
+        <h1>Registration Fail</h1>
+        <p>You have an existing participation at the moment.</p>
+      </div>
       <?php
     }
 
-  } 
-  else {
+  } else {
     include("component/navbarParticipant.php");
-?>
+    ?>
 
     <div class="col-fit mx-auto mt-5">
       <h1>Registration Fail</h1>
