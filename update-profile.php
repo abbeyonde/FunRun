@@ -59,53 +59,47 @@
 </head>
 
 <body>
-<?php
-include('connect.php');
-include('participantsession.php');
-$category = $_GET['category'];
-$paid = $_GET['paid'];
+    <?php
+    include("connect.php");
+    session_start();
 
-session_start();
-if (isset($_SESSION['id'])) {
-
-    $sql = "INSERT INTO registered_participants VALUES ('','$category','$participant','$paid')";
-    $sql_limit = "SELECT quota,current_participants FROM categories WHERE id='$category'";
-    $result_limit = mysqli_query($con, $sql_limit) or die("Error fetching data from database");
-    $limit = mysqli_fetch_array($result_limit);
-    if ($limit['current_participants'] < $limit['quota']) {
-        $sql_check = "SELECT * FROM registered_participants WHERE participant_ic='$participant'";
-        $result_check = mysqli_query($con, $sql_check);
-        $row_check = mysqli_fetch_array($result_check);
-        if (isset($row_check)) {
-            $sql_update = "UPDATE registered_participants SET paid=$paid WHERE participant_ic='$participant'";
-            $result_update = mysqli_query($con, $sql_update) or die("fail");
-            // $row_update = mysqli_fetch_array($result_update);
-            header("location: index.php");
-
-        } else {
-            $result = mysqli_query($con, $sql) or die('Error inserting data into database');
-            if ($result) {
-                $new_p = $limit['current_participants'] + 1;
-                $sql_add = "UPDATE categories SET current_participants=$new_p WHERE id=$category";
-                $succes_add = mysqli_query($con, $sql_add) or die("Fail to update data into database");
-                if (isset($succes_add)) {
-                    header("location: index.php"); //forward to payment.html
-                } else {
-                    echo "Fail update data into database";
-                }
-            } else {
-                echo "Fail to insert data into database";
-            }
-        }
-    } else {
-        echo "Category Quota Reached"; //include php for category have reached maximum quota
-    }
-} else {
     include("component/navbarParticipant.php");
-    include("component/sessionTerminate.php");
-}
-?>
 
+    if (isset($_SESSION['id']) && isset($_SESSION['index'])) {
+        if ($_SESSION['index'] == $_GET['id']) {
+            $id = $_GET['id'];
+            $name = $_POST['inputname'];
+            $ic = $_POST['inputic'];
+            $phone = $_POST['inputphone'];
+            $password = $_POST['inputpw'];
+            $age = $_POST['inputage'];
+            $email = $_POST['inputemail'];
+            $address = $_POST['inputaddress'];
+
+            $sql = "UPDATE participants SET full_name=\"$name\",ic='$ic',password='$password',age='$age',email='$email',address='$address',phone='$phone' WHERE id=$id";
+            $result = mysqli_query($con, $sql);
+            if ($result != null) {
+                echo "
+            <script>
+                window.location.href = 'profile.php?ic=$ic'
+            </script>
+            ";
+            } else {
+                echo "<h6><strong>Error:</strong> Fail to update data into database</h6>";
+
+            }
+        } else {
+            echo "<h6>You don't have permission to perform this act</h6>";
+        }
+
+    } else {
+    include("component/sessionTerminate.php");
+    }
+
+    include("component/footer.php");
+    ?>
+    <!-- Start Footer -->
+    <!-- End Footer -->
     <!-- Bootstrap -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <!-- Load jQuery require for isotope -->
