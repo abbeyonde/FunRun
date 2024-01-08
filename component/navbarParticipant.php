@@ -24,9 +24,7 @@
                         <li class="nav-item">
                             <a class="nav-link btn-outline-primary rounded-pill px-3" href="category.php">Category</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn-outline-primary rounded-pill px-3" href="contact.html">Contact Us</a>
-                        </li>
+
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">

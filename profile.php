@@ -196,7 +196,7 @@
                                     <script>
                                         const paid = $category[paid];
                                         if(paid == 0){
-                                            document.writeln('<a href=\"/FunRun/payment.php?ic='+'$participant' + '&category=' + '$category[category_id]' + '\" class=\"btn rounded-pill px-4 btn-outline-primary\">Make Payment</a>');
+                                            document.writeln('<a href=\"/FunRun/payment.php?ic='+'$participant' + '&category=' + '$category[category_id]' +'&from=profile \" class=\"btn rounded-pill px-4 btn-outline-primary\">Make Payment</a>');
     
                                         }
                                         else{
