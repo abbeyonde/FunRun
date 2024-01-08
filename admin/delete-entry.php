@@ -20,7 +20,12 @@ if (isset($_SESSION['id']) && isset($_SESSION['role']) && $_SESSION['role'] == '
         $sql_update = "UPDATE categories SET current_participants=$new_p WHERE id=$category_id";
         $result_update = mysqli_query($con, $sql_update);
         if ($result_update) {
-            header("location: view-participant.php?id='$participant_id'");
+            if($_GET['from'] == 1){
+                header("location: view-cat-participant.php?id='$category_id'");
+            }
+            else{
+                header("location: view-participant.php?id='$participant_id'");
+            }
         } else {
             echo "ERROR: Fail to update database";
         }

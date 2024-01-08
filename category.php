@@ -118,9 +118,9 @@
     ?>
     <script>
         const user = '<?php echo $_SESSION['id']; ?>';
-
+        const from = 'category';
         const addCategory = (category) => {
-            document.writeln('<a href="/FunRun/payment.php?ic=' + user + '&category=' + category + '" class="btn rounded-pill px-4 btn-outline-primary mb-3">');
+            document.writeln('<a href="/FunRun/payment.php?ic=' + user + '&category=' + category + '&from='+from+'" class="btn rounded-pill px-4 btn-outline-primary mb-3">');
 
         }
     </script>

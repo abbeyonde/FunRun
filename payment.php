@@ -87,13 +87,18 @@
   include('participantsession.php');
   $category = $_GET['category'];
 
-  $sql = "SELECT * FROM registered_participants WHERE participant_ic=$participant AND paid=1";
+  $sql = "SELECT * FROM registered_participants WHERE participant_ic=$participant";
   $result = mysqli_query($con, $sql);
   $row = mysqli_fetch_array($result);
 
+  $sql_category = "SELECT * FROM categories WHERE id=$category";
+  $result_category = mysqli_query($con, $sql_category);
+  $row_category = mysqli_fetch_array($result_category);
+  
+  // echo $row['paid'];
   ?>
   <?php
-  if (!isset($row)) {
+  if ($row == null || ($_GET['from'] == 'profile' && $row['paid'] == 0)) {
     ?>
     <!-- Edit here-->
     <div class="container py-5">
@@ -185,12 +190,12 @@
             <div class="card">
               <div class="d-flex justify-content-between p-3">
                 <div class="d-flex flex-column">
-                  <span>Half Marathon (Category A) <i class="fa fa-caret-down"></i></span>
+                  <span><?php echo $row_category['category_name']; ?><i class="fa fa-caret-down"></i></span>
                 </div>
 
                 <div class="mt-1">
                   <span>RM</span>
-                  <span>*Price*</span>
+                  <span><?php echo $row_category['price']; ?>.00</span>
                 </div>
               </div>
 
@@ -214,7 +219,7 @@
                 <div class="d-flex flex-column">
                   <span>Total:</span>
                 </div>
-                <span>RMxx.xx</span>
+                <span>RM<?php $row_category['price']-=2; echo $row_category['price']; ?>.00</span>
               </div>
 
               <div class="p-3 text-center">
@@ -238,8 +243,11 @@
       </div>
     </div>
     <?php
-  } else {
-    ?>
+  } 
+  else {
+    include("component/navbarParticipant.php");
+?>
+
     <div class="col-fit mx-auto mt-5">
       <h1>Fail to register</h1>
       <p>You have an existing participation at the moment.</p>

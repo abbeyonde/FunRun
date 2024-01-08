@@ -59,7 +59,7 @@
 </head>
 
 <body>
-<?php
+    <?php
     include('connect.php');
 
     session_start();
@@ -91,15 +91,16 @@
                             <div class="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
                                 <h1
                                     class="banner-heading h1 text-secondary display-3 mb-0 pb-5 mx-0 px-0 light-300 typo-space-line">
-                                    <strong>Conquer the Distance,<br>Embrace the Journey!</strong>
-                                    <br>UNI10 Marathon 2024
+                                    <strong>Conquer the Distance:
+                                        <br>UNI10 Marathon 2024
+                                    </strong>
                                 </h1>
                                 <p class="banner-body text-muted py-3 mx-0 px-0">
-                                    Embark on a 42.195-kilometer journey, where each step is a testament to your
+                                    Embark on a 42.2-kilometer journey, where each step is a testament to your
                                     endurance.
                                     Join the marathon, and let your strides carve a story of triumph and resilience.
                                 </p>
-                                <a class="banner-button btn rounded-pill btn-outline-primary btn-lg px-4" href="#"
+                                <a class="banner-button btn rounded-pill btn-outline-primary btn-lg px-4" href="category.php#fullMarathon"
                                     role="button">Register Now</a>
                             </div>
                         </div>
@@ -112,12 +113,12 @@
                                     <strong>Half the Distance,<br>Twice the Fun!</strong>
                                 </h1>
                                 <p class="banner-body text-muted py-3">
-                                    Take on the challenge of 13.1 miles, where every stride is a dance between
+                                    Take on the challenge of 21.1KM, where every stride is a dance between
                                     determination and exhilaration.
                                     Join the chorus of runners, and let the rhythm of your steps create a masterpiece of
                                     achievement.
                                 </p>
-                                <a class="banner-button btn rounded-pill btn-outline-primary btn-lg px-4" href="#"
+                                <a class="banner-button btn rounded-pill btn-outline-primary btn-lg px-4" href="category.php#halfMarathon"
                                     role="button">Register Now</a>
                             </div>
                         </div>
@@ -128,14 +129,14 @@
                         <div class="py-5 row d-flex align-items-center">
                             <div class="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
                                 <h1 class="banner-heading h1 text-secondary display-3 mb-0 pb-3 mx-0 px-0 light-300">
-                                    <strong>Run 7KM,<br>Unleash the power within!</strong>
+                                    <strong>Run 5KM,<br>Unleash the power within!</strong>
                                 </h1>
                                 <p class="banner-body text-muted py-3">
-                                    Venture into a 7KM odyssey, a course designed for explorers of their own potential.
+                                    Venture into a 5KM odyssey, a course designed for explorers of their own potential.
                                     Lace up, breathe in the adventure, and conquer 7KM with a heart full of courage and
                                     a soul hungry for discovery.
                                 </p>
-                                <a class="banner-button btn rounded-pill btn-outline-primary btn-lg px-4" href="#"
+                                <a class="banner-button btn rounded-pill btn-outline-primary btn-lg px-4" href="category.php#funRun"
                                     role="button">Register Now</a>
                             </div>
                         </div>
@@ -146,37 +147,16 @@
                         <div class="py-5 row d-flex align-items-center">
                             <div class="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
                                 <h1 class="banner-heading h1 text-secondary display-3 mb-0 pb-3 mx-0 px-0 light-300">
-                                    <strong>5KM – Your Personal Victory Lap!</strong>
+                                    <strong>3KM – Enjoy the moment with your loved ones</strong>
                                 </h1>
                                 <p class="banner-body text-muted py-3">
-                                    Your 5KM journey is more than a run; it's a personalized victory lap where every
-                                    stride echoes your triumphs.
-                                    Join the 5KM community – where every finish line is a new beginning.
+                                    Your 3KM journey is more than a run; it's a moment created together with your family.                                    stride echoes your triumphs.
+                                    Join the 3KM community – where every finish line is a new beginning.
                                 </p>
-                                <a class="banner-button btn rounded-pill btn-outline-primary btn-lg px-4" href="#"
+                                <a class="banner-button btn rounded-pill btn-outline-primary btn-lg px-4" href="category.php#charityRun"
                                     role="button">Register Now</a>
                             </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-
-                        <div class="py-5 row d-flex align-items-center">
-                            <div class="banner-content col-lg-8 col-8 offset-2 m-lg-auto text-left py-5 pb-5">
-                                <h1 class="banner-heading h1 text-secondary display-3 mb-0 pb-3 mx-0 px-0 light-300">
-                                    <strong>3KM: Young Hearts and Wise Souls Unite!</strong>
-                                </h1>
-                                <p class="banner-body text-muted py-3">
-                                    The 3KM run is a bridge between generations, a path where young hearts and wise
-                                    souls meet.
-                                    Step into the 3KM realm, where every footfall is a promise to cherish the vitality
-                                    of youth and the wisdom of age
-                                </p>
-                                <a class="banner-button btn rounded-pill btn-outline-primary btn-lg px-4" href="#"
-                                    role="button">Register Now</a>
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
                 <a class="carousel-control-prev text-decoration-none" href="#carouselExampleIndicators" role="button"

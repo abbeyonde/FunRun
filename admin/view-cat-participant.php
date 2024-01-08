@@ -60,7 +60,7 @@
     $id = $_GET['id'];
 
     if (isset($_SESSION['id']) && isset($_SESSION['role']) && $_SESSION['role'] == 'ADMIN') {
-        $sql = "SELECT participants.*, categories.category_name, rp.paid 
+        $sql = "SELECT participants.*, categories.category_name, rp.id rp_id,rp.paid 
     FROM participants 
     LEFT JOIN registered_participants rp 
     ON participants.ic=rp.participant_ic 
@@ -103,6 +103,7 @@
                                 </thead>
                                 <tbody>
                                     <?php
+                                    $from = "category";
                                     while ($row = mysqli_fetch_array($result)) {
                                         if ($row["category_name"] != null) {
                                             if ($row['paid'] == 1) {
@@ -121,7 +122,7 @@
                                 <td>' . $row['email'] . '</td>
                                 <td>' . $status . '</td>
                                 <td><a href="view-participant.php?id=' . $row['id'] . '" class="btn btn-primary" data-toggle="modal" data-target="#editModal1">View</a></td>
-                                <td><a href="delete-participant.php?id=' . $row['id'] . '&ic=' . $row['ic'] . '" class="btn btn-danger" style="color: white" >Delete Entry</a></td>
+                                <td><a href="delete-entry.php?category=' . $id . '&participant=' . $row['id'] . '&from=1&record='.$row['rp_id'].'" class="btn btn-danger" style="color: white" >Delete Entry</a></td>
                             </tr>
                             ';
 
