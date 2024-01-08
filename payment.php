@@ -85,6 +85,7 @@
   <?php
   include('connect.php');
   include('participantsession.php');
+  session_start();
   $category = $_GET['category'];
 
   $sql = "SELECT * FROM registered_participants WHERE participant_ic=$participant";
@@ -99,6 +100,7 @@
   ?>
   <?php
   if ($row == null || ($_GET['from'] == 'profile' && $row['paid'] == 0)) {
+    if($row != null && $row['current_participants'] < $row['quota']){
     ?>
     <!-- Edit here-->
     <div class="container py-5">
@@ -243,13 +245,23 @@
       </div>
     </div>
     <?php
+    } else{
+      include("component/navbarParticipant.php");
+      ?>
+        <div class="col-12 mx-auto mt-5 text-center" >
+          <h1>Quota limit reached</h1>
+          <p>You can not register for this category because it has reached maximum quota.</p>
+        </div>
+      <?php
+    }
+
   } 
   else {
     include("component/navbarParticipant.php");
 ?>
 
     <div class="col-fit mx-auto mt-5">
-      <h1>Fail to register</h1>
+      <h1>Registration Fail</h1>
       <p>You have an existing participation at the moment.</p>
     </div>
 
