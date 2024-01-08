@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `administrators` (
   `password` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `administrators`
@@ -58,13 +58,13 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `type` varchar(50) NOT NULL,
   `fo_time` varchar(10) NOT NULL,
   `co_time` varchar(10) NOT NULL,
-  `description` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `description` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `min_age` int DEFAULT NULL,
   `price` int NOT NULL,
   `quota` int DEFAULT NULL,
   `current_participants` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `categories`
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `participants` (
   `phone` varchar(15) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ic` (`ic`,`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `participants`
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `registered_participants` (
   PRIMARY KEY (`id`),
   KEY `rp_FK_1` (`category_id`),
   KEY `rp_FK_2` (`participant_ic`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Constraints for dumped tables
