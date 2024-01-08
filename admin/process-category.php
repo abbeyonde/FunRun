@@ -69,8 +69,9 @@ if (isset($_SESSION['id']) && isset($_SESSION['role']) && $_SESSION['role'] == '
     $min_age = $_POST['minage'];
     $price = $_POST['inputprice'];
     $quota= $_POST['inputquota'];
+    $tag= $_POST['inputtag'];
 
-    $sql = "INSERT INTO categories VALUES ('','$category_name','$distance','$type','$fo_time','$co_time','$formatted_desc','$min_age','$price','$quota','')";
+    $sql = "INSERT INTO categories VALUES ('','$category_name','$distance','$type','$fo_time','$co_time','$formatted_desc','$min_age','$price','$quota','','$tag')";
 
     $result = mysqli_query($con, $sql);
     if($result != null){

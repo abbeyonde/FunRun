@@ -58,10 +58,6 @@
                             <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
                                 class="text-decoration-none text-light py-1" href="category.php">Category</a>
                         </li>
-                        <li class="pb-2">
-                            <i class='bx-fw bx bxs-chevron-right bx-xs'></i><a
-                                class="text-decoration-none text-light py-1" href="contact.html">Contact Us</a>
-                        </li>
                     </ul>
             </div>
 
