@@ -172,6 +172,18 @@
                         </div>
                     </div>
                 </div><!-- End Price -->
+                <div class="col-lg-6 mb-4">
+                    <div class="form-floating">
+                        <input name="inputtag" type="text" autocomplete="off" class="form-control form-control-lg light-300"
+                            id="tag" placeholder="Tag" required>
+                        <span class="glyphicon glyphicon-time"></span>
+                        <label for="floatingcutofftime light-300">Tag</label>
+
+                        <div class="invalid-feedback">
+                            Please enter a tag for this event.
+                        </div>
+                    </div>
+                </div><!-- tag -->
 
                 <div class="col-md-12 col-lg-6 m-auto text-start">
                     <button type="submit"

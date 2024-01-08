@@ -115,12 +115,17 @@
 
     session_start();
 
+    $sql = "SELECT * FROM categories";
+    $result = mysqli_query($con, $sql);
+    $colors = array('rgba(163, 5, 5, 0.678)', 'rgb(55, 55, 117)', 'rgb(226, 134, 59)', 'rgba(209, 206, 46,0.87)');
+    // $row = mysqli_fetch_array($result);
+    
     ?>
     <script>
         const user = '<?php echo $_SESSION['id']; ?>';
         const from = 'category';
         const addCategory = (category) => {
-            document.writeln('<a href="/FunRun/payment.php?ic=' + user + '&category=' + category + '&from='+from+'" class="btn rounded-pill px-4 btn-outline-primary mb-3">');
+            document.writeln('<a href="/FunRun/payment.php?ic=' + user + '&category=' + category + '&from=' + from + '" class="btn rounded-pill px-4 btn-outline-primary mb-3">');
 
         }
     </script>
@@ -190,430 +195,131 @@
 
             </div>
         </div>
-        <!-- Start Pricing Horizontal -->
-        <div id="fullMarathon"
-            class="pricing-horizontal row col-10 m-auto mt-5 d-flex shadow-sm rounded overflow-hidden bg-white">
-            <div class="pricing-horizontal-icon col-md-3 text-center text-light py-4"
-                style="background-color: rgba(163, 5, 5, 0.678);">
-                <!--style="background-image: url('/assets/img/finish.png'); background-size:60%; background-position: center;"-->
-                <!--image in menu-->
-                <img src="assets/img/finish.png" alt="Marathon Image" width="60%" class="mt-3">
-                <h5 class="h5 semi-bold-600 pb-4 light-300">Full Marathon</h5>
-            </div>
-            <div
-                class="pricing-horizontal-body offset-lg-1 col-md-6 col-lg-5 d-flex align-items-center pl-4 pt-lg-0 pt-4">
-                <div class="w-100">
-                    <p class="mb-3 light-300">
-                        Embark on a full-scale urban adventure with our Full Marathon. Cover 42.2 kilometers of diverse
-                        cityscapes, from iconic landmarks to charming streets, as you push your limits and savor the
-                        triumph at the heart of Kuala Lumpur.
-                    </p>
+        <?php
+        $index = 0;
+        while ($row = mysqli_fetch_array($result)) {
 
-                    <!-- Accordion for Details -->
-                    <div class="accordion w-100 bg-white" id="accordionFullMarathon">
-                        <div class="accordion-item ">
-                            <h2 class="accordion-header" id="headingFullMarathon">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseFullMarathon" aria-expanded="true"
-                                    aria-controls="collapseFullMarathon">
-                                    Details
-                                </button>
-                            </h2>
-                            <div id="collapseFullMarathon" class="accordion-collapse collapse "
-                                aria-labelledby="headingFullMarathon" data-bs-parent="#accordionFullMarathon">
-                                <div class="accordion-body">
-                                    <ul class="text-left px-4 list-unstyled mb-0 light-300">
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Distance:</strong> 42.2 kilometers
-                                        </li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Age Requirement:</strong> 18 years
-                                            or older.</li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Event Type:</strong> Competitive
-                                            running event</li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Flag-Off Time:</strong> 0400 a.m.
-                                        </li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Cut-Off-Time:</strong> 7 hours and
-                                            15 minutes</li>
-                                        <!-- Add more details as needed -->
-                                    </ul>
+            ?>
+            <div id="<?php echo $row['tag'] ?>"
+                class="pricing-horizontal row col-10 m-auto mt-5 d-flex shadow-sm rounded overflow-hidden bg-white">
+                <div class="pricing-horizontal-icon col-md-3 text-center text-light py-4"
+                    style="background-color: <?php echo $colors[$index] ?>;">
+                    <!--style="background-image: url('/assets/img/finish.png'); background-size:60%; background-position: center;"-->
+                    <!--image in menu-->
+                    <!-- <img src="assets/img/finish.png" alt="Marathon Image" width="60%" class="mt-3"> -->
+                    <h5 class="h5 semi-bold-600 pb-4 light-300">
+                        <?php echo $row['category_name']; ?>
+                    </h5>
+                </div>
+                <div
+                    class="pricing-horizontal-body offset-lg-1 col-md-6 col-lg-5 d-flex align-items-center pl-4 pt-lg-0 pt-4">
+                    <div class="w-100">
+                        <p class="mb-3 light-300">
+                            <?php echo $row['description'] ?>
+                        </p>
+
+                        <!-- Accordion for Details -->
+                        <div class="accordion w-100 bg-white" id="accordion<?php echo $row['tag']; ?>">
+                            <div class="accordion-item ">
+                                <h2 class="accordion-header" id="heading<?php echo $row['tag']; ?>">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse<?php echo $row['tag']; ?>" aria-expanded="true"
+                                        aria-controls="collapse<?php echo $row['tag']; ?>">
+                                        Details
+                                    </button>
+                                </h2>
+                                <div id="collapse<?php echo $row['tag'] ?>" class="accordion-collapse collapse "
+                                    aria-labelledby="headingFullMarathon"
+                                    data-bs-parent="#accordion<?php echo $row['tag']; ?>">
+                                    <div class="accordion-body">
+                                        <ul class="text-left px-4 list-unstyled mb-0 light-300">
+                                            <li><i class="bx bxs-circle me-2"></i><strong>Distance:</strong>
+                                                <?php echo $row['distance']; ?> kilometers
+                                            </li>
+                                            <li><i class="bx bxs-circle me-2"></i><strong>Age Requirement:</strong>
+                                                <?php echo $row['min_age']; ?> years
+                                                or older.
+                                            </li>
+                                            <li><i class="bx bxs-circle me-2"></i><strong>Event Type:</strong>
+                                                <?php echo $row['type']; ?>
+                                                running event
+                                            </li>
+                                            <li><i class="bx bxs-circle me-2"></i><strong>Flag-Off Time:</strong>
+                                                <?php echo $row['fo_time']; ?>
+                                            </li>
+                                            <li><i class="bx bxs-circle me-2"></i><strong>Cut-Off-Time:</strong>
+                                                <?php echo $row['co_time']; ?>
+                                            </li>
+                                            <!-- Add more details as needed -->
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="pricing-horizontal-tag col-md-3 text-center pt-3 d-flex align-items-center">
-                <div class="w-100 light-300">
-                    <p>RM60</p>
-                    <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"
-                        onclick="togglePopup1()">Register</a>
-                </div>
-            </div>
-        </div>
-        <!-- End Pricing Horizontal -->
-        <!-- Popup Window -->
-        <div class="popup" id="popup-1">
-            <div class="overlay"></div>
-            <div class="content">
-                <a href="#fullMarathon"><button type="button" class="btn-close" aria-label="Close"
-                        onclick="togglePopup1()"></button></a>
-                <h5>Full Marathon</h5>
-                <strong>Price : </strong> RM60 <br>
-                <strong>Date : </strong> 12 February 2024 <br>
-                <strong>Location : </strong> Dataran Merdeka <br>
-                <strong>Flag Off Time : </strong> 0400am <br>
-                <strong>Distance : </strong> 42.2km <br> <br>
-                <script>
-                    addCategory(1);
-                </script>
-                <!--<a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"> -->
-                Register</a>
-            </div>
-        </div>
-        <?php
-        // echo '
-        // <script>
-        // function togglePopup1() {
-        //     if (' . $_SESSION['id'] . ') {
-        //         document.getElementById("popup-1").classList.toggle("active");
-        //     }
-        //     else {
-        //         window.location.href = "signin.php";
-        //     }
-
-        // }
-        // </script>
-        // ';
-        if (isset($_SESSION['id'])) {
-            echo '
-            <script>
-            function togglePopup1() {
-                document.getElementById("popup-1").classList.toggle("active");
-            }
-            </script>
-            ';
-        }
-        else{
-            echo '
-            <script>
-            function togglePopup1() {
-                    window.location.href = "signin.php";
-            }
-            </script>
-            ';
-
-        }
-        ?>
-
-
-        <!--End Popup Window-->
-
-        <!-- Start Pricing Horizontal -->
-        <div id="halfMarathon"
-            class="pricing-horizontal row col-10 m-auto mt-5 d-flex shadow-sm rounded overflow-hidden bg-white">
-            <div class="pricing-horizontal-icon col-md-3 text-center text-light py-4"
-                style="background-color: rgb(55, 55, 117)">
-                <!--image in menu-->
-                <img src="assets/img/half-marathon.png" alt="Marathon Image" width="50%" class="mt-3">
-                <h5 class="h5 semi-bold-600 pb-4 light-300">Half Marathon</h5>
-            </div>
-            <div
-                class="pricing-horizontal-body offset-lg-1 col-md-6 col-lg-5 d-flex align-items-center pl-4 pt-lg-0 pt-4">
-                <div class="w-100">
-                    <p class="mb-3 light-300">
-                        Experience the pulse of Kuala Lumpur in our Half Marathon. Navigate 21.1 kilometers of the
-                        city's dynamic terrain, offering a mix of urban challenges and scenic delights. Your journey
-                        unfolds amidst the vibrant energy of Kuala Lumpur's heart.
-                    </p>
-
-                    <!-- Accordion for Details -->
-                    <div class="accordion w-100" id="accordionHalfMarathon">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingHalfMarathon">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseHalfMarathon" aria-expanded="true"
-                                    aria-controls="collapseHalfMarathon">
-                                    Details
-                                </button>
-                            </h2>
-                            <div id="collapseHalfMarathon" class="accordion-collapse collapse"
-                                aria-labelledby="headingHalfMarathon" data-bs-parent="#accordionHalfMarathon">
-                                <div class="accordion-body">
-                                    <ul class="text-left px-4 list-unstyled mb-0 light-300">
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Distance:</strong> 21.1 kilometers
-                                        </li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Age Requirement:</strong> 18 years
-                                            or older.</li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Event Type:</strong> Competitive
-                                            running event</li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Flag-Off Time:</strong> 0430 a.m.
-                                        </li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Cut-Off-Time:</strong> 4 hours
-                                        </li>
-                                        <!-- Add more details as needed -->
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                <div class="pricing-horizontal-tag col-md-3 text-center pt-3 d-flex align-items-center">
+                    <div class="w-100 light-300">
+                        <p>RM
+                            <?php echo $row['price'] ?>
+                        </p>
+                        <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"
+                            onclick="togglePopup<?php echo $row['id'] ?>()">Register</a>
                     </div>
                 </div>
             </div>
-            <div class="pricing-horizontal-tag col-md-3 text-center pt-3 d-flex align-items-center">
-                <div class="w-100 light-300">
-                    <p>RM60</p>
-                    <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"
-                        onclick="togglePopup2()">Register</a>
+            <!-- End Pricing Horizontal -->
+            <!-- Popup Window -->
+            <div class="popup" id="popup-<?php echo $row['id'] ?>">
+                <div class="overlay"></div>
+                <div class="content">
+                    <a href="#<?php echo $row['tag'] ?>"><button type="button" class="btn-close" aria-label="Close"
+                            onclick="togglePopup<?php echo $row['id'] ?>()"></button></a>
+                    <h5>
+                        <?php echo $row['category_name'] ?>
+                    </h5>
+                    <strong>Price : </strong> RM
+                    <?php echo $row['price'] ?>.00 <br>
+                    <strong>Date : </strong> 12 February 2024 <br>
+                    <strong>Location : </strong> Dataran Merdeka <br>
+                    <strong>Flag Off Time : </strong>
+                    <?php echo $row['fo_time'] ?> <br>
+                    <strong>Distance : </strong>
+                    <?php echo $row['distance'] ?>KM <br> <br>
+                    <script>
+                        addCategory(<?php echo $row['id'] ?>);
+                    </script>
+                    <!--<a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"> -->
+                    Register</a>
                 </div>
             </div>
-        </div>
-        <!-- End Pricing Horizontal -->
-        <!-- Popup Window -->
-        <div class="popup" id="popup-2">
-            <div class="overlay"></div>
-            <div class="content">
-                <a href="#halfMarathon"><button type="button" class="btn-close" aria-label="Close"
-                        onclick="togglePopup2()"></button></a>
-                <h5>Half Marathon</h5>
-                <strong>Price : </strong> RM60 <br>
-                <strong>Date : </strong> 12 February 2024 <br>
-                <strong>Location : </strong> Dataran Merdeka <br>
-                <strong>Flag Off Time : </strong> 0430am <br>
-                <strong>Distance : </strong> 21.1km <br> <br>
+            <?php
+            if (isset($_SESSION['id'])) {
+                echo '
+                    <script>
+                    function togglePopup' . $row["id"] . '() {
+                        document.getElementById("popup-' . $row["id"] . '").classList.toggle("active");
+                    }
+                    </script>
+                    ';
+            } else {
+                echo '
+                    <script>
+                    function togglePopup' . $row["id"] . '() {
+                            window.location.href = "signin.php";
+                    }
+                    </script>
+                    ';
 
-                <script>
-                    addCategory(2);
-                </script>
-                <!-- <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"> -->
-                Register</a>
-            </div>
-        </div>
-
-        <?php
-        if (isset($_SESSION['id'])) {
-            echo '
-            <script>
-            function togglePopup2() {
-                document.getElementById("popup-2").classList.toggle("active");
             }
-            </script>
-            ';
-        }
-        else{
-            echo '
-            <script>
-            function togglePopup2() {
-                    window.location.href = "signin.php";
+            if ($index < 3) {
+                $index +=1;
+            } else {
+                $index = 0;
             }
-            </script>
-            ';
-
         }
         ?>
-        <!--End Popup Window-->
 
-        <!-- Start Pricing Horizontal -->
-        <div id="funRun"
-            class="pricing-horizontal row col-10 m-auto mt-5 d-flex shadow-sm rounded overflow-hidden bg-white">
-            <div class="pricing-horizontal-icon col-md-3 text-center text-light py-4"
-                style="background-color: rgb(226, 134, 59)">
-                <!--image in menu-->
-                <img src="assets/img/5kfunrun2.png " alt="Marathon Image" width="50%" class="mt-3 mb-1">
-                <h5 class="h5 semi-bold-600 pb-4 light-300">5km Fun Run</h5>
-            </div>
-            <div
-                class="pricing-horizontal-body offset-lg-1 col-md-6 col-lg-5 d-flex align-items-center pl-4 pt-lg-0 pt-4">
-                <div class="w-100">
-                    <p class="mb-3 light-300">
-                        Join the rhythm of the city in our 5km Fun Run. Whether you're a seasoned runner or new to the
-                        scene, enjoy a spirited 5-kilometer journey through the heart of Kuala Lumpur, where each step
-                        echoes the diverse beats of the city.
-                    </p>
-
-                    <!-- Accordion for Details -->
-                    <div class="accordion w-100" id="accordion5kFunRun">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading5kFunRun">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapse5kFunRun" aria-expanded="true"
-                                    aria-controls="collapse5kFunRun">
-                                    Details
-                                </button>
-                            </h2>
-                            <div id="collapse5kFunRun" class="accordion-collapse collapse"
-                                aria-labelledby="heading5kFunRun" data-bs-parent="#accordion5kFunRun">
-                                <div class="accordion-body">
-                                    <ul class="text-left px-4 list-unstyled mb-0 light-300">
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Distance:</strong> 5.0 kilometers
-                                        </li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Age Requirement:</strong> 16 years
-                                            or older.</li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Event Type:</strong> Competitive
-                                            running event</li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Flag-Off Time:</strong> 0700 a.m.
-                                        </li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Cut-Off-Time:</strong> 1 hour and
-                                            30 minutes</li>
-                                        <!-- Add more details as needed -->
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pricing-horizontal-tag col-md-3 text-center pt-3 d-flex align-items-center">
-                <div class="w-100 light-300">
-                    <p>RM60</p>
-                    <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"
-                        onclick="togglePopup3()">Register</a>
-                </div>
-            </div>
-        </div>
-        <!-- End Pricing Horizontal -->
-        <!-- Popup Window -->
-        <div class="popup" id="popup-3">
-            <div class="overlay"></div>
-            <div class="content">
-                <a href="#funRun"><button type="button" class="btn-close" aria-label="Close"
-                        onclick="togglePopup3()"></button></a>
-                <h5>5km Fun Run</h5>
-                <strong>Price : </strong> RM60 <br>
-                <strong>Date : </strong> 12 February 2024 <br>
-                <strong>Location : </strong> Dataran Merdeka <br>
-                <strong>Flag Off Time : </strong> 0700am <br>
-                <strong>Distance : </strong> 5.0km <br> <br>
-                <script>
-                    addCategory(3);
-                </script>
-                <!-- <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"> -->
-                Register</a>
-            </div>
-        </div>
-
-        <?php
-        if (isset($_SESSION['id'])) {
-            echo '
-            <script>
-            function togglePopup3() {
-                document.getElementById("popup-3").classList.toggle("active");
-            }
-            </script>
-            ';
-        }
-        else{
-            echo '
-            <script>
-            function togglePopup3() {
-                    window.location.href = "signin.php";
-            }
-            </script>
-            ';
-
-        }
-        ?>
-        <!--End Popup Window-->
-
-
-        <!-- Start Pricing Horizontal -->
-        <div id="charityRun"
-            class="pricing-horizontal row col-10 m-auto mt-5 d-flex shadow-sm rounded overflow-hidden bg-white">
-            <div class="pricing-horizontal-icon col-md-3 text-center text-light py-4"
-                style="background-color: rgba(209, 206, 46, 0.87)">
-                <!--image in menu-->
-                <img src="assets/img/familywalk.png" alt="Marathon Image" width="50%" class="mt-3">
-                <h5 class="h5 semi-bold-600 pb-4 light-300">Family Charity Run</h5>
-            </div>
-            <div
-                class="pricing-horizontal-body offset-lg-1 col-md-6 col-lg-5 d-flex align-items-center pl-4 pt-lg-0 pt-4">
-                <div class="w-100">
-                    <p class="mb-3 light-300">
-                        Share the joy of movement in our Family Charity Run, tailor-made for families and elderlies
-                        alike. A shorter course filled with laughter and camaraderie, it's a family-friendly experience
-                        weaving through the heartwarming tapestry of Kuala Lumpur's diverse streets.
-                    </p>
-
-                    <!-- Accordion for Details -->
-                    <div class="accordion w-100" id="accordion3kFunRun">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading3kFunRun">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapse3kFunRun" aria-expanded="false"
-                                    aria-controls="collapse3kFunRun">
-                                    Details
-                                    <i class="bi bi-chevron-down"></i>
-                                </button>
-                            </h2>
-                            <div id="collapse3kFunRun" class="accordion-collapse collapse"
-                                aria-labelledby="heading3kFunRun" data-bs-parent="#accordion3kFunRun">
-                                <div class="accordion-body">
-                                    <ul class="text-left px-4 list-unstyled mb-0 light-300">
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Distance:</strong> 3.0 kilometers
-                                        </li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Age Requirement:</strong> None
-                                        </li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Event Type:</strong> Fun Run</li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Flag-Off Time:</strong> 0730 a.m.
-                                        </li>
-                                        <li><i class="bx bxs-circle me-2"></i><strong>Cut-Off-Time:</strong> None</li>
-                                        <!-- Add more details as needed -->
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pricing-horizontal-tag col-md-3 text-center pt-3 d-flex align-items-center">
-                <div class="w-100 light-300">
-                    <p>RM60</p>
-                    <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"
-                        onclick="togglePopup4()">Register</a>
-                </div>
-            </div>
-        </div>
-        <!-- End Pricing Horizontal -->
-        <!-- Popup Window -->
-        <div class="popup" id="popup-4">
-            <div class="overlay"></div>
-            <div class="content">
-                <a href="#charityRun"><button type="button" class="btn-close" aria-label="Close"
-                        onclick="togglePopup4()"></button></a>
-                <h5>Family Charity Run</h5>
-                <strong>Price : </strong> RM60 <br>
-                <strong>Date : </strong> 12 February 2024 <br>
-                <strong>Location : </strong> Dataran Merdeka <br>
-                <strong>Flag Off Time : </strong> 0715am <br>
-                <strong>Distance : </strong> 3.0km <br> <br>
-
-                <script>
-                    addCategory(4);
-                </script>
-                <!-- <a href="#" class="btn rounded-pill px-4 btn-outline-primary mb-3"> -->
-                Register</a>
-            </div>
-        </div>
-
-        <?php
-        if (isset($_SESSION['id'])) {
-            echo '
-            <script>
-            function togglePopup4() {
-                document.getElementById("popup-4").classList.toggle("active");
-            }
-            </script>
-            ';
-        }
-        else{
-            echo '
-            <script>
-            function togglePopup4() {
-                    window.location.href = "signin.php";
-            }
-            </script>
-            ';
-
-        }
-        ?>
-        <!--End Popup Window-->
         <hr class="mt-5">
 
         <!-- Accordion for Rules and Regulations -->
